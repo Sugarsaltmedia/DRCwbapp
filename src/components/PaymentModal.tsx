@@ -59,6 +59,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
       const result = await response.json();
       console.log('💳 Payment creation response:', result);
+    } catch (jsonError) {
+      console.error('❌ Failed to parse JSON response:', jsonError);
+      const responseText = await response.text();
+      console.error('❌ Raw response body:', responseText);
+      throw new Error(`Invalid server response: ${responseText || 'Empty response'}`);
+    }
+
+    try {
 
       if (!response.ok || !result.success) {
         throw new Error(result.error || 'Failed to create payment request');
