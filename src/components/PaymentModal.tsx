@@ -37,6 +37,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     console.log('🚀 Starting Instamojo payment process...');
     setIsProcessing(true);
     
+    let response;
+    let result;
+    
     try {
       // Create payment request via Supabase Edge Function
       const paymentData = {
@@ -48,7 +51,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
       console.log('💳 Creating payment request:', paymentData);
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-payment`, {
+      response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-payment`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
@@ -57,16 +60,18 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         body: JSON.stringify(paymentData)
       });
 
-      const result = await response.json();
       console.log('💳 Payment creation response:', result);
-    } catch (jsonError) {
-      console.error('❌ Failed to parse JSON response:', jsonError);
-      const responseText = await response.text();
-      console.error('❌ Raw response body:', responseText);
-      throw new Error(`Invalid server response: ${responseText || 'Empty response'}`);
-    }
 
-    try {
+      // Check if response is ok before parsing JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ HTTP error response:', errorText);
+        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
+      }
+
+      // Parse JSON response
+      result = await response.json();
+      console.log('💳 Payment creation response:', result);
 
       if (!response.ok || !result.success) {
         throw new Error(result.error || 'Failed to create payment request');
