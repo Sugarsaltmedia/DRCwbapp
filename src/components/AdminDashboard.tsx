@@ -18,15 +18,22 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   const [filter, setFilter] = useState<'all' | 'ongoing' | 'completed'>('all');
 
   useEffect(() => {
+    console.log('Setting up Firebase listener for orders...');
     const ordersRef = ref(database, 'orders');
     
     const unsubscribe = onValue(ordersRef, (snapshot) => {
+      console.log('Firebase data received:', snapshot.val());
       const data = snapshot.val();
       if (data) {
+        console.log('Orders found:', Object.keys(data).length);
         setOrders(data);
       } else {
+        console.log('No orders found in database');
         setOrders({});
       }
+      setLoading(false);
+    }, (error) => {
+      console.error('Firebase listener error:', error);
       setLoading(false);
     });
 

@@ -24,6 +24,9 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number; type: string }>>([]);
 
   useEffect(() => {
+    console.log('OrderConfirmation mounted with:', { seatNumber, rowSelection, screenNumber, customerName, customerPhone });
+    console.log('Cart state:', state);
+    
     // Generate subtle particles
     const particleItems = Array.from({ length: 30 }, (_, i) => ({
       id: i,
@@ -36,6 +39,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
 
     // Clear cart after a delay
     setTimeout(() => {
+      console.log('Clearing cart...');
       clearCart();
     }, 5000);
   }, [clearCart]);

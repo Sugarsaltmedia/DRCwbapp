@@ -86,6 +86,7 @@ function App() {
     customerName: string,
     customerPhone: string
   ) => {
+    console.log('Payment success callback triggered with:', { seatNumber, rowSelection, screenNumber, customerName, customerPhone });
     setOrderDetails({ seatNumber, rowSelection, screenNumber, customerName, customerPhone });
     setShowPaymentModal(false);
     setCurrentState('confirmation');

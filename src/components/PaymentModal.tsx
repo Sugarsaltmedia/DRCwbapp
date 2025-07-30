@@ -37,6 +37,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     setIsSubmitting(true);
     
     try {
+      console.log('Submitting order with items:', state.items);
+      console.log('Customer details:', { customerName, customerPhone, seatNumber, rowSelection, screenNumber });
+      
       // Create order object
       const orderData = {
         items: state.items,
@@ -50,8 +53,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         status: 'ongoing'
       };
 
+      console.log('Order data to save:', orderData);
+
       // Save to Firebase
-      await push(ref(database, 'orders'), orderData);
+      const result = await push(ref(database, 'orders'), orderData);
+      console.log('Order saved successfully with ID:', result.key);
 
       // Directly trigger success and close modal
       onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
