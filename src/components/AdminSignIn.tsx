@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, Shield, ArrowLeft } from 'lucide-react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 interface AdminSignInProps {
-  onSignIn: (username: string, password: string) => boolean;
+  onSignIn: () => void;
   onBack: () => void;
 }
 
 const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,13 +21,12 @@ const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
     setError('');
     setIsLoading(true);
 
-    // Simulate loading delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const success = onSignIn(username, password);
-    
-    if (!success) {
-      setError('Invalid username or password');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      onSignIn(); // Call success callback
+    } catch (error: any) {
+      console.error('Authentication error:', error);
+      setError('Invalid email or password');
       setPassword(''); // Clear password on error
     }
     
@@ -75,14 +76,14 @@ const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username Field */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-neutral-300">Username</label>
+              <label className="text-sm font-medium text-neutral-300">Email</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-500" size={18} />
                 <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter your username"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
                   className="input-field w-full pl-12 pr-4"
                   required
                   disabled={isLoading}
@@ -129,11 +130,11 @@ const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
             {/* Sign In Button */}
             <motion.button
               type="submit"
-              disabled={isLoading || !username.trim() || !password.trim()}
+              disabled={isLoading || !email.trim() || !password.trim()}
               whileHover={!isLoading ? { scale: 1.02 } : {}}
               whileTap={!isLoading ? { scale: 0.98 } : {}}
               className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                isLoading || !username.trim() || !password.trim()
+                isLoading || !email.trim() || !password.trim()
                   ? 'bg-neutral-700 cursor-not-allowed text-neutral-400'
                   : 'btn-primary'
               }`}
@@ -159,15 +160,6 @@ const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
             </div>
             <p className="text-neutral-500 text-xs leading-relaxed">
               This area is restricted to authorized personnel only. All access attempts are logged for security purposes.
-            </p>
-          </div>
-
-          {/* Demo Credentials (for development) */}
-          <div className="mt-4 p-3 bg-accent-500/10 border border-accent-500/20 rounded-xl">
-            <p className="text-accent-300 text-xs text-center font-medium mb-1">Demo Credentials</p>
-            <p className="text-neutral-400 text-xs text-center">
-              Username: <span className="text-accent-400 font-mono">admin</span> | 
-              Password: <span className="text-accent-400 font-mono">admin123</span>
             </p>
           </div>
         </div>

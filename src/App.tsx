@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './firebase/config';
 import { CartProvider } from './contexts/CartContext';
 import Hero from './components/Hero';
 import Menu from './components/Menu';
@@ -30,6 +32,20 @@ function App() {
     customerPhone: null
   });
 
+  // Listen for authentication state changes
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAdminAuthenticated(!!user);
+      if (user && currentState === 'admin-signin') {
+        setCurrentState('admin');
+      } else if (!user && currentState === 'admin') {
+        setCurrentState('hero');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentState]);
+
   const handleStartOrdering = () => {
     setCurrentState('menu');
   };
@@ -46,19 +62,17 @@ function App() {
     }
   };
 
-  const handleAdminSignIn = (username: string, password: string): boolean => {
-    // Simple authentication - in production, use proper authentication
-    if (username === 'admin' && password === 'admin123') {
-      setIsAdminAuthenticated(true);
-      setCurrentState('admin');
-      return true;
-    }
-    return false;
+  const handleAdminSignIn = () => {
+    setCurrentState('admin');
   };
 
-  const handleAdminSignOut = () => {
-    setIsAdminAuthenticated(false);
-    setCurrentState('hero');
+  const handleAdminSignOut = async () => {
+    try {
+      await signOut(auth);
+      setCurrentState('hero');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
   const handleCheckout = () => {

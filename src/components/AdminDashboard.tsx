@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut } from 'lucide-react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/config';
 import { database } from '../firebase/config';
 import { ref, onValue, update } from 'firebase/database';
 import { Order } from '../types';
 
 interface AdminDashboardProps {
   onBackToHome: () => void;
-  onSignOut: () => void;
+  onSignOut: () => Promise<void>;
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut }) => {
