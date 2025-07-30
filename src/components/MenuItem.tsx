@@ -39,11 +39,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
       <div className="flex gap-4">
         {/* Item Image/Icon */}
         <div className="flex-shrink-0">
-          <div className="w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg border border-neutral-700">
+          <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-2xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg border border-neutral-700">
             {item.image && item.image.startsWith('http') ? (
               <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-3xl">{item.image}</span> // Fallback to emoji if not a URL
+              <span className="text-2xl sm:text-3xl">{item.image}</span> // Fallback to emoji if not a URL
             )}
           </div>
         </div>
@@ -53,11 +53,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
           {/* Header */}
           <div className="space-y-2">
             <div className="flex items-start justify-between">
-              <h3 className="text-neutral-100 font-semibold text-lg group-hover:text-primary-300 transition-colors duration-300">
+              <h3 className="text-neutral-100 font-semibold text-base sm:text-lg group-hover:text-primary-300 transition-colors duration-300">
                 {item.name}
               </h3>
               <div className="text-right">
-                <div className="text-xl font-bold text-primary-400">
+                <div className="text-lg sm:text-xl font-bold text-primary-400">
                   ₹{currentPrice}
                 </div>
                 {item.maxPrice && item.maxPrice !== item.price && (
@@ -98,25 +98,25 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
           )}
 
           {/* Quantity and Add to Cart */}
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-2 gap-3 sm:gap-0">
             {/* Quantity Controls */}
             <div className="flex items-center gap-3">
               <span className="text-neutral-300 text-sm font-medium">Qty</span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-8 h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                  className="w-7 sm:w-8 h-7 sm:h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
                 >
                   <Minus size={14} />
                 </button>
                 
-                <span className="text-neutral-100 font-semibold w-8 text-center">
+                <span className="text-neutral-100 font-semibold w-7 sm:w-8 text-center text-sm sm:text-base">
                   {quantity}
                 </span>
                 
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-8 h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                  className="w-7 sm:w-8 h-7 sm:h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
                 >
                   <Plus size={14} />
                 </button>
@@ -133,7 +133,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
                 isAdding
                   ? 'bg-success-500 text-white shadow-lg shadow-success-500/25'
                   : 'btn-primary'
-              }`}
+              } text-sm sm:text-base w-full sm:w-auto justify-center`}
             >
               {isAdding ? (
                 <>

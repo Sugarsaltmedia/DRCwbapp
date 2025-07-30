@@ -52,18 +52,18 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin }) => {
               </div>
 
               {/* Key Features */}
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <div className="flex items-center gap-3 p-4 bg-neutral-800/30 rounded-xl border border-neutral-800">
                   <Award className="text-success-400" size={20} />
-                  <span className="text-neutral-300 text-sm font-medium">Premium Quality</span>
+                  <span className="text-neutral-300 text-xs sm:text-sm font-medium">Premium Quality</span>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-neutral-800/30 rounded-xl border border-neutral-800">
                   <Clock className="text-primary-400" size={20} />
-                  <span className="text-neutral-300 text-sm font-medium">Quick Service</span>
+                  <span className="text-neutral-300 text-xs sm:text-sm font-medium">Quick Service</span>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-neutral-800/30 rounded-xl border border-neutral-800 col-span-2 lg:col-span-1">
+                <div className="flex items-center gap-3 p-4 bg-neutral-800/30 rounded-xl border border-neutral-800 sm:col-span-2 lg:col-span-1">
                   <Users className="text-accent-400" size={20} />
-                  <span className="text-neutral-300 text-sm font-medium">100+ Items</span>
+                  <span className="text-neutral-300 text-xs sm:text-sm font-medium">100+ Items</span>
                 </div>
               </div>
 
@@ -72,7 +72,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin }) => {
                 onClick={onStartOrdering}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group inline-flex items-center gap-3 btn-primary text-lg px-8 py-4 rounded-2xl"
+                className="group inline-flex items-center gap-3 btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center"
               >
                 <span>Start Ordering</span>
                 <ArrowRight 
@@ -86,7 +86,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin }) => {
                 onClick={onGoToAdmin}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group inline-flex items-center gap-3 btn-secondary text-lg px-8 py-4 rounded-2xl ml-4"
+                className="group inline-flex items-center gap-3 btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center sm:ml-4 mt-3 sm:mt-0"
               >
                 <span>Admin Dashboard</span>
               </motion.button>

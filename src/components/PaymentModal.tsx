@@ -28,12 +28,58 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const { state } = useCart();
 
-  const handleSubmitOrder = async () => {
+  const handlePaymentWithInstamojo = async () => {
     if (!customerName.trim() || !customerPhone.trim()) {
       alert('Please fill in your name and phone number');
       return;
     }
 
+    console.log('🚀 Starting Instamojo payment process...');
+    setIsProcessing(true);
+    
+    try {
+      // Create payment request via Supabase Edge Function
+      const paymentData = {
+        amount: state.total,
+        buyer_name: customerName.trim(),
+        phone: customerPhone.trim(),
+        redirect_url: `${window.location.origin}/#/payment-success`
+      };
+
+      console.log('💳 Creating payment request:', paymentData);
+
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-payment`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentData)
+      });
+
+      const result = await response.json();
+      console.log('💳 Payment creation response:', result);
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to create payment request');
+      }
+
+      // Save order to Firestore before redirecting to payment
+      console.log('💾 Saving order to Firestore before payment...');
+      await handleSubmitOrder();
+
+      // Redirect to Instamojo payment page
+      console.log('🔄 Redirecting to Instamojo payment page...');
+      window.location.href = result.payment_url;
+
+    } catch (error) {
+      console.error('❌ Payment creation error:', error);
+      setIsProcessing(false);
+      alert(`Payment setup failed: ${error.message}. Please try again.`);
+    }
+  };
+
+  const handleSubmitOrder = async () => {
     console.log('🚀 Starting Firestore order submission...');
     console.log('📋 Order form data:', {
       customerName: customerName.trim(),
@@ -114,7 +160,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     }
   };
 
-  const handlePayment = handleSubmitOrder;
+  const handlePayment = handlePaymentWithInstamojo;
 
   if (!isOpen) return null;
 
@@ -321,7 +367,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   {isProcessing ? (
                     <div className="flex items-center justify-center gap-3">
                       <div className="w-5 h-5 border-2 border-neutral-500 border-t-neutral-300 rounded-full animate-spin"></div>
-                      Processing Payment...
+                      Setting up payment...
                     </div>
                   ) : (
                     `Pay ₹${state.total}`
@@ -329,7 +375,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 </motion.button>
 
                 <p className="text-xs text-neutral-500 text-center mt-4">
-                  By proceeding, you agree to our terms and conditions
+                  Secure payment powered by Instamojo
                 </p>
               </div>
             </>
