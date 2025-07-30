@@ -36,28 +36,28 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
       whileHover={{ y: -2 }}
       className="bento-card group hover:border-primary-500/30"
     >
-      <div className="flex gap-3 sm:gap-4">
+      <div className="flex gap-4">
         {/* Item Image/Icon */}
         <div className="flex-shrink-0">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg border border-neutral-700">
+          <div className="w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg border border-neutral-700">
             {item.image && item.image.startsWith('http') ? (
               <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-2xl sm:text-3xl">{item.image}</span> // Fallback to emoji if not a URL
+              <span className="text-3xl">{item.image}</span> // Fallback to emoji if not a URL
             )}
           </div>
         </div>
         
         {/* Item Details */}
-        <div className="flex-1 space-y-3 sm:space-y-4">
+        <div className="flex-1 space-y-4">
           {/* Header */}
           <div className="space-y-2">
             <div className="flex items-start justify-between">
-              <h3 className="text-neutral-100 font-semibold text-base sm:text-lg group-hover:text-primary-300 transition-colors duration-300 pr-2">
+              <h3 className="text-neutral-100 font-semibold text-lg group-hover:text-primary-300 transition-colors duration-300">
                 {item.name}
               </h3>
               <div className="text-right">
-                <div className="text-lg sm:text-xl font-bold text-primary-400">
+                <div className="text-xl font-bold text-primary-400">
                   ₹{currentPrice}
                 </div>
                 {item.maxPrice && item.maxPrice !== item.price && (
@@ -78,13 +78,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
           {/* Size Selector */}
           {item.sizes && (
             <div className="space-y-2">
-              <p className="text-neutral-300 text-xs sm:text-sm font-medium">Size</p>
-              <div className="flex gap-1 sm:gap-2">
+              <p className="text-neutral-300 text-sm font-medium">Size</p>
+              <div className="flex gap-2">
                 {item.sizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 border ${
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 border ${
                       selectedSize === size
                         ? 'bg-primary-500 text-white border-primary-500 shadow-lg shadow-primary-500/25'
                         : 'bg-neutral-800 text-neutral-300 border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600'
@@ -98,27 +98,27 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
           )}
 
           {/* Quantity and Add to Cart */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 pt-2">
+          <div className="flex items-center justify-between pt-2">
             {/* Quantity Controls */}
             <div className="flex items-center gap-3">
-              <span className="text-neutral-300 text-xs sm:text-sm font-medium">Qty</span>
+              <span className="text-neutral-300 text-sm font-medium">Qty</span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                  className="w-8 h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
                 >
-                  <Minus size={12} />
+                  <Minus size={14} />
                 </button>
                 
-                <span className="text-neutral-100 font-semibold w-6 sm:w-8 text-center text-sm">
+                <span className="text-neutral-100 font-semibold w-8 text-center">
                   {quantity}
                 </span>
                 
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                  className="w-8 h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
                 >
-                  <Plus size={12} />
+                  <Plus size={14} />
                 </button>
               </div>
             </div>
@@ -129,7 +129,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
               disabled={isAdding}
               whileHover={!isAdding ? { scale: 1.02 } : {}}
               whileTap={!isAdding ? { scale: 0.98 } : {}}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 text-sm sm:text-base ${
+              className={`px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
                 isAdding
                   ? 'bg-success-500 text-white shadow-lg shadow-success-500/25'
                   : 'btn-primary'
@@ -137,7 +137,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
             >
               {isAdding ? (
                 <>
-                  <Check size={14} />
+                  <Check size={16} />
                   <span>Added!</span>
                 </>
               ) : (
