@@ -30,18 +30,18 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="ml-auto w-full max-w-md bg-neutral-950/95 backdrop-blur-xl border-l border-neutral-800 flex flex-col h-full"
+          className="ml-auto w-full max-w-sm sm:max-w-md bg-neutral-950/95 backdrop-blur-xl border-l border-neutral-800 flex flex-col h-full"
         >
           {/* Header */}
-          <div className="p-6 border-b border-neutral-800">
+          <div className="p-4 sm:p-6 border-b border-neutral-800">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
                   <ShoppingBag className="text-primary-400" size={20} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-neutral-100">Your Order</h2>
-                  <p className="text-sm text-neutral-400">
+                  <h2 className="text-lg sm:text-xl font-bold text-neutral-100">Your Order</h2>
+                  <p className="text-xs sm:text-sm text-neutral-400">
                     {state.items.length} {state.items.length === 1 ? 'item' : 'items'}
                   </p>
                 </div>
@@ -59,19 +59,19 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
           {/* Cart Items */}
           <div className="flex-1 overflow-y-auto">
             {state.items.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+              <div className="flex flex-col items-center justify-center h-full p-4 sm:p-8 text-center">
                 <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-24 h-24 bg-neutral-800/50 rounded-3xl flex items-center justify-center mb-6"
+                  className="w-16 h-16 sm:w-24 sm:h-24 bg-neutral-800/50 rounded-3xl flex items-center justify-center mb-4 sm:mb-6"
                 >
-                  <ShoppingBag className="text-neutral-500" size={32} />
+                  <ShoppingBag className="text-neutral-500" size={24} />
                 </motion.div>
-                <h3 className="text-xl font-semibold text-neutral-300 mb-2">Your cart is empty</h3>
-                <p className="text-neutral-500 text-sm">Add some delicious items to get started!</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-neutral-300 mb-2">Your cart is empty</h3>
+                <p className="text-neutral-500 text-xs sm:text-sm">Add some delicious items to get started!</p>
               </div>
             ) : (
-              <div className="p-6 space-y-4">
+              <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                 {state.items.map((item) => (
                   <motion.div
                     key={`${item.id}-${item.selectedSize}`}
@@ -82,51 +82,51 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
 
 
-                    className="bento-card p-4"
+                    className="bento-card p-3 sm:p-4"
                   >
                     <div className="flex gap-3">
                       {/* Item Details */}
-                      <div className="flex-1 space-y-3">
+                      <div className="flex-1 space-y-2 sm:space-y-3">
                         <div>
-                          <h3 className="text-neutral-100 font-medium text-sm">{item.name}</h3>
+                          <h3 className="text-neutral-100 font-medium text-xs sm:text-sm">{item.name}</h3>
                           {item.selectedSize && (
                             <p className="text-neutral-500 text-xs">Size: {item.selectedSize}</p>
                           )}
-                          <p className="text-primary-400 font-semibold text-sm">₹{item.price}</p>
+                          <p className="text-primary-400 font-semibold text-xs sm:text-sm">₹{item.price}</p>
                         </div>
                         
                         {/* Quantity Controls */}
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1 sm:gap-2">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-7 h-7 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 border border-neutral-700"
+                              className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 border border-neutral-700"
                             >
-                              <Minus size={12} />
+                              <Minus size={10} />
                             </button>
                             
-                            <span className="text-neutral-100 text-sm font-medium w-8 text-center">
+                            <span className="text-neutral-100 text-xs sm:text-sm font-medium w-6 sm:w-8 text-center">
                               {item.quantity}
                             </span>
                             
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-7 h-7 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 border border-neutral-700"
+                              className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 border border-neutral-700"
                             >
-                              <Plus size={12} />
+                              <Plus size={10} />
                             </button>
                           </div>
 
-                          <div className="flex items-center gap-3">
-                            <span className="text-neutral-100 font-bold text-sm">
+                          <div className="flex items-center gap-2 sm:gap-3">
+                            <span className="text-neutral-100 font-bold text-xs sm:text-sm">
                               ₹{item.price * item.quantity}
                             </span>
                             
                             <button
                               onClick={() => removeItem(item.id)}
-                              className="w-7 h-7 rounded-lg bg-red-500/20 hover:bg-red-500/30 flex items-center justify-center text-red-400 hover:text-red-300 transition-all duration-300 border border-red-500/30"
+                              className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-red-500/20 hover:bg-red-500/30 flex items-center justify-center text-red-400 hover:text-red-300 transition-all duration-300 border border-red-500/30"
                             >
-                              <Trash2 size={12} />
+                              <Trash2 size={10} />
                             </button>
                           </div>
                         </div>
@@ -140,21 +140,21 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
 
           {/* Footer */}
           {state.items.length > 0 && (
-            <div className="p-6 border-t border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
+            <div className="p-4 sm:p-6 border-t border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
               {/* Order Summary */}
-              <div className="space-y-4 mb-6">
+              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                 <div className="flex justify-between items-center">
-                  <span className="text-neutral-400">Subtotal</span>
-                  <span className="text-neutral-100 font-medium">₹{state.total}</span>
+                  <span className="text-neutral-400 text-sm">Subtotal</span>
+                  <span className="text-neutral-100 font-medium text-sm">₹{state.total}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-neutral-400">Service Fee</span>
-                  <span className="text-neutral-100 font-medium">₹0</span>
+                  <span className="text-neutral-400 text-sm">Service Fee</span>
+                  <span className="text-neutral-100 font-medium text-sm">₹0</span>
                 </div>
-                <div className="border-t border-neutral-800 pt-4">
+                <div className="border-t border-neutral-800 pt-3 sm:pt-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-neutral-100">Total</span>
-                    <span className="text-2xl font-bold gradient-text">₹{state.total}</span>
+                    <span className="text-base sm:text-lg font-semibold text-neutral-100">Total</span>
+                    <span className="text-lg sm:text-2xl font-bold gradient-text">₹{state.total}</span>
                   </div>
                 </div>
               </div>
@@ -164,12 +164,12 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
                 onClick={onCheckout}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full btn-primary py-4 text-lg font-semibold rounded-2xl"
+                className="w-full btn-primary py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl"
               >
                 Proceed to Checkout
               </motion.button>
               
-              <p className="text-xs text-neutral-500 text-center mt-3">
+              <p className="text-xs text-neutral-500 text-center mt-2 sm:mt-3">
                 Secure payment via Instamojo
               </p>
             </div>
