@@ -6,8 +6,9 @@ import Cart from './components/Cart';
 import PaymentModal from './components/PaymentModal';
 import OrderConfirmation from './components/OrderConfirmation';
 import AdminDashboard from './components/AdminDashboard';
+import AdminSignIn from './components/AdminSignIn';
 
-type AppState = 'hero' | 'menu' | 'confirmation' | 'admin';
+type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin';
 
 interface OrderDetails {
   seatNumber: number | null;
@@ -20,6 +21,7 @@ interface OrderDetails {
 function App() {
   const [currentState, setCurrentState] = useState<AppState>('hero');
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetails>({
     seatNumber: null,
     rowSelection: null,
@@ -37,8 +39,28 @@ function App() {
   };
 
   const handleGoToAdmin = () => {
-    setCurrentState('admin');
+    if (isAdminAuthenticated) {
+      setCurrentState('admin');
+    } else {
+      setCurrentState('admin-signin');
+    }
   };
+
+  const handleAdminSignIn = (username: string, password: string): boolean => {
+    // Simple authentication - in production, use proper authentication
+    if (username === 'admin' && password === 'admin123') {
+      setIsAdminAuthenticated(true);
+      setCurrentState('admin');
+      return true;
+    }
+    return false;
+  };
+
+  const handleAdminSignOut = () => {
+    setIsAdminAuthenticated(false);
+    setCurrentState('hero');
+  };
+
   const handleCheckout = () => {
     setShowPaymentModal(true);
   };
@@ -77,8 +99,18 @@ function App() {
           />
         )}
 
+        {currentState === 'admin-signin' && (
+          <AdminSignIn 
+            onSignIn={handleAdminSignIn}
+            onBack={handleBackToHome}
+          />
+        )}
+
         {currentState === 'admin' && (
-          <AdminDashboard onBackToHome={handleBackToHome} />
+          <AdminDashboard 
+            onBackToHome={handleBackToHome}
+            onSignOut={handleAdminSignOut}
+          />
         )}
         <Cart onCheckout={handleCheckout} />
         

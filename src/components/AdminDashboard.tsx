@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar } from 'lucide-react';
+import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut } from 'lucide-react';
 import { database } from '../firebase/config';
 import { ref, onValue, update } from 'firebase/database';
 import { Order } from '../types';
 
 interface AdminDashboardProps {
   onBackToHome: () => void;
+  onSignOut: () => void;
 }
 
-const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome }) => {
+const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut }) => {
   const [orders, setOrders] = useState<Record<string, Order>>({});
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'ongoing' | 'completed'>('all');
@@ -72,10 +73,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome }) => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <button
-                onClick={onBackToHome}
+                onClick={onSignOut}
                 className="w-10 h-10 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
               >
-                <ArrowLeft size={20} />
+                <LogOut size={20} />
               </button>
               
               <div>
@@ -83,6 +84,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome }) => {
                 <p className="text-sm text-neutral-400">Manage all orders and track performance</p>
               </div>
             </div>
+
+            <button
+              onClick={onBackToHome}
+              className="btn-secondary flex items-center gap-2 px-4 py-2"
+            >
+              <ArrowLeft size={16} />
+              <span className="hidden sm:inline">Back to Home</span>
+            </button>
           </div>
 
           {/* Stats Cards */}
