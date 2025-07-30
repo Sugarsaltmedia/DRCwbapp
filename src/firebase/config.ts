@@ -14,9 +14,23 @@ const firebaseConfig = {
   measurementId: "G-G3KL2V7DPC"
 };
 
+// Debug Firebase configuration
+console.log('🔧 Firebase Config:', {
+  databaseURL: firebaseConfig.databaseURL,
+  projectId: firebaseConfig.projectId,
+  authDomain: firebaseConfig.authDomain
+});
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+console.log('✅ Firebase App initialized:', app.name);
+
 export const analytics = getAnalytics(app);
 export const database = getDatabase(app);
 export const auth = getAuth(app);
+
+// Test database connection
+console.log('📊 Database instance:', database);
+console.log('🔗 Database URL:', database.app.options.databaseURL);
+
 export default app;

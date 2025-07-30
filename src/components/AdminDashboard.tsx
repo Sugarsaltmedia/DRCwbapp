@@ -67,32 +67,60 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   };
 
   useEffect(() => {
-    console.log('Setting up Firebase listener for orders...');
-    console.log('Database instance:', database);
+    console.log('🔧 Setting up Firebase listener for orders...');
+    console.log('📊 Database instance:', database);
+    console.log('🔗 Database URL:', database.app.options.databaseURL);
+    
     const ordersRef = ref(database, 'orders');
-    console.log('Orders reference:', ordersRef);
+    console.log('📍 Orders reference:', ordersRef);
+    console.log('📍 Reference path:', ordersRef.toString());
     
     const unsubscribe = onValue(ordersRef, (snapshot) => {
-      console.log('Firebase data received:', snapshot.val());
+      console.log('📨 Firebase listener triggered');
+      console.log('📊 Snapshot exists:', snapshot.exists());
+      console.log('📊 Snapshot key:', snapshot.key);
       const data = snapshot.val();
+      console.log('📦 Raw Firebase data:', data);
+      console.log('📦 Data type:', typeof data);
+      console.log('📦 Data keys:', data ? Object.keys(data) : 'No keys (data is null)');
+      
       if (data) {
-        console.log('Orders found:', Object.keys(data).length);
+        const orderCount = Object.keys(data).length;
+        console.log('✅ Orders found in Firebase:', orderCount);
+        console.log('📋 Order IDs:', Object.keys(data));
+        
+        // Log each order for debugging
+        Object.entries(data).forEach(([id, order]) => {
+          console.log(`📄 Order ${id}:`, order);
+        });
+        
         // Merge Firebase data with mock data
+        const mergedOrders = { ...mockOrders, ...data };
+        console.log('🔄 Merging with mock data...');
+        console.log('📊 Total orders after merge:', Object.keys(mergedOrders).length);
         setOrders({ ...mockOrders, ...data });
       } else {
-        console.log('No orders found in database');
+        console.log('⚠️ No orders found in Firebase database');
+        console.log('🔄 Using mock data only');
         // Use mock data if no Firebase data
         setOrders(mockOrders);
       }
+      console.log('✅ Orders state updated');
       setLoading(false);
     }, (error) => {
-      console.error('Firebase listener error:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
+      console.error('❌ Firebase listener error:', error);
+      console.error('❌ Error code:', error.code);
+      console.error('❌ Error message:', error.message);
+      console.error('❌ Full error object:', error);
+      
+      // Still show mock data on error
+      console.log('🔄 Falling back to mock data due to error');
+      setOrders(mockOrders);
       setLoading(false);
-      alert('Error connecting to database: ' + error.message);
+      alert(`Error connecting to database: ${error.message}. Using demo data.`);
     });
 
+    console.log('👂 Firebase listener attached');
     return () => unsubscribe();
   }, []);
 

@@ -86,10 +86,23 @@ function App() {
     customerName: string,
     customerPhone: string
   ) => {
-    console.log('Payment success callback triggered with:', { seatNumber, rowSelection, screenNumber, customerName, customerPhone });
+    console.log('🎉 Payment success callback triggered!');
+    console.log('📋 Order details received:', { 
+      seatNumber, 
+      rowSelection, 
+      screenNumber, 
+      customerName, 
+      customerPhone 
+    });
+    
     setOrderDetails({ seatNumber, rowSelection, screenNumber, customerName, customerPhone });
+    console.log('💾 Order details saved to state');
+    
     setShowPaymentModal(false);
+    console.log('❌ Payment modal closed');
+    
     setCurrentState('confirmation');
+    console.log('✅ Navigated to confirmation screen');
   };
 
   return (

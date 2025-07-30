@@ -34,12 +34,20 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       return;
     }
 
+    console.log('🚀 Starting order submission...');
+    console.log('📋 Form data:', {
+      customerName: customerName.trim(),
+      customerPhone: customerPhone.trim(),
+      seatNumber,
+      rowSelection,
+      screenNumber
+    });
+    console.log('🛒 Cart items:', state.items);
+    console.log('💰 Cart total:', state.total);
+
     setIsSubmitting(true);
     
     try {
-      console.log('Submitting order with items:', state.items);
-      console.log('Customer details:', { customerName, customerPhone, seatNumber, rowSelection, screenNumber });
-      
       // Create order object
       const orderData = {
         items: state.items,
@@ -53,25 +61,53 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         status: 'ongoing'
       };
 
-      console.log('Order data to save:', orderData);
+      console.log('📦 Complete order data to save:', JSON.stringify(orderData, null, 2));
+      
+      // Validate order data
+      const validation = {
+        hasItems: orderData.items && orderData.items.length > 0,
+        hasTotal: orderData.total > 0,
+        hasCustomerName: orderData.customerName && orderData.customerName.length > 0,
+        hasCustomerPhone: orderData.customerPhone && orderData.customerPhone.length > 0,
+        hasSeatInfo: orderData.seatNumber && orderData.rowSelection && orderData.screenNumber
+      };
+      console.log('✅ Order validation:', validation);
+      
+      if (!validation.hasItems) {
+        throw new Error('No items in cart');
+      }
+      if (!validation.hasCustomerName || !validation.hasCustomerPhone) {
+        throw new Error('Missing customer information');
+      }
 
       // Save to Firebase
+      console.log('💾 Attempting to save to Firebase...');
+      console.log('🔗 Database instance:', database);
       const ordersRef = ref(database, 'orders');
+      console.log('📍 Orders reference:', ordersRef);
+      
       const result = await push(ordersRef, orderData);
-      console.log('Order saved successfully with ID:', result.key);
+      console.log('🎉 Order saved successfully!');
+      console.log('🆔 Order ID:', result.key);
+      console.log('📍 Full reference path:', result.toString());
 
       // Close modal and trigger success
+      console.log('✅ Triggering success callback...');
       onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
       
       // Reset form
       setCustomerName('');
       setCustomerPhone('');
       setIsSubmitting(false);
+      console.log('🔄 Form reset complete');
+      
     } catch (error) {
-      console.error('Error saving order:', error);
-      console.error('Error details:', error.message);
+      console.error('❌ Error saving order:', error);
+      console.error('❌ Error message:', error.message);
+      console.error('❌ Error code:', error.code);
+      console.error('❌ Full error object:', error);
       setIsSubmitting(false);
-      alert('Error processing order. Please try again.');
+      alert(`Error processing order: ${error.message}. Please try again.`);
     }
   };
 
