@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut } from 'lucide-react';
+import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2 } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { database } from '../firebase/config';
-import { ref, onValue, update } from 'firebase/database';
+import { ref, onValue, update, remove } from 'firebase/database';
 import { Order } from '../types';
 
 interface AdminDashboardProps {
@@ -17,6 +17,55 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'ongoing' | 'completed'>('all');
 
+  // Mock data for testing
+  const mockOrders: Record<string, Order> = {
+    'mock-order-1': {
+      id: 'mock-order-1',
+      items: [
+        { id: 'popcorn-butter', name: 'Butter Popcorn', category: 'POPCORN TIME', price: 150, quantity: 2, selectedSize: 'Large' },
+        { id: 'coke-fanta-sprite', name: 'Coke', category: 'SODAS & SIPS', price: 120, quantity: 1, selectedSize: null }
+      ],
+      total: 420,
+      timestamp: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      status: 'ongoing',
+      seatNumber: 15,
+      rowSelection: 'C',
+      screenNumber: 2,
+      customerName: 'John Doe',
+      customerPhone: '+91 9876543210'
+    },
+    'mock-order-2': {
+      id: 'mock-order-2',
+      items: [
+        { id: 'veg-burger', name: 'Veg Burger', category: 'ROLLS / SANDWICHES / BURGERS / PIZZA', price: 130, quantity: 1, selectedSize: null },
+        { id: 'cold-coffee', name: 'Cold Coffee', category: 'MILKSHAKES', price: 140, quantity: 1, selectedSize: null }
+      ],
+      total: 270,
+      timestamp: new Date(Date.now() - 45 * 60 * 1000), // 45 minutes ago
+      status: 'completed',
+      seatNumber: 8,
+      rowSelection: 'A',
+      screenNumber: 1,
+      customerName: 'Sarah Smith',
+      customerPhone: '+91 8765432109'
+    },
+    'mock-order-3': {
+      id: 'mock-order-3',
+      items: [
+        { id: 'nachos', name: 'Nachos W/Dip', category: 'CRUNCHY BITES', price: 150, quantity: 1, selectedSize: null },
+        { id: 'vanilla-shake', name: 'Vanilla Shake', category: 'MILKSHAKES', price: 140, quantity: 2, selectedSize: null }
+      ],
+      total: 430,
+      timestamp: new Date(Date.now() - 15 * 60 * 1000), // 15 minutes ago
+      status: 'ongoing',
+      seatNumber: 22,
+      rowSelection: 'D',
+      screenNumber: 3,
+      customerName: 'Mike Johnson',
+      customerPhone: '+91 7654321098'
+    }
+  };
+
   useEffect(() => {
     console.log('Setting up Firebase listener for orders...');
     console.log('Database instance:', database);
@@ -28,10 +77,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       const data = snapshot.val();
       if (data) {
         console.log('Orders found:', Object.keys(data).length);
-        setOrders(data);
+        // Merge Firebase data with mock data
+        setOrders({ ...mockOrders, ...data });
       } else {
         console.log('No orders found in database');
-        setOrders({});
+        // Use mock data if no Firebase data
+        setOrders(mockOrders);
       }
       setLoading(false);
     }, (error) => {
@@ -53,6 +104,29 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     } catch (error) {
       console.error('Error updating order status:', error);
       alert('Error updating order status');
+    }
+  };
+
+  const handleDeleteOrder = async (orderId: string) => {
+    if (!confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      // If it's a mock order, just remove from local state
+      if (orderId.startsWith('mock-')) {
+        const updatedOrders = { ...orders };
+        delete updatedOrders[orderId];
+        setOrders(updatedOrders);
+        return;
+      }
+
+      // For real orders, delete from Firebase
+      await remove(ref(database, `orders/${orderId}`));
+      console.log('Order deleted successfully:', orderId);
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      alert('Error deleting order. Please try again.');
     }
   };
 
@@ -293,16 +367,28 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
                   {/* Status Control */}
                   <div className="flex flex-col justify-center">
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <label className="text-sm font-medium text-neutral-300">Update Status</label>
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(orderId, e.target.value as 'ongoing' | 'completed')}
                         className="input-field w-full lg:w-40"
+                        disabled={orderId.startsWith('mock-')}
                       >
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
                       </select>
+                      
+                      {/* Delete Button */}
+                      <motion.button
+                        onClick={() => handleDeleteOrder(orderId)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full lg:w-40 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 rounded-xl text-red-400 hover:text-red-300 font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2"
+                      >
+                        <Trash2 size={14} />
+                        Delete Order
+                      </motion.button>
                     </div>
                   </div>
                 </div>
