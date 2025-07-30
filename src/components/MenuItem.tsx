@@ -18,7 +18,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
 
   const handleAddToCart = async () => {
     setIsAdding(true);
-    addItem(item, quantity, selectedSize || undefined);
+    addItem(item, quantity, selectedSize || null);
     
     // Reset quantity after adding
     setQuantity(1);

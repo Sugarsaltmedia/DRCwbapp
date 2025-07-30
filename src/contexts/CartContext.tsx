@@ -87,7 +87,7 @@ const initialState: CartState = {
 
 interface CartContextType {
   state: CartState;
-  addItem: (item: MenuItem, quantity: number, selectedSize?: string) => void;
+  addItem: (item: MenuItem, quantity: number, selectedSize?: string | null) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -101,7 +101,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  const addItem = (item: MenuItem, quantity: number, selectedSize?: string) => {
+  const addItem = (item: MenuItem, quantity: number, selectedSize?: string | null) => {
     dispatch({ type: 'ADD_ITEM', payload: { item, quantity, selectedSize } });
   };
 
