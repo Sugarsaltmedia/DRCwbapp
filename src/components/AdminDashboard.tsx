@@ -69,7 +69,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   useEffect(() => {
     console.log('🔧 Setting up Firestore listener for orders...');
     console.log('🔥 Firestore instance:', firestore);
-    console.log('🆔 Project ID:', firestore._delegate._databaseId.projectId);
     
     const ordersCollection = collection(firestore, 'orders');
     const ordersQuery = query(ordersCollection, orderBy('timestamp', 'desc'));
