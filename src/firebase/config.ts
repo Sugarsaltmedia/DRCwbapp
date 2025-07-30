@@ -4,13 +4,13 @@ import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBL3KPno0s4TUxLTLnrcC62LIxZfETbOfE",
-  authDomain: "drcmovies-ab48d.firebaseapp.com",
-  projectId: "drcmovies-ab48d",
-  storageBucket: "drcmovies-ab48d.firebasestorage.app",
-  messagingSenderId: "236169619256",
-  appId: "1:236169619256:web:2558c4bc6ce9e05e5dc3cd",
-  measurementId: "G-ME1YWPKQ64"
+  apiKey: "AIzaSyBnkNDo_ENanWQ6mtYsnHPvcPqbSVYUZJU",
+  authDomain: "drcapp-5b647.firebaseapp.com",
+  projectId: "drcapp-5b647",
+  storageBucket: "drcapp-5b647.firebasestorage.app",
+  messagingSenderId: "533498616572",
+  appId: "1:533498616572:web:678903a6bcd5e3726ed579",
+  measurementId: "G-G3KL2V7DPC"
 };
 
 // Initialize Firebase
