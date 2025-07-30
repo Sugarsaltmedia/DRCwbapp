@@ -1,12 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBnkNDo_ENanWQ6mtYsnHPvcPqbSVYUZJU",
   authDomain: "drcapp-5b647.firebaseapp.com",
-  databaseURL: "https://drcapp-5b647-default-rtdb.firebaseio.com/",
   projectId: "drcapp-5b647",
   storageBucket: "drcapp-5b647.firebasestorage.app",
   messagingSenderId: "533498616572",
@@ -16,9 +15,9 @@ const firebaseConfig = {
 
 // Debug Firebase configuration
 console.log('🔧 Firebase Config:', {
-  databaseURL: firebaseConfig.databaseURL,
   projectId: firebaseConfig.projectId,
-  authDomain: firebaseConfig.authDomain
+  authDomain: firebaseConfig.authDomain,
+  storageBucket: firebaseConfig.storageBucket
 });
 
 // Initialize Firebase
@@ -26,11 +25,12 @@ const app = initializeApp(firebaseConfig);
 console.log('✅ Firebase App initialized:', app.name);
 
 export const analytics = getAnalytics(app);
-export const database = getDatabase(app);
+export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 
-// Test database connection
-console.log('📊 Database instance:', database);
-console.log('🔗 Database URL:', database.app.options.databaseURL);
+// Test Firestore connection
+console.log('🔥 Firestore instance:', firestore);
+console.log('📊 Firestore app:', firestore.app.name);
+console.log('🆔 Project ID:', firestore._delegate._databaseId.projectId);
 
 export default app;

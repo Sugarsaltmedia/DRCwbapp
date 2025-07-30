@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2 } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
-import { database } from '../firebase/config';
-import { ref, onValue, update, remove } from 'firebase/database';
+import { firestore } from '../firebase/config';
+import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import { Order } from '../types';
 
 interface AdminDashboardProps {
@@ -67,71 +67,86 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   };
 
   useEffect(() => {
-    console.log('🔧 Setting up Firebase listener for orders...');
-    console.log('📊 Database instance:', database);
-    console.log('🔗 Database URL:', database.app.options.databaseURL);
+    console.log('🔧 Setting up Firestore listener for orders...');
+    console.log('🔥 Firestore instance:', firestore);
+    console.log('🆔 Project ID:', firestore._delegate._databaseId.projectId);
     
-    const ordersRef = ref(database, 'orders');
-    console.log('📍 Orders reference:', ordersRef);
-    console.log('📍 Reference path:', ordersRef.toString());
+    const ordersCollection = collection(firestore, 'orders');
+    const ordersQuery = query(ordersCollection, orderBy('timestamp', 'desc'));
+    console.log('📁 Orders collection reference:', ordersCollection);
     
-    const unsubscribe = onValue(ordersRef, (snapshot) => {
-      console.log('📨 Firebase listener triggered');
-      console.log('📊 Snapshot exists:', snapshot.exists());
-      console.log('📊 Snapshot key:', snapshot.key);
-      const data = snapshot.val();
-      console.log('📦 Raw Firebase data:', data);
-      console.log('📦 Data type:', typeof data);
-      console.log('📦 Data keys:', data ? Object.keys(data) : 'No keys (data is null)');
+    const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
+      console.log('📨 Firestore listener triggered');
+      console.log('📊 Snapshot size:', snapshot.size);
+      console.log('📊 Snapshot empty:', snapshot.empty);
       
-      if (data) {
-        const orderCount = Object.keys(data).length;
-        console.log('✅ Orders found in Firebase:', orderCount);
-        console.log('📋 Order IDs:', Object.keys(data));
+      if (!snapshot.empty) {
+        const firestoreOrders: Record<string, Order> = {};
         
-        // Log each order for debugging
-        Object.entries(data).forEach(([id, order]) => {
-          console.log(`📄 Order ${id}:`, order);
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data();
+          console.log(`📄 Firestore Order ${doc.id}:`, data);
+          
+          // Convert Firestore timestamp to Date if it exists
+          const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+          
+          firestoreOrders[doc.id] = {
+            id: doc.id,
+            ...data,
+            timestamp
+          } as Order;
         });
         
-        // Merge Firebase data with mock data
-        const mergedOrders = { ...mockOrders, ...data };
-        console.log('🔄 Merging with mock data...');
+        console.log('✅ Orders found in Firestore:', Object.keys(firestoreOrders).length);
+        console.log('📋 Firestore Order IDs:', Object.keys(firestoreOrders));
+        
+        // Merge Firestore data with mock data
+        const mergedOrders = { ...mockOrders, ...firestoreOrders };
+        console.log('🔄 Merging Firestore data with mock data...');
         console.log('📊 Total orders after merge:', Object.keys(mergedOrders).length);
-        setOrders({ ...mockOrders, ...data });
+        setOrders(mergedOrders);
       } else {
-        console.log('⚠️ No orders found in Firebase database');
+        console.log('⚠️ No orders found in Firestore');
         console.log('🔄 Using mock data only');
-        // Use mock data if no Firebase data
+        // Use mock data if no Firestore data
         setOrders(mockOrders);
       }
       console.log('✅ Orders state updated');
       setLoading(false);
     }, (error) => {
-      console.error('❌ Firebase listener error:', error);
+      console.error('❌ Firestore listener error:', error);
       console.error('❌ Error code:', error.code);
       console.error('❌ Error message:', error.message);
       console.error('❌ Full error object:', error);
       
       // Still show mock data on error
-      console.log('🔄 Falling back to mock data due to error');
+      console.log('🔄 Falling back to mock data due to Firestore error');
       setOrders(mockOrders);
       setLoading(false);
-      alert(`Error connecting to database: ${error.message}. Using demo data.`);
+      alert(`Error connecting to Firestore: ${error.message}. Using demo data.`);
     });
 
-    console.log('👂 Firebase listener attached');
+    console.log('👂 Firestore listener attached');
     return () => unsubscribe();
   }, []);
 
   const handleStatusChange = async (orderId: string, newStatus: 'ongoing' | 'completed') => {
+    // Skip mock orders
+    if (orderId.startsWith('mock-')) {
+      console.log('⚠️ Cannot update mock order status:', orderId);
+      return;
+    }
+
     try {
-      await update(ref(database, `orders/${orderId}`), {
+      console.log('🔄 Updating order status in Firestore:', orderId, newStatus);
+      const orderDoc = doc(firestore, 'orders', orderId);
+      await updateDoc(orderDoc, {
         status: newStatus
       });
+      console.log('✅ Order status updated successfully');
     } catch (error) {
-      console.error('Error updating order status:', error);
-      alert('Error updating order status');
+      console.error('❌ Error updating order status in Firestore:', error);
+      alert('Error updating order status. Please try again.');
     }
   };
 
@@ -143,18 +158,22 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     try {
       // If it's a mock order, just remove from local state
       if (orderId.startsWith('mock-')) {
+        console.log('🗑️ Deleting mock order from local state:', orderId);
         const updatedOrders = { ...orders };
         delete updatedOrders[orderId];
         setOrders(updatedOrders);
+        console.log('✅ Mock order deleted from local state');
         return;
       }
 
-      // For real orders, delete from Firebase
-      await remove(ref(database, `orders/${orderId}`));
-      console.log('Order deleted successfully:', orderId);
+      // For real orders, delete from Firestore
+      console.log('🗑️ Deleting order from Firestore:', orderId);
+      const orderDoc = doc(firestore, 'orders', orderId);
+      await deleteDoc(orderDoc);
+      console.log('✅ Order deleted from Firestore successfully:', orderId);
     } catch (error) {
-      console.error('Error deleting order:', error);
-      alert('Error deleting order. Please try again.');
+      console.error('❌ Error deleting order from Firestore:', error);
+      alert('Error deleting order from database. Please try again.');
     }
   };
 
@@ -175,8 +194,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-neutral-400">Connecting to database...</p>
-          <p className="text-neutral-500 text-sm mt-2">If this takes too long, check Firebase configuration</p>
+          <p className="text-neutral-400">Connecting to Firestore...</p>
+          <p className="text-neutral-500 text-sm mt-2">If this takes too long, check Firestore configuration</p>
         </div>
       </div>
     );

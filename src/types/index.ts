@@ -19,7 +19,7 @@ export interface Order {
   id: string;
   items: CartItem[];
   total: number;
-  timestamp: Date;
+  timestamp: Date | any; // Allow Firestore Timestamp objects
   status: 'ongoing' | 'completed';
   seatNumber?: number;
   rowSelection?: string;

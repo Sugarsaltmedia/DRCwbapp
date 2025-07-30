@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { database } from '../firebase/config';
-import { ref, push } from 'firebase/database';
+import { firestore } from '../firebase/config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -34,21 +34,21 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       return;
     }
 
-    console.log('🚀 Starting order submission...');
-    console.log('📋 Form data:', {
+    console.log('🚀 Starting Firestore order submission...');
+    console.log('📋 Order form data:', {
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
       seatNumber,
       rowSelection,
       screenNumber
     });
-    console.log('🛒 Cart items:', state.items);
-    console.log('💰 Cart total:', state.total);
+    console.log('🛒 Cart items count:', state.items.length);
+    console.log('💰 Order total:', state.total);
 
     setIsSubmitting(true);
     
     try {
-      // Create order object
+      // Create order object for Firestore
       const orderData = {
         items: state.items,
         total: state.total,
@@ -57,13 +57,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         screenNumber,
         customerName: customerName.trim(),
         customerPhone: customerPhone.trim(),
-        timestamp: new Date().toISOString(),
+        timestamp: serverTimestamp(), // Use Firestore server timestamp
         status: 'ongoing'
       };
 
-      console.log('📦 Complete order data to save:', JSON.stringify(orderData, null, 2));
+      console.log('📦 Order data for Firestore:', {
+        ...orderData,
+        timestamp: 'serverTimestamp()' // Log placeholder since serverTimestamp() is a special object
+      });
       
-      // Validate order data
+      // Validate order data before saving
       const validation = {
         hasItems: orderData.items && orderData.items.length > 0,
         hasTotal: orderData.total > 0,
@@ -71,7 +74,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         hasCustomerPhone: orderData.customerPhone && orderData.customerPhone.length > 0,
         hasSeatInfo: orderData.seatNumber && orderData.rowSelection && orderData.screenNumber
       };
-      console.log('✅ Order validation:', validation);
+      console.log('✅ Firestore order validation:', validation);
       
       if (!validation.hasItems) {
         throw new Error('No items in cart');
@@ -80,18 +83,18 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         throw new Error('Missing customer information');
       }
 
-      // Save to Firebase
-      console.log('💾 Attempting to save to Firebase...');
-      console.log('🔗 Database instance:', database);
-      const ordersRef = ref(database, 'orders');
-      console.log('📍 Orders reference:', ordersRef);
+      // Save to Firestore
+      console.log('💾 Attempting to save to Firestore...');
+      console.log('🔥 Firestore instance:', firestore);
+      const ordersCollection = collection(firestore, 'orders');
+      console.log('📁 Orders collection reference:', ordersCollection);
       
-      const result = await push(ordersRef, orderData);
-      console.log('🎉 Order saved successfully!');
-      console.log('🆔 Order ID:', result.key);
-      console.log('📍 Full reference path:', result.toString());
+      const docRef = await addDoc(ordersCollection, orderData);
+      console.log('🎉 Order saved to Firestore successfully!');
+      console.log('🆔 Document ID:', docRef.id);
+      console.log('📍 Document path:', docRef.path);
 
-      // Close modal and trigger success
+      // Trigger success callback
       console.log('✅ Triggering success callback...');
       onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
       
@@ -102,12 +105,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       console.log('🔄 Form reset complete');
       
     } catch (error) {
-      console.error('❌ Error saving order:', error);
+      console.error('❌ Error saving order to Firestore:', error);
       console.error('❌ Error message:', error.message);
       console.error('❌ Error code:', error.code);
       console.error('❌ Full error object:', error);
       setIsSubmitting(false);
-      alert(`Error processing order: ${error.message}. Please try again.`);
+      alert(`Error saving order to database: ${error.message}. Please try again.`);
     }
   };
 
