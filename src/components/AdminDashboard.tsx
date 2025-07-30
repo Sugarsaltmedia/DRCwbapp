@@ -19,7 +19,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
   useEffect(() => {
     console.log('Setting up Firebase listener for orders...');
+    console.log('Database instance:', database);
     const ordersRef = ref(database, 'orders');
+    console.log('Orders reference:', ordersRef);
     
     const unsubscribe = onValue(ordersRef, (snapshot) => {
       console.log('Firebase data received:', snapshot.val());
@@ -34,7 +36,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       setLoading(false);
     }, (error) => {
       console.error('Firebase listener error:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
       setLoading(false);
+      alert('Error connecting to database: ' + error.message);
     });
 
     return () => unsubscribe();
@@ -68,7 +73,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-neutral-400">Loading orders...</p>
+          <p className="text-neutral-400">Connecting to database...</p>
+          <p className="text-neutral-500 text-sm mt-2">If this takes too long, check Firebase configuration</p>
         </div>
       </div>
     );

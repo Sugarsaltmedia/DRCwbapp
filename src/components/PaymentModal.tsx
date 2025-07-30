@@ -56,10 +56,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       console.log('Order data to save:', orderData);
 
       // Save to Firebase
-      const result = await push(ref(database, 'orders'), orderData);
+      const ordersRef = ref(database, 'orders');
+      const result = await push(ordersRef, orderData);
       console.log('Order saved successfully with ID:', result.key);
 
-      // Directly trigger success and close modal
+      // Close modal and trigger success
       onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
       
       // Reset form
@@ -68,6 +69,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       setIsSubmitting(false);
     } catch (error) {
       console.error('Error saving order:', error);
+      console.error('Error details:', error.message);
       setIsSubmitting(false);
       alert('Error processing order. Please try again.');
     }

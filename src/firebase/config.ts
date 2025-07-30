@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBnkNDo_ENanWQ6mtYsnHPvcPqbSVYUZJU",
   authDomain: "drcapp-5b647.firebaseapp.com",
+  databaseURL: "https://drcapp-5b647-default-rtdb.firebaseio.com/",
   projectId: "drcapp-5b647",
   storageBucket: "drcapp-5b647.firebasestorage.app",
   messagingSenderId: "533498616572",
