@@ -31,6 +31,5 @@ export const auth = getAuth(app);
 // Test Firestore connection
 console.log('🔥 Firestore instance:', firestore);
 console.log('📊 Firestore app:', firestore.app.name);
-console.log('🆔 Project ID:', firestore._delegate._databaseId.projectId);
 
 export default app;
