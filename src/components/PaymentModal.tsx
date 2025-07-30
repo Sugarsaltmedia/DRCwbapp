@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShoppingBag } from 'lucide-react';
+import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { database } from '../firebase/config';
 import { ref, push } from 'firebase/database';
@@ -19,6 +19,8 @@ interface PaymentModalProps {
 
 const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentSuccess }) => { // Added layout prop for smooth transitions
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentComplete, setPaymentComplete] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [seatNumber, setSeatNumber] = useState<number>(1);
   const [rowSelection, setRowSelection] = useState<string>('A');
   const [screenNumber, setScreenNumber] = useState<number>(1);
@@ -65,6 +67,8 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     }
   };
 
+  const handlePayment = handleSubmitOrder;
+
   if (!isOpen) return null;
 
   return (
@@ -86,17 +90,41 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
           exit={{ opacity: 0, scale: 0.9, y: 50 }}
           className="relative w-full max-w-md bg-neutral-950/95 backdrop-blur-xl rounded-3xl border border-neutral-800 overflow-hidden" // Added layout prop for smooth transitions
         >
-          <>
+          {paymentComplete ? (
+            // Success Screen
+            <div className="p-8 text-center">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', duration: 0.6 }}
+                className="w-20 h-20 bg-success-500/20 rounded-3xl flex items-center justify-center mx-auto mb-6"
+              >
+                <CheckCircle className="text-success-400" size={40} />
+              </motion.div>
+              
+              <h2 className="text-2xl font-bold text-neutral-100 mb-2">Payment Successful!</h2>
+              <p className="text-neutral-400 mb-6">Your order has been confirmed and is being prepared</p>
+              
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="text-4xl mb-4"
+              >
+                🎉
+              </motion.div>
+            </div>
+          ) : (
+            <>
               {/* Header */}
               <div className="p-6 border-b border-neutral-800">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
-                      <CreditCard className="text-primary-400" size={20} />
+                      <ShoppingBag className="text-primary-400" size={20} />
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold text-neutral-100">Secure Payment</h2>
-                      <p className="text-sm text-neutral-400">Complete your order</p>
+                      <h2 className="text-xl font-bold text-neutral-100">Place Order</h2>
+                      <p className="text-sm text-neutral-400">Complete your order details</p>
                     </div>
                   </div>
                   <button
@@ -216,32 +244,49 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   </div>
                 </div>
 
+                <div className="bento-card p-4 mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 bg-primary-500/20 rounded-lg flex items-center justify-center">
+                      <Shield className="text-primary-400" size={16} />
+                    </div>
+                    <div>
+                      <span className="text-neutral-100 font-medium text-sm">Powered by Instamojo</span>
+                      <p className="text-neutral-500 text-xs">256-bit SSL encrypted payment</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-neutral-400">
+                    <Lock size={12} />
+                    <span>Your payment information is secure</span>
+                  </div>
+                </div>
+
                 <motion.button
-                  onClick={handleSubmitOrder}
+                  onClick={handlePayment}
                   disabled={isSubmitting}
-                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  whileHover={!isProcessing ? { scale: 1.02 } : {}}
+                  whileTap={!isProcessing ? { scale: 0.98 } : {}}
                   className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                    isSubmitting
+                    isProcessing
                       ? 'bg-neutral-700 cursor-not-allowed text-neutral-400'
                       : 'btn-primary'
                   }`}
                 >
-                  {isSubmitting ? (
+                  {isProcessing ? (
                     <div className="flex items-center justify-center gap-3">
                       <div className="w-5 h-5 border-2 border-neutral-500 border-t-neutral-300 rounded-full animate-spin"></div>
-                      Placing Order...
+                      Processing Payment...
                     </div>
                   ) : (
-                    `Place Order - ₹${state.total}`
+                    `Pay ₹${state.total}`
                   )}
                 </motion.button>
 
                 <p className="text-xs text-neutral-500 text-center mt-4">
-                  Order will be sent directly to the kitchen for preparation
+                  By proceeding, you agree to our terms and conditions
                 </p>
               </div>
-          </>
+            </>
+          )}
         </motion.div>
       </div>
     </AnimatePresence>
