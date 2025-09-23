@@ -9,10 +9,10 @@ import PaymentModal from './components/PaymentModal';
 import OrderConfirmation from './components/OrderConfirmation';
 import AdminDashboard from './components/AdminDashboard';
 import AdminSignIn from './components/AdminSignIn';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import TermsOfService from './components/TermsOfService';
+import PrivacyPolicyModal from './components/PrivacyPolicyModal';
+import TermsOfServiceModal from './components/TermsOfServiceModal';
 
-type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin' | 'privacy-policy' | 'terms-of-service';
+type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin';
 
 interface OrderDetails {
   seatNumber: number | null;
@@ -25,6 +25,8 @@ interface OrderDetails {
 function App() {
   const [currentState, setCurrentState] = useState<AppState>('hero');
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetails>({
     seatNumber: null,
@@ -65,11 +67,11 @@ function App() {
   };
 
   const handleGoToPrivacyPolicy = () => {
-    setCurrentState('privacy-policy');
+    setShowPrivacyModal(true);
   };
 
   const handleGoToTermsOfService = () => {
-    setCurrentState('terms-of-service');
+    setShowTermsModal(true);
   };
 
   const handleAdminSignIn = () => {
@@ -155,14 +157,6 @@ function App() {
             onSignOut={handleAdminSignOut}
           />
         )}
-
-        {currentState === 'privacy-policy' && (
-          <PrivacyPolicy onBack={handleBackToHome} />
-        )}
-
-        {currentState === 'terms-of-service' && (
-          <TermsOfService onBack={handleBackToHome} />
-        )}
         <Cart onCheckout={handleCheckout} />
         
         <PaymentModal
@@ -171,6 +165,16 @@ function App() {
           onPaymentSuccess={handlePaymentSuccess}
           onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
           onGoToTermsOfService={handleGoToTermsOfService}
+        />
+        
+        <PrivacyPolicyModal
+          isOpen={showPrivacyModal}
+          onClose={() => setShowPrivacyModal(false)}
+        />
+        
+        <TermsOfServiceModal
+          isOpen={showTermsModal}
+          onClose={() => setShowTermsModal(false)}
         />
       </div>
     </CartProvider>
