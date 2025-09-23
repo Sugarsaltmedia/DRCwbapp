@@ -11,14 +11,14 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy, onGoToTermsOfService }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden flex flex-col">
       {/* Subtle background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-accent-500/10 to-primary-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col justify-center px-4 max-w-7xl mx-auto py-12">
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-4 max-w-7xl mx-auto py-12">
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
@@ -169,11 +169,11 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
       </div>
 
       {/* Footer with Privacy Policy Link */}
-      <div className="absolute bottom-0 left-0 right-0 p-4">
+      <div className="relative z-20 p-4 mt-auto">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center justify-center gap-4 text-sm text-neutral-500">
             {/* Contact Information */}
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center select-text">
               <span className="flex items-center gap-2">
                 📞 +91 98765-43210
               </span>
@@ -188,19 +188,19 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
             </div>
             
             {/* Copyright and Legal Links */}
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center">
-              <span>© 2025 DRC Cinema Hall. All rights reserved.</span>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center select-text">
+              <span className="select-text">© 2025 DRC Cinema Hall. All rights reserved.</span>
               <span className="hidden sm:inline">•</span>
               <button
                 onClick={onGoToPrivacyPolicy}
-                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 p-1"
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 relative z-30"
               >
                 Privacy Policy
               </button>
               <span>•</span>
               <button
                 onClick={onGoToTermsOfService}
-                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 p-1"
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 relative z-30"
               >
                 Terms of Service
               </button>
