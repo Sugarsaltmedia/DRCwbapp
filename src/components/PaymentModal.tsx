@@ -15,9 +15,11 @@ interface PaymentModalProps {
     customerName: string,
     customerPhone: string
   ) => void;
+  onGoToPrivacyPolicy?: () => void;
+  onGoToTermsOfService?: () => void;
 }
 
-const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentSuccess }) => { // Added layout prop for smooth transitions
+const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentSuccess, onGoToPrivacyPolicy, onGoToTermsOfService }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -391,10 +393,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 <p>
                   By proceeding, you agree to our{' '}
                   <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                    onClick={onGoToPrivacyPolicy}
                     Privacy Policy
                   </button>
                   {' '}and{' '}
                   <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                    onClick={onGoToTermsOfService}
                     Terms of Service
                   </button>
                 </p>

@@ -10,8 +10,9 @@ import OrderConfirmation from './components/OrderConfirmation';
 import AdminDashboard from './components/AdminDashboard';
 import AdminSignIn from './components/AdminSignIn';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 
-type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin' | 'privacy-policy';
+type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin' | 'privacy-policy' | 'terms-of-service';
 
 interface OrderDetails {
   seatNumber: number | null;
@@ -66,6 +67,11 @@ function App() {
   const handleGoToPrivacyPolicy = () => {
     setCurrentState('privacy-policy');
   };
+
+  const handleGoToTermsOfService = () => {
+    setCurrentState('terms-of-service');
+  };
+
   const handleAdminSignIn = () => {
     setCurrentState('admin');
   };
@@ -117,6 +123,7 @@ function App() {
             onStartOrdering={handleStartOrdering} 
             onGoToAdmin={handleGoToAdmin}
             onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
+            onGoToTermsOfService={handleGoToTermsOfService}
           />
         )}
         
@@ -153,12 +160,17 @@ function App() {
           <PrivacyPolicy onBack={handleBackToHome} />
         )}
 
+        {currentState === 'terms-of-service' && (
+          <TermsOfService onBack={handleBackToHome} />
+        )}
         <Cart onCheckout={handleCheckout} />
         
         <PaymentModal
           isOpen={showPaymentModal}
           onClose={() => setShowPaymentModal(false)}
           onPaymentSuccess={handlePaymentSuccess}
+          onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
+          onGoToTermsOfService={handleGoToTermsOfService}
         />
       </div>
     </CartProvider>

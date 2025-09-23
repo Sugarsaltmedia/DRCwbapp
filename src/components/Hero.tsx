@@ -6,9 +6,10 @@ interface HeroProps {
   onStartOrdering: () => void;
   onGoToAdmin: () => void;
   onGoToPrivacyPolicy: () => void;
+  onGoToTermsOfService: () => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy }) => {
+const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy, onGoToTermsOfService }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden">
       {/* Subtle background elements */}
@@ -198,10 +199,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
               </button>
               <span>•</span>
               <button
-                onClick={() => {
-                  // TODO: Implement Terms of Service page
-                  alert('Terms of Service page coming soon!');
-                }}
+                onClick={onGoToTermsOfService}
                 className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
               >
                 Terms of Service
