@@ -9,8 +9,9 @@ import PaymentModal from './components/PaymentModal';
 import OrderConfirmation from './components/OrderConfirmation';
 import AdminDashboard from './components/AdminDashboard';
 import AdminSignIn from './components/AdminSignIn';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
-type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin';
+type AppState = 'hero' | 'menu' | 'confirmation' | 'admin-signin' | 'admin' | 'privacy-policy';
 
 interface OrderDetails {
   seatNumber: number | null;
@@ -62,6 +63,9 @@ function App() {
     }
   };
 
+  const handleGoToPrivacyPolicy = () => {
+    setCurrentState('privacy-policy');
+  };
   const handleAdminSignIn = () => {
     setCurrentState('admin');
   };
@@ -109,7 +113,11 @@ function App() {
     <CartProvider>
       <div className="min-h-screen">
         {currentState === 'hero' && (
-          <Hero onStartOrdering={handleStartOrdering} onGoToAdmin={handleGoToAdmin} />
+          <Hero 
+            onStartOrdering={handleStartOrdering} 
+            onGoToAdmin={handleGoToAdmin}
+            onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
+          />
         )}
         
         {currentState === 'menu' && (
@@ -140,6 +148,11 @@ function App() {
             onSignOut={handleAdminSignOut}
           />
         )}
+
+        {currentState === 'privacy-policy' && (
+          <PrivacyPolicy onBack={handleBackToHome} />
+        )}
+
         <Cart onCheckout={handleCheckout} />
         
         <PaymentModal

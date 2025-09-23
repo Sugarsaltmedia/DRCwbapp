@@ -5,9 +5,10 @@ import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star } from 'lucide-
 interface HeroProps {
   onStartOrdering: () => void;
   onGoToAdmin: () => void;
+  onGoToPrivacyPolicy: () => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin }) => {
+const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden">
       {/* Subtle background elements */}
@@ -162,6 +163,27 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin }) => {
               </div>
             </motion.div>
 
+          </div>
+        </div>
+      </div>
+
+      {/* Footer with Privacy Policy Link */}
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
+            <div className="flex items-center gap-4">
+              <span>© 2024 DRC Cinema Hall. All rights reserved.</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={onGoToPrivacyPolicy}
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
+              >
+                Privacy Policy
+              </button>
+              <span>•</span>
+              <span>Terms of Service</span>
+            </div>
           </div>
         </div>
       </div>

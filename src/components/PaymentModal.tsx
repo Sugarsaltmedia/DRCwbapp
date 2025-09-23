@@ -386,9 +386,19 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   )}
                 </motion.button>
 
-                <p className="text-xs text-neutral-500 text-center mt-4">
-                  Secure payment powered by Instamojo
+              <div className="text-xs text-neutral-500 text-center mt-4 space-y-1">
+                <p>Secure payment powered by Instamojo</p>
+                <p>
+                  By proceeding, you agree to our{' '}
+                  <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                    Privacy Policy
+                  </button>
+                  {' '}and{' '}
+                  <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                    Terms of Service
+                  </button>
                 </p>
+              </div>
               </div>
             </>
           )}
