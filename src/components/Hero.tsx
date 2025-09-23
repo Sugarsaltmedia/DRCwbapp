@@ -170,11 +170,26 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
       {/* Footer with Privacy Policy Link */}
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
-            <div className="flex items-center gap-4">
-              <span>© 2025 DRC Cinema Hall. All rights reserved.</span>
+          <div className="flex flex-col items-center justify-center gap-4 text-sm text-neutral-500">
+            {/* Contact Information */}
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center">
+              <span className="flex items-center gap-2">
+                📞 +91 98765-43210
+              </span>
+              <span className="hidden sm:inline">•</span>
+              <span className="flex items-center gap-2">
+                📧 info@drccinema.com
+              </span>
+              <span className="hidden sm:inline">•</span>
+              <span className="flex items-center gap-2">
+                📍 DRC Cinema Hall, Main Street
+              </span>
             </div>
-            <div className="flex items-center gap-4">
+            
+            {/* Copyright and Legal Links */}
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center">
+              <span>© 2025 DRC Cinema Hall. All rights reserved.</span>
+              <span className="hidden sm:inline">•</span>
               <button
                 onClick={onGoToPrivacyPolicy}
                 className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
