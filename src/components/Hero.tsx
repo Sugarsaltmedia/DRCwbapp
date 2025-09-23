@@ -172,7 +172,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
             <div className="flex items-center gap-4">
-              <span>© 2024 DRC Cinema Hall. All rights reserved.</span>
+              <span>© 2025 DRC Cinema Hall. All rights reserved.</span>
             </div>
             <div className="flex items-center gap-4">
               <button
@@ -182,7 +182,15 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
                 Privacy Policy
               </button>
               <span>•</span>
-              <span>Terms of Service</span>
+              <button
+                onClick={() => {
+                  // TODO: Implement Terms of Service page
+                  alert('Terms of Service page coming soon!');
+                }}
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
+              >
+                Terms of Service
+              </button>
             </div>
           </div>
         </div>
