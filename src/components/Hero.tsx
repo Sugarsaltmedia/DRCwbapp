@@ -193,14 +193,14 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
               <span className="hidden sm:inline">•</span>
               <button
                 onClick={onGoToPrivacyPolicy}
-                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 p-1"
               >
                 Privacy Policy
               </button>
               <span>•</span>
               <button
                 onClick={onGoToTermsOfService}
-                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4"
+                className="hover:text-primary-400 transition-colors duration-300 underline underline-offset-4 cursor-pointer bg-transparent border-none text-neutral-500 p-1"
               >
                 Terms of Service
               </button>
