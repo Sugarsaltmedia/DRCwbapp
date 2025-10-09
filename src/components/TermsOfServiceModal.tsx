@@ -98,7 +98,6 @@ const TermsOfServiceModal: React.FC<TermsOfServiceModalProps> = ({ isOpen, onClo
                         </ul>
                         <p><strong>Refund Process:</strong> Contact us at info@drccinema.com with your order ID and payment details. Refunds will be processed to the original payment method after verification.</p>
                       </div>
-                      </p>
                     </div>
 
                     <p className="text-neutral-400 leading-relaxed text-sm">
