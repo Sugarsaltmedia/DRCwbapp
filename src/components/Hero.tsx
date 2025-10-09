@@ -174,6 +174,10 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
           <div className="flex flex-col items-center justify-center gap-4 text-sm text-neutral-500">
             {/* Contact Information */}
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center select-text">
+              <span className="flex items-center gap-2 font-medium text-neutral-400">
+                🏢 V H ENTERPRISES
+              </span>
+              <span className="hidden sm:inline">•</span>
               <span className="flex items-center gap-2">
                 📞 +91 98765-43210
               </span>

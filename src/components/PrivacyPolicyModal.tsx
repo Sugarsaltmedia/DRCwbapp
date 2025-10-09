@@ -77,12 +77,43 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">Information We Collect</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm mb-4">
-                      When you place an order or use our admin features, we may collect information such as your name, 
-                      email address, phone number, and order details. We also collect device and usage data, including your IP address, 
-                      browser type, and interactions with our website, to improve user experience and platform performance. 
-                      Payment information is handled securely through Instamojo, and we do not store your card or banking details.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We collect information to provide and improve our food ordering services. The types of information we collect include:
+                      </p>
+                      
+                      <div className="space-y-3">
+                        <div className="p-3 bg-accent-500/10 rounded-xl border border-accent-500/20">
+                          <h4 className="text-accent-300 font-medium text-sm mb-2">👤 Personal Information</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Full name and contact details (phone number, email)</li>
+                            <li>• Cinema seat information (screen, row, seat number)</li>
+                            <li>• Order history and preferences</li>
+                            <li>• Account credentials for admin users</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                          <h4 className="text-primary-300 font-medium text-sm mb-2">💳 Payment Information</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Payment transaction details (handled by Instamojo)</li>
+                            <li>• Order amounts and payment status</li>
+                            <li>• We do NOT store credit card or banking details</li>
+                            <li>• All payment data is encrypted and PCI compliant</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="p-3 bg-success-500/10 rounded-xl border border-success-500/20">
+                          <h4 className="text-success-300 font-medium text-sm mb-2">📊 Technical Information</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• IP address and browser information</li>
+                            <li>• Device type and operating system</li>
+                            <li>• Website usage patterns and interactions</li>
+                            <li>• Cookies for session management</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -95,10 +126,37 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">How We Use Your Information</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm">
-                      The information you provide is used to process your orders, send confirmation and updates, 
-                      enhance customer service, and maintain the security of the platform.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We use your information solely for legitimate business purposes to provide our services:
+                      </p>
+                      
+                      <div className="space-y-2">
+                        <div className="p-3 bg-success-500/10 rounded-xl border border-success-500/20">
+                          <h4 className="text-success-300 font-medium text-sm mb-2">🛒 Order Processing</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Process and fulfill your food orders</li>
+                            <li>• Deliver items to your cinema seat</li>
+                            <li>• Send order confirmations and status updates</li>
+                            <li>• Handle payment processing and receipts</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                          <h4 className="text-primary-300 font-medium text-sm mb-2">🔧 Service Improvement</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Analyze usage patterns to improve user experience</li>
+                            <li>• Maintain platform security and prevent fraud</li>
+                            <li>• Provide customer support and resolve issues</li>
+                            <li>• Optimize delivery times and service quality</li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We do not use your information for marketing purposes or share it with third parties for advertising.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,10 +169,33 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">Data Sharing & Third Parties</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm">
-                      We do not sell or share your personal data with third parties, except when necessary to complete 
-                      a transaction (e.g., with Instamojo or Firebase) or when required by law.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We maintain strict control over your personal data and only share it in specific circumstances:
+                      </p>
+                      
+                      <div className="space-y-3">
+                        <div className="p-3 bg-success-500/10 rounded-xl border border-success-500/20">
+                          <h4 className="text-success-300 font-medium text-sm mb-2">✅ Authorized Sharing</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• <strong>Instamojo:</strong> Payment processing (encrypted transaction data only)</li>
+                            <li>• <strong>Firebase:</strong> Secure data storage and authentication</li>
+                            <li>• <strong>Netlify:</strong> Website hosting and serverless functions</li>
+                            <li>• <strong>Legal Requirements:</strong> When required by Indian law or court orders</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
+                          <h4 className="text-red-300 font-medium text-sm mb-2">❌ We Never Share</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Personal data with advertisers or marketers</li>
+                            <li>• Contact information with third parties</li>
+                            <li>• Order history for commercial purposes</li>
+                            <li>• Any data for profit or revenue generation</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -127,10 +208,24 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">Cookies</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm">
-                      We use cookies to personalize your experience and understand usage trends. These cookies can be 
-                      controlled through your browser settings.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We use cookies to enhance your browsing experience and maintain platform functionality:
+                      </p>
+                      
+                      <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                        <h4 className="text-primary-300 font-medium text-sm mb-2">🍪 Cookie Types</h4>
+                        <ul className="text-neutral-400 text-xs space-y-1">
+                          <li>• <strong>Essential Cookies:</strong> Required for cart functionality and user sessions</li>
+                          <li>• <strong>Performance Cookies:</strong> Help us understand how you use our website</li>
+                          <li>• <strong>Authentication Cookies:</strong> Keep admin users logged in securely</li>
+                        </ul>
+                      </div>
+                      
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        You can control cookies through your browser settings, but disabling them may affect website functionality.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,10 +238,37 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">Data Security</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm">
-                      All your data is secured through industry-standard protocols including encryption, authentication 
-                      via Firebase, and secure database storage.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        We implement comprehensive security measures to protect your personal information:
+                      </p>
+                      
+                      <div className="space-y-3">
+                        <div className="p-3 bg-success-500/10 rounded-xl border border-success-500/20">
+                          <h4 className="text-success-300 font-medium text-sm mb-2">🔒 Technical Security</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• SSL/TLS encryption for all data transmission</li>
+                            <li>• Firebase Authentication with industry-standard protocols</li>
+                            <li>• Encrypted database storage with access controls</li>
+                            <li>• Regular security updates and monitoring</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                          <h4 className="text-primary-300 font-medium text-sm mb-2">🛡️ Access Controls</h4>
+                          <ul className="text-neutral-400 text-xs space-y-1">
+                            <li>• Admin access restricted to authorized personnel only</li>
+                            <li>• Multi-factor authentication for sensitive operations</li>
+                            <li>• Regular access reviews and permission audits</li>
+                            <li>• Secure API endpoints with rate limiting</li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        Despite our security measures, no system is 100% secure. We continuously monitor and improve our security practices.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -175,9 +297,26 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-100 mb-3">Your Rights</h3>
-                    <p className="text-neutral-400 leading-relaxed text-sm">
-                      You have the right to access your data, request correction or deletion, and withdraw consent at any time.
-                    </p>
+                    <div className="space-y-4">
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        Under Indian data protection laws, you have the following rights regarding your personal information:
+                      </p>
+                      
+                      <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                        <h4 className="text-primary-300 font-medium text-sm mb-2">⚖️ Your Data Rights</h4>
+                        <ul className="text-neutral-400 text-xs space-y-1">
+                          <li>• <strong>Access:</strong> Request a copy of your personal data we hold</li>
+                          <li>• <strong>Correction:</strong> Update or correct inaccurate information</li>
+                          <li>• <strong>Deletion:</strong> Request deletion of your personal data (subject to legal requirements)</li>
+                          <li>• <strong>Portability:</strong> Receive your data in a structured, machine-readable format</li>
+                          <li>• <strong>Withdrawal:</strong> Withdraw consent for data processing at any time</li>
+                        </ul>
+                      </div>
+                      
+                      <p className="text-neutral-400 leading-relaxed text-sm">
+                        To exercise these rights, contact us at info@drccinema.com with your request and proof of identity.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -209,12 +348,21 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
                     <p className="text-neutral-400 leading-relaxed text-sm mb-3">
                       If you have any questions about this policy or how your data is used, you may contact us at:
                     </p>
-                    <div className="p-3 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                    <div className="p-4 bg-primary-500/10 rounded-xl border border-primary-500/20 space-y-2">
+                      <div className="text-primary-300 font-bold text-sm">
+                        V H ENTERPRISES
+                      </div>
+                      <p className="text-primary-300 font-medium text-sm">
+                        📞 Phone: +91 98765-43210 (India)
+                      </p>
                       <p className="text-primary-300 font-medium text-sm">
                         📧 Email: info@drccinema.com
                       </p>
+                      <p className="text-primary-300 font-medium text-sm">
+                        📍 Address: DRC Cinema Hall, Main Street, India
+                      </p>
                       <p className="text-neutral-400 text-xs mt-1">
-                        We'll respond to your privacy inquiries within 48 hours.
+                        Data Protection Officer: Available via email | Response time: 24-48 hours
                       </p>
                     </div>
                   </div>
