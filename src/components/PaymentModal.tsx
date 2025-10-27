@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag } from 'lucide-react';
+import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag, AlertCircle } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { firestore } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+// Razorpay configuration
+const RAZORPAY_KEY_ID = 'rzp_live_RYS8jZKMNTvoe6';
+
+// Declare Razorpay interface for TypeScript
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -30,66 +40,80 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const { state } = useCart();
 
-  const handlePaymentWithInstamojo = async () => {
+  // Load Razorpay script
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePaymentWithRazorpay = async () => {
     if (!customerName.trim() || !customerPhone.trim()) {
       alert('Please fill in your name and phone number');
       return;
     }
 
-    console.log('🚀 Starting Instamojo payment process...');
+    console.log('🚀 Starting Razorpay payment process...');
     setIsProcessing(true);
     
-    let response;
-    let result;
-    
     try {
-      // Create payment request via Supabase Edge Function
-      const paymentData = {
-        amount: state.total,
-        buyer_name: customerName.trim(),
-        phone: customerPhone.trim(),
-        redirect_url: `${window.location.origin}/#/payment-success`
+      // Load Razorpay script
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        throw new Error('Failed to load Razorpay SDK');
+      }
+
+      // Save order to Firestore before payment
+      console.log('💾 Saving order to Firestore before payment...');
+      const orderId = await handleSubmitOrder();
+
+      // Configure Razorpay options
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: state.total * 100, // Amount in paise (multiply by 100)
+        currency: 'INR',
+        name: 'DRC Cinema Hall',
+        description: 'Food Order Payment',
+        order_id: orderId, // Use the Firestore document ID
+        handler: function (response: any) {
+          console.log('✅ Payment successful:', response);
+          // Payment successful
+          onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
+          setIsProcessing(false);
+        },
+        prefill: {
+          name: customerName.trim(),
+          contact: customerPhone.trim(),
+        },
+        notes: {
+          seat_number: seatNumber,
+          row_selection: rowSelection,
+          screen_number: screenNumber,
+          order_total: state.total
+        },
+        theme: {
+          color: '#0ea5e9'
+        },
+        modal: {
+          ondismiss: function() {
+            console.log('❌ Payment cancelled by user');
+            setIsProcessing(false);
+          }
+        }
       };
 
-      console.log('💳 Creating payment request:', paymentData);
-
-      response = await fetch('/.netlify/functions/create-payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData)
-      });
-
-      console.log('💳 Payment creation response:', result);
-
-      // Check if response is ok before parsing JSON
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ HTTP error response:', errorText);
-        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
-      }
-
-      // Parse JSON response
-      result = await response.json();
-      console.log('💳 Payment creation response:', result);
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || 'Failed to create payment request');
-      }
-
-      // Save order to Firestore before redirecting to payment
-      console.log('💾 Saving order to Firestore before payment...');
-      await handleSubmitOrder();
-
-      // Redirect to Instamojo payment page
-      console.log('🔄 Redirecting to Instamojo payment page...');
-      window.location.href = result.payment_url;
+      // Open Razorpay checkout
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
 
     } catch (error) {
-      console.error('❌ Payment creation error:', error);
+      console.error('❌ Payment setup error:', error);
       setIsProcessing(false);
-      alert(`Payment setup failed: ${error.message}. Please try again.`);
+      alert(`Payment setup failed: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }
   };
 
@@ -156,13 +180,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
       // Trigger success callback
       console.log('✅ Triggering success callback...');
-      onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
+      // Don't trigger success callback here for Razorpay - it's handled in the payment handler
       
       // Reset form
       setCustomerName('');
       setCustomerPhone('');
       setIsSubmitting(false);
       console.log('🔄 Form reset complete');
+      
+      // Return the document ID for Razorpay order reference
+      return docRef.id;
       
     } catch (error) {
       console.error('❌ Error saving order to Firestore:', error);
@@ -174,7 +201,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     }
   };
 
-  const handlePayment = handlePaymentWithInstamojo;
+  const handlePayment = handlePaymentWithRazorpay;
 
   if (!isOpen) return null;
 
@@ -354,10 +381,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 <div className="bento-card p-4 mb-6">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 bg-primary-500/20 rounded-lg flex items-center justify-center">
-                      <Shield className="text-primary-400" size={16} />
+                      <CreditCard className="text-primary-400" size={16} />
                     </div>
                     <div>
-                      <span className="text-neutral-100 font-medium text-sm">Powered by Instamojo</span>
+                      <span className="text-neutral-100 font-medium text-sm">Powered by Razorpay</span>
                       <p className="text-neutral-500 text-xs">256-bit SSL encrypted payment</p>
                     </div>
                   </div>
@@ -389,16 +416,20 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 </motion.button>
 
               <div className="text-xs text-neutral-500 text-center mt-4 space-y-1">
-                <p>Secure payment powered by Instamojo</p>
+                <p>Secure payment powered by Razorpay</p>
                 <p>
                   By proceeding, you agree to our{' '}
-                  <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                  <button 
                     onClick={onGoToPrivacyPolicy}
+                    className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
+                  >
                     Privacy Policy
                   </button>
                   {' '}and{' '}
-                  <button className="text-primary-400 hover:text-primary-300 underline underline-offset-2">
+                  <button 
                     onClick={onGoToTermsOfService}
+                    className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
+                  >
                     Terms of Service
                   </button>
                 </p>
