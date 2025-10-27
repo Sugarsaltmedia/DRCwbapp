@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag, AlertCircle } from 'lucide-react';
+import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { firestore } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-
-// Razorpay configuration
-const RAZORPAY_KEY_ID = 'rzp_live_RYS8jZKMNTvoe6';
 
 // Declare Razorpay interface for TypeScript
 declare global {
@@ -51,7 +48,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     });
   };
 
-  const handlePaymentWithRazorpay = async () => {
+  const handlePayment = async () => {
     if (!customerName.trim() || !customerPhone.trim()) {
       alert('Please fill in your name and phone number');
       return;
@@ -68,20 +65,24 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       }
 
       // Save order to Firestore before payment
-      console.log('💾 Saving order to Firestore before payment...');
-      const orderId = await handleSubmitOrder();
+      console.log('💾 Preparing order for payment...');
+      const orderReceipt = `order_${Date.now()}`;
 
       // Configure Razorpay options
       const options = {
-        key: RAZORPAY_KEY_ID,
+        key: 'rzp_live_RYS8jZKMNTvoe6', // Your live Razorpay key
         amount: state.total * 100, // Amount in paise (multiply by 100)
         currency: 'INR',
         name: 'DRC Cinema Hall',
         description: 'Food Order Payment',
-        order_id: orderId, // Use the Firestore document ID
+        receipt: orderReceipt,
         handler: function (response: any) {
           console.log('✅ Payment successful:', response);
-          // Payment successful
+          
+          // Save order to Firestore after successful payment
+          handleSubmitOrderAfterPayment(response);
+          
+          // Trigger success callback
           onPaymentSuccess(seatNumber, rowSelection, screenNumber, customerName.trim(), customerPhone.trim());
           setIsProcessing(false);
         },
@@ -96,7 +97,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
           order_total: state.total
         },
         theme: {
-          color: '#0ea5e9'
+          color: '#0ea5e9' // Primary blue color
         },
         modal: {
           ondismiss: function() {
@@ -117,7 +118,37 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     }
   };
 
-  const handleSubmitOrder = async () => {
+  const handleSubmitOrderAfterPayment = async (paymentResponse: any) => {
+    console.log('🚀 Saving order to Firestore after successful payment...');
+    
+    try {
+      // Create order object for Firestore
+      const orderData = {
+        items: state.items,
+        total: state.total,
+        seatNumber,
+        rowSelection,
+        screenNumber,
+        customerName: customerName.trim(),
+        customerPhone: customerPhone.trim(),
+        timestamp: serverTimestamp(),
+        status: 'ongoing',
+        paymentId: paymentResponse.razorpay_payment_id,
+        paymentSignature: paymentResponse.razorpay_signature,
+        orderReceipt: paymentResponse.razorpay_order_id || `order_${Date.now()}`
+      };
+
+      // Save to Firestore
+      const ordersCollection = collection(firestore, 'orders');
+      const docRef = await addDoc(ordersCollection, orderData);
+      console.log('🎉 Order saved to Firestore after payment:', docRef.id);
+      
+    } catch (error) {
+      console.error('❌ Error saving order after payment:', error);
+    }
+  };
+
+  const handleSubmitOrderDirect = async () => {
     console.log('🚀 Starting Firestore order submission...');
     console.log('📋 Order form data:', {
       customerName: customerName.trim(),
@@ -188,20 +219,15 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
       setIsSubmitting(false);
       console.log('🔄 Form reset complete');
       
-      // Return the document ID for Razorpay order reference
+      // Return the document ID
       return docRef.id;
       
     } catch (error) {
       console.error('❌ Error saving order to Firestore:', error);
-      console.error('❌ Error message:', error.message);
-      console.error('❌ Error code:', error.code);
-      console.error('❌ Full error object:', error);
       setIsSubmitting(false);
       alert(`Error saving order to database: ${error.message}. Please try again.`);
     }
   };
-
-  const handlePayment = handlePaymentWithRazorpay;
 
   if (!isOpen) return null;
 
