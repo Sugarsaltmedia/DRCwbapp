@@ -8,7 +8,7 @@ interface CartState {
 }
 
 type CartAction = 
-  | { type: 'ADD_ITEM'; payload: { item: MenuItem; quantity: number; selectedSize?: string } }
+  | { type: 'ADD_ITEM'; payload: { item: MenuItem; quantity: number; selectedSize?: string | null } }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
   | { type: 'CLEAR_CART' }
