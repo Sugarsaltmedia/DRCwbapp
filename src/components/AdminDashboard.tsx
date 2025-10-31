@@ -17,55 +17,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   const [orders, setOrders] = useState<Record<string, Order>>({});
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'ongoing' | 'completed'>('all');
-
-  // Mock data for testing
-  const mockOrders: Record<string, Order> = {
-    'mock-order-1': {
-      id: 'mock-order-1',
-      items: [
-        { id: 'popcorn-butter', name: 'Butter Popcorn', category: 'POPCORN TIME', price: 150, quantity: 2, selectedSize: 'Large' },
-        { id: 'coke-fanta-sprite', name: 'Coke', category: 'SODAS & SIPS', price: 120, quantity: 1, selectedSize: null }
-      ],
-      total: 420,
-      timestamp: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-      status: 'ongoing',
-      seatNumber: 15,
-      rowSelection: 'C',
-      screenNumber: 2,
-      customerName: 'John Doe',
-      customerPhone: '+91 9876543210'
-    },
-    'mock-order-2': {
-      id: 'mock-order-2',
-      items: [
-        { id: 'veg-burger', name: 'Veg Burger', category: 'ROLLS / SANDWICHES / BURGERS / PIZZA', price: 130, quantity: 1, selectedSize: null },
-        { id: 'cold-coffee', name: 'Cold Coffee', category: 'MILKSHAKES', price: 140, quantity: 1, selectedSize: null }
-      ],
-      total: 270,
-      timestamp: new Date(Date.now() - 45 * 60 * 1000), // 45 minutes ago
-      status: 'completed',
-      seatNumber: 8,
-      rowSelection: 'A',
-      screenNumber: 1,
-      customerName: 'Sarah Smith',
-      customerPhone: '+91 8765432109'
-    },
-    'mock-order-3': {
-      id: 'mock-order-3',
-      items: [
-        { id: 'nachos', name: 'Nachos W/Dip', category: 'CRUNCHY BITES', price: 150, quantity: 1, selectedSize: null },
-        { id: 'vanilla-shake', name: 'Vanilla Shake', category: 'MILKSHAKES', price: 140, quantity: 2, selectedSize: null }
-      ],
-      total: 430,
-      timestamp: new Date(Date.now() - 15 * 60 * 1000), // 15 minutes ago
-      status: 'ongoing',
-      seatNumber: 22,
-      rowSelection: 'D',
-      screenNumber: 3,
-      customerName: 'Mike Johnson',
-      customerPhone: '+91 7654321098'
-    }
-  };
+  const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
     console.log('🔧 Setting up Firestore listener for orders...');
@@ -80,37 +32,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       console.log('📊 Snapshot size:', snapshot.size);
       console.log('📊 Snapshot empty:', snapshot.empty);
       
-      if (!snapshot.empty) {
-        const firestoreOrders: Record<string, Order> = {};
+      const firestoreOrders: Record<string, Order> = {};
+      
+      snapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        console.log(`📄 Firestore Order ${doc.id}:`, data);
         
-        snapshot.docs.forEach((doc) => {
-          const data = doc.data();
-          console.log(`📄 Firestore Order ${doc.id}:`, data);
-          
-          // Convert Firestore timestamp to Date if it exists
-          const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
-          
-          firestoreOrders[doc.id] = {
-            id: doc.id,
-            ...data,
-            timestamp
-          } as Order;
-        });
+        // Convert Firestore timestamp to Date if it exists
+        const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
         
-        console.log('✅ Orders found in Firestore:', Object.keys(firestoreOrders).length);
-        console.log('📋 Firestore Order IDs:', Object.keys(firestoreOrders));
-        
-        // Merge Firestore data with mock data
-        const mergedOrders = { ...mockOrders, ...firestoreOrders };
-        console.log('🔄 Merging Firestore data with mock data...');
-        console.log('📊 Total orders after merge:', Object.keys(mergedOrders).length);
-        setOrders(mergedOrders);
-      } else {
-        console.log('⚠️ No orders found in Firestore');
-        console.log('🔄 Using mock data only');
-        // Use mock data if no Firestore data
-        setOrders(mockOrders);
-      }
+        firestoreOrders[doc.id] = {
+          id: doc.id,
+          ...data,
+          timestamp
+        } as Order;
+      });
+      
+      console.log('✅ Orders found in Firestore:', Object.keys(firestoreOrders).length);
+      console.log('📋 Firestore Order IDs:', Object.keys(firestoreOrders));
+      
+      setOrders(firestoreOrders);
       console.log('✅ Orders state updated');
       setLoading(false);
     }, (error) => {
@@ -119,9 +60,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       console.error('❌ Error message:', error.message);
       console.error('❌ Full error object:', error);
       
-      // Still show mock data on error
-      console.log('🔄 Falling back to mock data due to Firestore error');
-      setOrders(mockOrders);
+      // Show empty state on error
+      console.log('🔄 Setting empty orders due to Firestore error');
+      setOrders({});
       setLoading(false);
       alert(`Error connecting to Firestore: ${error.message}. Using demo data.`);
     });
@@ -131,29 +72,21 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   }, []);
 
   const handleStatusChange = async (orderId: string, newStatus: 'ongoing' | 'completed') => {
+    setUpdating(orderId);
     try {
       console.log('🔄 Updating order status in Firestore:', orderId, newStatus);
       
-      if (orderId.startsWith('mock-')) {
-        // Update mock order in local state
-        console.log('🔄 Updating mock order status locally:', orderId, newStatus);
-        const updatedOrders = { ...orders };
-        if (updatedOrders[orderId]) {
-          updatedOrders[orderId].status = newStatus;
-          setOrders(updatedOrders);
-        }
-        console.log('✅ Mock order status updated successfully');
-      } else {
-        // Update real order in Firestore
-        const orderDoc = doc(firestore, 'orders', orderId);
-        await updateDoc(orderDoc, {
-          status: newStatus
-        });
-        console.log('✅ Firestore order status updated successfully');
-      }
+      // Update order in Firestore
+      const orderDoc = doc(firestore, 'orders', orderId);
+      await updateDoc(orderDoc, {
+        status: newStatus
+      });
+      console.log('✅ Firestore order status updated successfully');
     } catch (error) {
       console.error('❌ Error updating order status in Firestore:', error);
       alert('Error updating order status. Please try again.');
+    } finally {
+      setUpdating(null);
     }
   };
 
@@ -163,17 +96,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     }
 
     try {
-      // If it's a mock order, just remove from local state
-      if (orderId.startsWith('mock-')) {
-        console.log('🗑️ Deleting mock order from local state:', orderId);
-        const updatedOrders = { ...orders };
-        delete updatedOrders[orderId];
-        setOrders(updatedOrders);
-        console.log('✅ Mock order deleted from local state');
-        return;
-      }
-
-      // For real orders, delete from Firestore
+      // Delete order from Firestore
       console.log('🗑️ Deleting order from Firestore:', orderId);
       const orderDoc = doc(firestore, 'orders', orderId);
       await deleteDoc(orderDoc);
@@ -434,18 +357,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(orderId, e.target.value as 'ongoing' | 'completed')}
+                        disabled={updating === orderId}
                         className="input-field w-full lg:w-40 text-xs sm:text-sm"
                       >
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
                       </select>
                       
+                      {updating === orderId && (
+                        <div className="flex items-center gap-2 text-xs text-primary-400">
+                          <div className="w-3 h-3 border border-primary-400 border-t-transparent rounded-full animate-spin"></div>
+                          <span>Updating...</span>
+                        </div>
+                      )}
+                      
                       {/* Delete Button */}
                       <motion.button
                         onClick={() => handleDeleteOrder(orderId)}
+                        disabled={updating === orderId}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full lg:w-40 px-3 sm:px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 rounded-lg sm:rounded-xl text-red-400 hover:text-red-300 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2"
+                        className="w-full lg:w-40 px-3 sm:px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 rounded-lg sm:rounded-xl text-red-400 hover:text-red-300 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Trash2 size={12} className="sm:w-3.5 sm:h-3.5" />
                         <span className="hidden sm:inline">Delete Order</span>

@@ -58,7 +58,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={selectedCategory ? () => setSelectedCategory(null) : onBack}
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                className="w-10 h-10 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600 flex-shrink-0"
               >
                 <ArrowLeft size={16} className="sm:w-5 sm:h-5" />
               </button>
@@ -78,7 +78,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             {/* Cart Button */}
             <button
               onClick={openCart}
-              className="relative btn-primary flex items-center gap-1 sm:gap-2 px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 text-xs sm:text-sm lg:text-base"
+              className="relative btn-primary flex items-center gap-1 sm:gap-2 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 text-xs sm:text-sm lg:text-base flex-shrink-0"
             >
               <ShoppingCart size={16} className="sm:w-5 sm:h-5" />
               <span className="hidden sm:inline">Cart</span>
@@ -86,7 +86,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-5 h-5 sm:w-6 sm:h-6 bg-accent-500 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-neutral-950"
+                  className="absolute -top-2 -right-2 w-5 h-5 sm:w-6 sm:h-6 bg-accent-500 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-neutral-950"
                 >
                   {state.items.reduce((sum, item) => sum + item.quantity, 0)}
                 </motion.div>
@@ -96,13 +96,13 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
 
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-neutral-500" size={16} className="sm:w-5 sm:h-5" />
+            <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-neutral-500" size={16} />
             <input
               type="text"
               placeholder="Search for food..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="input-field w-full pl-10 sm:pl-12 pr-3 sm:pr-4"
+              className="input-field w-full pl-10 sm:pl-12 pr-3 sm:pr-4 text-sm"
             />
           </div>
         </div>

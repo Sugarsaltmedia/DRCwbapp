@@ -248,7 +248,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
           initial={{ opacity: 0, scale: 0.9, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 50 }}
-          className="relative w-full max-w-md bg-neutral-950/95 backdrop-blur-xl rounded-3xl border border-neutral-800 overflow-hidden" // Added layout prop for smooth transitions
+          className="relative w-full max-w-md max-h-[95vh] bg-neutral-950/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-neutral-800 overflow-hidden flex flex-col m-2 sm:m-4"
         >
           {paymentComplete ? (
             // Success Screen
@@ -296,7 +296,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   </button>
                 </div>
               </div>
-
+            <div className="p-4 sm:p-6 border-t border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
               {/* Order Summary */}
               <div className="p-6 border-b border-neutral-800">
                 <h3 className="text-lg font-semibold text-neutral-100 mb-4">Order Summary</h3>
@@ -306,50 +306,50 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                     <div key={`${item.id}-${item.selectedSize}`} className="flex justify-between items-center text-sm">
                       <div className="flex-1">
                         <span className="text-neutral-300">
-                          {item.name} {item.selectedSize && `(${item.selectedSize})`}
+              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                         </span>
-                        <span className="text-neutral-500 ml-2">× {item.quantity}</span>
-                      </div>
+                  <span className="text-neutral-400 text-sm">Subtotal</span>
+                  <span className="text-neutral-100 font-medium text-sm">₹{state.total}</span>
                       <span className="text-neutral-100 font-medium">₹{item.price * item.quantity}</span>
                     </div>
-                  ))}
-                </div>
+                  <span className="text-neutral-400 text-sm">Service Fee</span>
+                  <span className="text-neutral-100 font-medium text-sm">₹0</span>
                 
-                <div className="border-t border-neutral-800 pt-4">
+                <div className="border-t border-neutral-800 pt-3 sm:pt-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-neutral-100">Total Amount</span>
-                    <span className="text-xl font-bold gradient-text">₹{state.total}</span>
+                    <span className="text-base sm:text-lg font-semibold text-neutral-100">Total</span>
+                    <span className="text-xl sm:text-2xl font-bold gradient-text">₹{state.total}</span>
                   </div>
                 </div>
               </div>
 
               {/* Payment Method */}
-              <div className="p-6 space-y-6">
+              <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 flex-1 overflow-y-auto">
                 {/* Customer Details */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-neutral-100 mb-4">Customer Details</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-neutral-100 mb-3 sm:mb-4">Customer Details</h3>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 ${
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-300">Full Name *</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Full Name *</label>
                       <input
                         type="text"
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="Enter your full name"
-                        className="w-full input-field"
+                        className="w-full input-field text-sm"
                         required
                       />
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-300">Phone Number *</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Phone Number *</label>
                       <input
                         type="tel"
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
                         placeholder="Enter your phone number"
-                        className="w-full input-field"
+                        className="w-full input-field text-sm"
                         required
                       />
                     </div>
@@ -357,16 +357,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 </div>
                 {/* Seat Selection */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-neutral-100 mb-4">Select Your Seat</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-neutral-100 mb-3 sm:mb-4">Select Your Seat</h3>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {/* Screen Selection */}
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-300">Screen</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Screen</label>
                       <select
                         value={screenNumber}
                         onChange={(e) => setScreenNumber(Number(e.target.value))}
-                        className="w-full input-field"
+                        className="w-full input-field text-xs sm:text-sm"
                       >
                         {[1, 2, 3, 4].map(screen => (
                           <option key={screen} value={screen}>Screen {screen}</option>
@@ -376,11 +376,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
                     {/* Row Selection */}
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-300">Row</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Row</label>
                       <select
                         value={rowSelection}
                         onChange={(e) => setRowSelection(e.target.value)}
-                        className="w-full input-field"
+                        className="w-full input-field text-xs sm:text-sm"
                       >
                         {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'].map(row => (
                           <option key={row} value={row}>Row {row}</option>
@@ -390,11 +390,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
                     {/* Seat Number */}
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-300">Seat</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Seat</label>
                       <select
                         value={seatNumber}
                         onChange={(e) => setSeatNumber(Number(e.target.value))}
-                        className="w-full input-field"
+                        className="w-full input-field text-xs sm:text-sm"
                       >
                         {Array.from({ length: 50 }, (_, i) => i + 1).map(seat => (
                           <option key={seat} value={seat}>Seat {seat}</option>
@@ -404,13 +404,13 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   </div>
                 </div>
 
-                <div className="bento-card p-4 mb-6">
+                <div className="bento-card p-3 sm:p-4 mb-4 sm:mb-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-primary-500/20 rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary-500/20 rounded-lg flex items-center justify-center">
                       <CreditCard className="text-primary-400" size={16} />
                     </div>
                     <div>
-                      <span className="text-neutral-100 font-medium text-sm">Powered by Razorpay</span>
+                      <span className="text-neutral-100 font-medium text-xs sm:text-sm">Powered by Razorpay</span>
                       <p className="text-neutral-500 text-xs">256-bit SSL encrypted payment</p>
                     </div>
                   </div>
@@ -419,13 +419,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                     <span>Your payment information is secure</span>
                   </div>
                 </div>
+              </div>
 
+              {/* Fixed Footer for Payment Button */}
+              <div className="p-4 sm:p-6 border-t border-neutral-800 bg-neutral-950/90 backdrop-blur-sm">
                 <motion.button
                   onClick={handlePayment}
                   disabled={isSubmitting}
                   whileHover={!isProcessing ? { scale: 1.02 } : {}}
                   whileTap={!isProcessing ? { scale: 0.98 } : {}}
-                  className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 ${
                     isProcessing
                       ? 'bg-neutral-700 cursor-not-allowed text-neutral-400'
                       : 'btn-primary'
@@ -433,7 +436,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 >
                   {isProcessing ? (
                     <div className="flex items-center justify-center gap-3">
-                      <div className="w-5 h-5 border-2 border-neutral-500 border-t-neutral-300 rounded-full animate-spin"></div>
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-neutral-500 border-t-neutral-300 rounded-full animate-spin"></div>
                       Setting up payment...
                     </div>
                   ) : (
@@ -441,7 +444,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   )}
                 </motion.button>
 
-              <div className="text-xs text-neutral-500 text-center mt-4 space-y-1">
+                <div className="text-xs text-neutral-500 text-center mt-3 sm:mt-4 space-y-1">
                 <p>Secure payment powered by Razorpay</p>
                 <p>
                   By proceeding, you agree to our{' '}
@@ -461,7 +464,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 </p>
               </div>
               </div>
-            </>
           )}
         </motion.div>
       </div>

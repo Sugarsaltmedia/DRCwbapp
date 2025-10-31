@@ -63,11 +63,11 @@
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white font-medium px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-primary-500/25 hover:scale-105 active:scale-95 text-xs sm:text-sm lg:text-base;
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white font-medium px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-primary-500/25 hover:scale-105 active:scale-95 text-xs sm:text-sm lg:text-base min-h-[44px] flex items-center justify-center;
   }
   
   .btn-secondary {
-    @apply font-medium px-2 sm:px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 border border-neutral-700 hover:border-neutral-600 text-xs sm:text-sm lg:text-base;
+    @apply font-medium px-2 sm:px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 border border-neutral-700 hover:border-neutral-600 text-xs sm:text-sm lg:text-base min-h-[44px] flex items-center justify-center;
     background-color: var(--bg-tertiary);
     color: var(--text-primary);
   }
@@ -82,7 +82,7 @@
   }
   
   .input-field {
-    @apply border border-neutral-800 rounded-xl px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 lg:py-3 placeholder-neutral-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all duration-300 text-xs sm:text-sm lg:text-base;
+    @apply border border-neutral-800 rounded-xl px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 lg:py-3 placeholder-neutral-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all duration-300 text-xs sm:text-sm lg:text-base min-h-[44px];
     background-color: var(--bg-secondary);
     color: var(--text-primary);
   }
