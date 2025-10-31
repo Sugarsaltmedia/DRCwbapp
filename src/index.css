@@ -41,16 +41,17 @@
 
 @layer components {
   .bento-card {
+    @apply backdrop-blur-sm border border-neutral-800/50 rounded-2xl p-6 transition-all duration-300;
     background-color: var(--bg-secondary);
-    @apply backdrop-blur-sm border border-neutral-800/50 dark:border-neutral-800/50 light:border-neutral-300/50 rounded-2xl p-6 transition-all duration-300;
   }
   
-  .light .bento-card {
-    @apply hover:border-neutral-400/50 hover:bg-neutral-100/70;
+  :root.light .bento-card {
+    @apply border-neutral-300/50 hover:border-neutral-400/50 hover:bg-neutral-100/70;
   }
   
-  .dark .bento-card {
-    @apply hover:border-neutral-700/50 hover:bg-neutral-900/70;
+  :root.dark .bento-card,
+  :root .bento-card {
+    @apply border-neutral-800/50 hover:border-neutral-700/50 hover:bg-neutral-900/70;
   }
   
   .glass-card {
@@ -66,23 +67,33 @@
   }
   
   .btn-secondary {
+    @apply font-medium px-2 sm:px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 border border-neutral-700 hover:border-neutral-600 text-xs sm:text-sm lg:text-base;
     background-color: var(--bg-tertiary);
     color: var(--text-primary);
-    @apply font-medium px-2 sm:px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 border border-neutral-700 dark:border-neutral-700 light:border-neutral-300 hover:border-neutral-600 dark:hover:border-neutral-600 light:hover:border-neutral-400 text-xs sm:text-sm lg:text-base;
   }
   
-  .light .btn-secondary {
-    @apply hover:bg-neutral-200;
+  :root.light .btn-secondary {
+    @apply border-neutral-300 hover:border-neutral-400 hover:bg-neutral-200;
   }
   
-  .dark .btn-secondary {
-    @apply hover:bg-neutral-700;
+  :root.dark .btn-secondary,
+  :root .btn-secondary {
+    @apply border-neutral-700 hover:border-neutral-600 hover:bg-neutral-700;
   }
   
   .input-field {
+    @apply border border-neutral-800 rounded-xl px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 lg:py-3 placeholder-neutral-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all duration-300 text-xs sm:text-sm lg:text-base;
     background-color: var(--bg-secondary);
     color: var(--text-primary);
-    @apply border border-neutral-800 dark:border-neutral-800 light:border-neutral-300 rounded-xl px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 lg:py-3 placeholder-neutral-500 dark:placeholder-neutral-500 light:placeholder-neutral-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all duration-300 text-xs sm:text-sm lg:text-base;
+  }
+  
+  :root.light .input-field {
+    @apply border-neutral-300 placeholder-neutral-400;
+  }
+  
+  :root.dark .input-field,
+  :root .input-field {
+    @apply border-neutral-800 placeholder-neutral-500;
   }
 }
 
