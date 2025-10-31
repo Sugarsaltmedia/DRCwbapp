@@ -49,15 +49,23 @@ A modern, production-ready food ordering platform for cinema halls built with Re
 ## Setup Instructions
 
 ### 1. Environment Variables
-Create a `.env` file in the root directory with the following variables:
+Create a `.env` file in the root directory with the following variables (copy from `.env.example`):
 
 ```env
-# Instamojo API Credentials (Test Environment)
-INSTAMOJO_API_KEY=your_instamojo_api_key
-INSTAMOJO_AUTH_TOKEN=your_instamojo_auth_token
-INSTAMOJO_SALT=your_instamojo_salt
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
-# Supabase Configuration (for webhook function)
+# Razorpay API Credentials
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+
+# Supabase Configuration (optional)
 SUPABASE_URL=your_supabase_url
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
@@ -66,19 +74,23 @@ SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 1. Connect your repository to Netlify
 2. Set the build command to `npm run build`
 3. Set the publish directory to `dist`
-4. Add all environment variables in Netlify's dashboard under Site settings > Environment variables
+4. **IMPORTANT**: Add all environment variables from your `.env` file to Netlify's dashboard under Site settings > Environment variables
+   - Go to Site Settings → Build & Deploy → Environment → Environment Variables
+   - Add each `VITE_FIREBASE_*` variable with the same name and value
+   - This prevents the "secrets scanner" error during deployment
 
-### 3. Instamojo Configuration
-1. Create an Instamojo account at [instamojo.com](https://instamojo.com)
+### 3. Razorpay Configuration
+1. Create a Razorpay account at [razorpay.com](https://razorpay.com)
 2. Get your API credentials from the developer section
-3. Configure the webhook URL in Instamojo dashboard to point to: `https://your-site.netlify.app/.netlify/functions/payment-webhook`
+3. Update the environment variables with your live/test keys
 
 ### 4. Firebase Setup
 1. Create a Firebase project at [firebase.google.com](https://firebase.google.com)
 2. Enable Firestore database with the following collections:
    - `orders`: For storing customer orders
 3. Enable Authentication with Email/Password provider
-4. Update the Firebase configuration in `src/firebase/config.ts`
+4. Get your Firebase configuration from Project Settings → General → Your apps
+5. Update the environment variables with your Firebase credentials
 5. Set up Firestore security rules for admin access
 
 ## Development
