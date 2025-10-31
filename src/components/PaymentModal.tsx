@@ -296,7 +296,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                   </button>
                 </div>
               </div>
-            <div className="p-4 sm:p-6 border-t border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
+
               {/* Order Summary */}
               <div className="p-6 border-b border-neutral-800">
                 <h3 className="text-lg font-semibold text-neutral-100 mb-4">Order Summary</h3>
@@ -306,14 +306,24 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                     <div key={`${item.id}-${item.selectedSize}`} className="flex justify-between items-center text-sm">
                       <div className="flex-1">
                         <span className="text-neutral-300">
-              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                          {item.name} {item.selectedSize && `(${item.selectedSize})`} × {item.quantity}
                         </span>
-                  <span className="text-neutral-400 text-sm">Subtotal</span>
-                  <span className="text-neutral-100 font-medium text-sm">₹{state.total}</span>
+                      </div>
                       <span className="text-neutral-100 font-medium">₹{item.price * item.quantity}</span>
                     </div>
-                  <span className="text-neutral-400 text-sm">Service Fee</span>
-                  <span className="text-neutral-100 font-medium text-sm">₹0</span>
+                  ))}
+                </div>
+
+                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                  <div className="flex justify-between items-center">
+                    <span className="text-neutral-400 text-sm">Subtotal</span>
+                    <span className="text-neutral-100 font-medium text-sm">₹{state.total}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-neutral-400 text-sm">Service Fee</span>
+                    <span className="text-neutral-100 font-medium text-sm">₹0</span>
+                  </div>
+                </div>
                 
                 <div className="border-t border-neutral-800 pt-3 sm:pt-4">
                   <div className="flex justify-between items-center">
@@ -329,7 +339,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 <div className="space-y-4">
                   <h3 className="text-base sm:text-lg font-semibold text-neutral-100 mb-3 sm:mb-4">Customer Details</h3>
                   
-                className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 ${
+                  <div className="space-y-4">
                     <div className="space-y-2">
                       <label className="text-xs sm:text-sm font-medium text-neutral-300">Full Name *</label>
                       <input
@@ -355,6 +365,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                     </div>
                   </div>
                 </div>
+
                 {/* Seat Selection */}
                 <div className="space-y-4">
                   <h3 className="text-base sm:text-lg font-semibold text-neutral-100 mb-3 sm:mb-4">Select Your Seat</h3>
@@ -445,25 +456,26 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                 </motion.button>
 
                 <div className="text-xs text-neutral-500 text-center mt-3 sm:mt-4 space-y-1">
-                <p>Secure payment powered by Razorpay</p>
-                <p>
-                  By proceeding, you agree to our{' '}
-                  <button 
-                    onClick={onGoToPrivacyPolicy}
-                    className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
-                  >
-                    Privacy Policy
-                  </button>
-                  {' '}and{' '}
-                  <button 
-                    onClick={onGoToTermsOfService}
-                    className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
-                  >
-                    Terms of Service
-                  </button>
-                </p>
+                  <p>Secure payment powered by Razorpay</p>
+                  <p>
+                    By proceeding, you agree to our{' '}
+                    <button 
+                      onClick={onGoToPrivacyPolicy}
+                      className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
+                    >
+                      Privacy Policy
+                    </button>
+                    {' '}and{' '}
+                    <button 
+                      onClick={onGoToTermsOfService}
+                      className="text-primary-400 hover:text-primary-300 underline underline-offset-2"
+                    >
+                      Terms of Service
+                    </button>
+                  </p>
+                </div>
               </div>
-              </div>
+            </>
           )}
         </motion.div>
       </div>
