@@ -137,7 +137,17 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             {/* Category Header */}
             <div className="text-center space-y-4 py-4 sm:py-6 lg:py-8">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-neutral-800 to-neutral-700 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto border border-neutral-700">
-                {selectedCategoryData?.imageUrl && <img src={selectedCategoryData.imageUrl} alt={selectedCategoryData.name} className="w-full h-full object-cover rounded-3xl" />}
+                {selectedCategoryData?.imageUrl && (
+                  <img 
+                    src={selectedCategoryData.imageUrl} 
+                    alt={selectedCategoryData.name} 
+                    className="w-full h-full object-cover rounded-3xl"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                )}
               </div> 
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">{selectedCategoryData?.name}</h2>
               <p className="text-neutral-400 text-sm sm:text-base">

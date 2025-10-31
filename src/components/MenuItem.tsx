@@ -40,11 +40,29 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
         {/* Item Image/Icon */}
         <div className="flex-shrink-0">
           <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-2xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg border border-neutral-700">
-            {item.image && item.image.startsWith('http') ? (
-              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+            {item.image ? (
+              item.image.startsWith('http') ? (
+                <img 
+                  src={item.image} 
+                  alt={item.name} 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    target.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              ) : (
+                <span className="text-2xl sm:text-3xl">{item.image}</span>
+              )
             ) : (
-              <span className="text-2xl sm:text-3xl">{item.image}</span> // Fallback to emoji if not a URL
+              <div className="w-full h-full bg-neutral-800 rounded-2xl flex items-center justify-center">
+                <span className="text-neutral-500 text-xs">No Image</span>
+              </div>
             )}
+            <div className="hidden w-full h-full bg-neutral-800 rounded-2xl flex items-center justify-center">
+              <span className="text-neutral-500 text-xs">No Image</span>
+            </div>
           </div>
         </div>
         

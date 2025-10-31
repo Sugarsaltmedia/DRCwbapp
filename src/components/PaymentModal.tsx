@@ -37,6 +37,17 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const { state } = useCart();
 
+  // Validate phone number format
+  const validatePhoneNumber = (phone: string): boolean => {
+    const phoneRegex = /^[6-9]\d{9}$/; // Indian mobile number format
+    return phoneRegex.test(phone.replace(/\D/g, ''));
+  };
+
+  // Format phone number input
+  const formatPhoneNumber = (value: string): string => {
+    const numbers = value.replace(/\D/g, '');
+    return numbers.slice(0, 10);
+  };
   // Load Razorpay script
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -49,8 +60,21 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
   };
 
   const handlePayment = async () => {
-    if (!customerName.trim() || !customerPhone.trim()) {
-      alert('Please fill in your name and phone number');
+    const trimmedName = customerName.trim();
+    const trimmedPhone = customerPhone.trim();
+    
+    if (!trimmedName) {
+      alert('Please enter your full name');
+      return;
+    }
+    
+    if (!trimmedPhone) {
+      alert('Please enter your phone number');
+      return;
+    }
+    
+    if (!validatePhoneNumber(trimmedPhone)) {
+      alert('Please enter a valid 10-digit Indian mobile number');
       return;
     }
 
@@ -225,7 +249,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     } catch (error) {
       console.error('❌ Error saving order to Firestore:', error);
       setIsSubmitting(false);
-      alert(`Error saving order to database: ${error.message}. Please try again.`);
+      alert(`Error saving order to database: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }
   };
 
@@ -357,11 +381,15 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
                       <input
                         type="tel"
                         value={customerPhone}
-                        onChange={(e) => setCustomerPhone(e.target.value)}
+                        onChange={(e) => setCustomerPhone(formatPhoneNumber(e.target.value))}
                         placeholder="Enter your phone number"
                         className="w-full input-field text-sm"
+                        maxLength={10}
                         required
                       />
+                      {customerPhone && !validatePhoneNumber(customerPhone) && (
+                        <p className="text-red-400 text-xs">Please enter a valid 10-digit mobile number</p>
+                      )}
                     </div>
                   </div>
                 </div>

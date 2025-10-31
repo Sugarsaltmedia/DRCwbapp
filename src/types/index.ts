@@ -12,7 +12,7 @@ export interface MenuItem {
 
 export interface CartItem extends MenuItem {
   quantity: number;
-  selectedSize?: string | null;
+  selectedSize: string | null;
 }
 
 export interface Order {

@@ -84,7 +84,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       console.log('✅ Firestore order status updated successfully');
     } catch (error) {
       console.error('❌ Error updating order status in Firestore:', error);
-      alert('Error updating order status. Please try again.');
+      alert(`Error updating order status: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     } finally {
       setUpdating(null);
     }
@@ -103,7 +103,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       console.log('✅ Order deleted from Firestore successfully:', orderId);
     } catch (error) {
       console.error('❌ Error deleting order from Firestore:', error);
-      alert('Error deleting order from database. Please try again.');
+      alert(`Error deleting order from database: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }
   };
 

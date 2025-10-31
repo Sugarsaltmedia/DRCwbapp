@@ -9,7 +9,7 @@ interface CartState {
 
 type CartAction = 
   | { type: 'ADD_ITEM'; payload: { item: MenuItem; quantity: number; selectedSize?: string | null } }
-  | { type: 'REMOVE_ITEM'; payload: string }
+  | { type: 'REMOVE_ITEM'; payload: { id: string; selectedSize?: string | null } }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
   | { type: 'CLEAR_CART' }
   | { type: 'TOGGLE_CART' }
@@ -46,18 +46,31 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 
     case 'REMOVE_ITEM': {
-      const newItems = state.items.filter(item => item.id !== action.payload);
+      const { id, selectedSize } = action.payload;
+      const newItems = state.items.filter(item => 
+        !(item.id === id && item.selectedSize === selectedSize)
+      );
       const total = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       return { ...state, items: newItems, total };
     }
 
     case 'UPDATE_QUANTITY': {
       const { id, quantity } = action.payload;
-      const newItems = quantity === 0 
-        ? state.items.filter(item => item.id !== id)
-        : state.items.map(item => 
-            item.id === id ? { ...item, quantity } : item
-          );
+      if (quantity === 0) {
+        // Remove the first matching item when quantity becomes 0
+        const itemIndex = state.items.findIndex(item => item.id === id);
+        if (itemIndex > -1) {
+          const newItems = [...state.items];
+          newItems.splice(itemIndex, 1);
+          const total = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          return { ...state, items: newItems, total };
+        }
+        return state;
+      }
+      
+      const newItems = state.items.map(item => 
+        item.id === id ? { ...item, quantity } : item
+      );
       const total = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       return { ...state, items: newItems, total };
     }
@@ -88,7 +101,7 @@ const initialState: CartState = {
 interface CartContextType {
   state: CartState;
   addItem: (item: MenuItem, quantity: number, selectedSize?: string | null) => void;
-  removeItem: (id: string) => void;
+  removeItem: (id: string, selectedSize?: string | null) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   toggleCart: () => void;
@@ -105,8 +118,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'ADD_ITEM', payload: { item, quantity, selectedSize } });
   };
 
-  const removeItem = (id: string) => {
-    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  const removeItem = (id: string, selectedSize?: string | null) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: { id, selectedSize } });
   };
 
   const updateQuantity = (id: string, quantity: number) => {

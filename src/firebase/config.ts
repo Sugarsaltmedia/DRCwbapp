@@ -24,14 +24,18 @@ console.log('🔧 Firebase Config:', {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-console.log('✅ Firebase App initialized:', app.name);
+console.log('✅ Firebase App initialized');
 
-export const analytics = getAnalytics(app);
+// Only initialize analytics in production and when supported
+export const analytics = typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+  ? getAnalytics(app) 
+  : null;
+
 export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 
 // Test Firestore connection
 console.log('🔥 Firestore instance:', firestore);
-console.log('📊 Firestore app:', firestore.app.name);
+console.log('📊 Firestore app initialized');
 
 export default app;

@@ -123,7 +123,7 @@ const Cart: React.FC<CartProps> = ({ onCheckout }) => {
                             </span>
                             
                             <button
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeItem(item.id, item.selectedSize)}
                               className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-red-500/20 hover:bg-red-500/30 flex items-center justify-center text-red-400 hover:text-red-300 transition-all duration-300 border border-red-500/30"
                             >
                               <Trash2 size={10} className="sm:w-3 sm:h-3" />
