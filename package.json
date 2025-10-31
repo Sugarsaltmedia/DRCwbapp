@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
-    "caniuse-lite": "^1.0.30001752",
     "firebase": "^12.0.0",
     "framer-motion": "^12.23.11",
     "lucide-react": "^0.344.0",
