@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { CartProvider } from './contexts/CartContext';
 import Hero from './components/Hero';
 import Menu from './components/Menu';
@@ -118,66 +119,68 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <div className="min-h-screen">
-        {currentState === 'hero' && (
-          <Hero 
-            onStartOrdering={handleStartOrdering} 
-            onGoToAdmin={handleGoToAdmin}
+    <ThemeProvider>
+      <CartProvider>
+        <div className="min-h-screen">
+          {currentState === 'hero' && (
+            <Hero 
+              onStartOrdering={handleStartOrdering} 
+              onGoToAdmin={handleGoToAdmin}
+              onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
+              onGoToTermsOfService={handleGoToTermsOfService}
+            />
+          )}
+          
+          {currentState === 'menu' && (
+            <Menu onBack={handleBackToHome} />
+          )}
+          
+          {currentState === 'confirmation' && (
+            <OrderConfirmation 
+              onBackToHome={handleBackToHome}
+              seatNumber={orderDetails.seatNumber}
+              rowSelection={orderDetails.rowSelection}
+              screenNumber={orderDetails.screenNumber}
+              customerName={orderDetails.customerName}
+              customerPhone={orderDetails.customerPhone}
+            />
+          )}
+
+          {currentState === 'admin-signin' && (
+            <AdminSignIn 
+              onSignIn={handleAdminSignIn}
+              onBack={handleBackToHome}
+            />
+          )}
+
+          {currentState === 'admin' && (
+            <AdminDashboard 
+              onBackToHome={handleBackToHome}
+              onSignOut={handleAdminSignOut}
+            />
+          )}
+          <Cart onCheckout={handleCheckout} />
+          
+          <PaymentModal
+            isOpen={showPaymentModal}
+            onClose={() => setShowPaymentModal(false)}
+            onPaymentSuccess={handlePaymentSuccess}
             onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
             onGoToTermsOfService={handleGoToTermsOfService}
           />
-        )}
-        
-        {currentState === 'menu' && (
-          <Menu onBack={handleBackToHome} />
-        )}
-        
-        {currentState === 'confirmation' && (
-          <OrderConfirmation 
-            onBackToHome={handleBackToHome}
-            seatNumber={orderDetails.seatNumber}
-            rowSelection={orderDetails.rowSelection}
-            screenNumber={orderDetails.screenNumber}
-            customerName={orderDetails.customerName}
-            customerPhone={orderDetails.customerPhone}
+          
+          <PrivacyPolicyModal
+            isOpen={showPrivacyModal}
+            onClose={() => setShowPrivacyModal(false)}
           />
-        )}
-
-        {currentState === 'admin-signin' && (
-          <AdminSignIn 
-            onSignIn={handleAdminSignIn}
-            onBack={handleBackToHome}
+          
+          <TermsOfServiceModal
+            isOpen={showTermsModal}
+            onClose={() => setShowTermsModal(false)}
           />
-        )}
-
-        {currentState === 'admin' && (
-          <AdminDashboard 
-            onBackToHome={handleBackToHome}
-            onSignOut={handleAdminSignOut}
-          />
-        )}
-        <Cart onCheckout={handleCheckout} />
-        
-        <PaymentModal
-          isOpen={showPaymentModal}
-          onClose={() => setShowPaymentModal(false)}
-          onPaymentSuccess={handlePaymentSuccess}
-          onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
-          onGoToTermsOfService={handleGoToTermsOfService}
-        />
-        
-        <PrivacyPolicyModal
-          isOpen={showPrivacyModal}
-          onClose={() => setShowPrivacyModal(false)}
-        />
-        
-        <TermsOfServiceModal
-          isOpen={showTermsModal}
-          onClose={() => setShowTermsModal(false)}
-        />
-      </div>
-    </CartProvider>
+        </div>
+      </CartProvider>
+    </ThemeProvider>
   );
 }
 

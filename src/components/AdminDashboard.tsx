@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2 } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { firestore } from '../firebase/config';
@@ -130,19 +131,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   }, []);
 
   const handleStatusChange = async (orderId: string, newStatus: 'ongoing' | 'completed') => {
-    // Skip mock orders
-    if (orderId.startsWith('mock-')) {
-      console.log('⚠️ Cannot update mock order status:', orderId);
-      return;
-    }
-
     try {
       console.log('🔄 Updating order status in Firestore:', orderId, newStatus);
-      const orderDoc = doc(firestore, 'orders', orderId);
-      await updateDoc(orderDoc, {
-        status: newStatus
-      });
-      console.log('✅ Order status updated successfully');
+      
+      if (orderId.startsWith('mock-')) {
+        // Update mock order in local state
+        console.log('🔄 Updating mock order status locally:', orderId, newStatus);
+        const updatedOrders = { ...orders };
+        if (updatedOrders[orderId]) {
+          updatedOrders[orderId].status = newStatus;
+          setOrders(updatedOrders);
+        }
+        console.log('✅ Mock order status updated successfully');
+      } else {
+        // Update real order in Firestore
+        const orderDoc = doc(firestore, 'orders', orderId);
+        await updateDoc(orderDoc, {
+          status: newStatus
+        });
+        console.log('✅ Firestore order status updated successfully');
+      }
     } catch (error) {
       console.error('❌ Error updating order status in Firestore:', error);
       alert('Error updating order status. Please try again.');
@@ -205,88 +213,96 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       {/* Header */}
       <div className="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800/50">
         <div className="max-w-7xl mx-auto px-4 py-4">
+          {/* Theme Toggle - Fixed Position */}
+          <div className="fixed top-4 right-4 z-50">
+            <ThemeToggle />
+          </div>
+          
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={onSignOut}
-                className="w-10 h-10 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
               >
-                <LogOut size={20} />
+                <LogOut size={16} className="sm:w-5 sm:h-5" />
               </button>
               
               <div>
-                <h1 className="text-2xl font-bold text-neutral-100">Admin Dashboard</h1>
-                <p className="text-sm text-neutral-400">Manage all orders and track performance</p>
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-100">Admin Dashboard</h1>
+                <p className="text-xs sm:text-sm text-neutral-400 hidden sm:block">Manage all orders and track performance</p>
               </div>
             </div>
 
-            <button
-              onClick={onBackToHome}
-              className="btn-secondary flex items-center gap-2 px-4 py-2"
-            >
-              <ArrowLeft size={16} />
-              <span className="hidden sm:inline">Back to Home</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onBackToHome}
+                className="btn-secondary flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-xs sm:text-sm"
+              >
+                <ArrowLeft size={14} className="sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Home</span>
+              </button>
+            </div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bento-card p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
-                  <ShoppingBag className="text-primary-400" size={20} />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <div className="bento-card p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <ShoppingBag className="text-primary-400" size={16} />
                 </div>
                 <div>
-                  <p className="text-neutral-400 text-sm">Total Orders</p>
-                  <p className="text-2xl font-bold text-neutral-100">{stats.total}</p>
+                  <p className="text-neutral-400 text-xs sm:text-sm">Total Orders</p>
+                  <p className="text-lg sm:text-2xl font-bold text-neutral-100">{stats.total}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bento-card p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center">
-                  <Clock className="text-amber-400" size={20} />
+            <div className="bento-card p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <Clock className="text-amber-400" size={16} />
                 </div>
                 <div>
-                  <p className="text-neutral-400 text-sm">Ongoing</p>
-                  <p className="text-2xl font-bold text-neutral-100">{stats.ongoing}</p>
+                  <p className="text-neutral-400 text-xs sm:text-sm">Ongoing</p>
+                  <p className="text-lg sm:text-2xl font-bold text-neutral-100">{stats.ongoing}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bento-card p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-success-500/20 rounded-xl flex items-center justify-center">
-                  <CheckCircle className="text-success-400" size={20} />
+            <div className="bento-card p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-success-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <CheckCircle className="text-success-400" size={16} />
                 </div>
                 <div>
-                  <p className="text-neutral-400 text-sm">Completed</p>
-                  <p className="text-2xl font-bold text-neutral-100">{stats.completed}</p>
+                  <p className="text-neutral-400 text-xs sm:text-sm">Completed</p>
+                  <p className="text-lg sm:text-2xl font-bold text-neutral-100">{stats.completed}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bento-card p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-                  <Users className="text-accent-400" size={20} />
+            <div className="bento-card p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <Users className="text-accent-400" size={16} />
                 </div>
                 <div>
-                  <p className="text-neutral-400 text-sm">Revenue</p>
-                  <p className="text-2xl font-bold gradient-text">₹{stats.revenue}</p>
+                  <p className="text-neutral-400 text-xs sm:text-sm">Revenue</p>
+                  <p className="text-lg sm:text-2xl font-bold gradient-text">₹{stats.revenue}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex gap-2">
+          <div className="flex gap-1 sm:gap-2 overflow-x-auto pb-2">
             {(['all', 'ongoing', 'completed'] as const).map((status) => (
               <button
                 key={status}
                 onClick={() => setFilter(status)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 border ${
+                className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 border whitespace-nowrap ${
                   filter === status
                     ? 'bg-primary-500 text-white border-primary-500 shadow-lg shadow-primary-500/25'
                     : 'bg-neutral-800 text-neutral-300 border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600'
@@ -294,7 +310,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}
                 {status !== 'all' && (
-                  <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-xs">
+                  <span className="ml-1 sm:ml-2 px-1.5 sm:px-2 py-0.5 bg-white/20 rounded-full text-xs">
                     {status === 'ongoing' ? stats.ongoing : stats.completed}
                   </span>
                 )}
@@ -305,7 +321,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       </div>
 
       {/* Orders List */}
-      <div className="max-w-7xl mx-auto p-4">
+      <div className="max-w-7xl mx-auto p-2 sm:p-4">
         {filteredOrders.length === 0 ? (
           <div className="text-center py-16">
             <motion.div
@@ -321,24 +337,24 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {filteredOrders.map(([orderId, order]) => (
               <motion.div
                 key={orderId}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bento-card p-6"
+                className="bento-card p-3 sm:p-4 lg:p-6"
               >
-                <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
                   {/* Order Header */}
                   <div className="flex-1 space-y-4">
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                          <h3 className="text-lg font-semibold text-neutral-100">
+                          <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-neutral-100">
                             Order #{orderId.slice(-8)}
                           </h3>
-                          <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${
                             order.status === 'ongoing' 
                               ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                               : 'bg-success-500/20 text-success-300 border border-success-500/30'
@@ -347,30 +363,30 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-4 text-sm text-neutral-400">
+                        <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-neutral-400">
                           <div className="flex items-center gap-1">
-                            <Calendar size={14} />
+                            <Calendar size={12} className="sm:w-3.5 sm:h-3.5" />
                             <span>{new Date(order.timestamp).toLocaleString()}</span>
                           </div>
                         </div>
                       </div>
 
                       <div className="text-right">
-                        <div className="text-2xl font-bold gradient-text">₹{order.total}</div>
+                        <div className="text-lg sm:text-xl lg:text-2xl font-bold gradient-text">₹{order.total}</div>
                       </div>
                     </div>
 
                     {/* Customer & Seat Info */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div className="space-y-2">
-                        <h4 className="text-neutral-300 font-medium text-sm flex items-center gap-2">
-                          <User size={14} />
+                        <h4 className="text-neutral-300 font-medium text-xs sm:text-sm flex items-center gap-2">
+                          <User size={12} className="sm:w-3.5 sm:h-3.5" />
                           Customer Details
                         </h4>
-                        <div className="space-y-1 text-sm text-neutral-400">
+                        <div className="space-y-1 text-xs sm:text-sm text-neutral-400">
                           <div>Name: {order.customerName}</div>
                           <div className="flex items-center gap-1">
-                            <Phone size={12} />
+                            <Phone size={10} className="sm:w-3 sm:h-3" />
                             {order.customerPhone}
                           </div>
                         </div>
@@ -378,11 +394,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
                       {order.seatNumber && order.rowSelection && order.screenNumber && (
                         <div className="space-y-2">
-                          <h4 className="text-neutral-300 font-medium text-sm flex items-center gap-2">
-                            <MapPin size={14} />
+                          <h4 className="text-neutral-300 font-medium text-xs sm:text-sm flex items-center gap-2">
+                            <MapPin size={12} className="sm:w-3.5 sm:h-3.5" />
                             Seat Details
                           </h4>
-                          <div className="flex items-center gap-4 text-sm text-neutral-400">
+                          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-neutral-400">
                             <span>Screen {order.screenNumber}</span>
                             <span>•</span>
                             <span>Row {order.rowSelection}</span>
@@ -395,10 +411,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
                     {/* Order Items */}
                     <div className="space-y-2">
-                      <h4 className="text-neutral-300 font-medium text-sm">Order Items</h4>
+                      <h4 className="text-neutral-300 font-medium text-xs sm:text-sm">Order Items</h4>
                       <div className="space-y-1">
                         {order.items.map((item, index) => (
-                          <div key={index} className="flex justify-between items-center text-sm">
+                          <div key={index} className="flex justify-between items-center text-xs sm:text-sm">
                             <span className="text-neutral-400">
                               {item.name}
                               {item.selectedSize && ` (${item.selectedSize})`}
@@ -412,14 +428,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                   </div>
 
                   {/* Status Control */}
-                  <div className="flex flex-col justify-center">
+                  <div className="flex flex-col justify-center lg:min-w-[160px]">
                     <div className="space-y-3">
-                      <label className="text-sm font-medium text-neutral-300">Update Status</label>
+                      <label className="text-xs sm:text-sm font-medium text-neutral-300">Update Status</label>
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(orderId, e.target.value as 'ongoing' | 'completed')}
-                        className="input-field w-full lg:w-40"
-                        disabled={orderId.startsWith('mock-')}
+                        className="input-field w-full lg:w-40 text-xs sm:text-sm"
                       >
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
@@ -430,10 +445,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                         onClick={() => handleDeleteOrder(orderId)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full lg:w-40 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 rounded-xl text-red-400 hover:text-red-300 font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2"
+                        className="w-full lg:w-40 px-3 sm:px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 rounded-lg sm:rounded-xl text-red-400 hover:text-red-300 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2"
                       >
-                        <Trash2 size={14} />
-                        Delete Order
+                        <Trash2 size={12} className="sm:w-3.5 sm:h-3.5" />
+                        <span className="hidden sm:inline">Delete Order</span>
+                        <span className="sm:hidden">Delete</span>
                       </motion.button>
                     </div>
                   </div>

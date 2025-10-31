@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 interface HeroProps {
   onStartOrdering: () => void;
@@ -19,17 +20,22 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center px-4 max-w-7xl mx-auto py-12">
+        {/* Theme Toggle - Fixed Position */}
+        <div className="fixed top-4 right-4 z-50">
+          <ThemeToggle />
+        </div>
+        
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
           
           {/* Main Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-8 bento-card lg:p-12"
+            className="lg:col-span-8 bento-card p-6 sm:p-8 lg:p-12"
           >
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Brand Identity */}
               <div className="space-y-4">
                 <motion.div
@@ -42,13 +48,13 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
                   <span className="text-primary-300 font-medium text-sm">Premium Cafe Experience</span>
                 </motion.div>
                 
-                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-bold leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                   <span className="gradient-text">DRC</span>
                   {' '}
                   <span className="text-neutral-100">CAFE</span>
                 </h1>
                 
-                <p className="text-xl lg:text-2xl text-neutral-400 font-light max-w-2xl text-balance">
+                <p className="text-base sm:text-lg lg:text-xl text-neutral-400 font-light max-w-2xl text-balance">
                   Artisanal coffee, gourmet snacks, and premium dining experience crafted for the modern palate.
                 </p>
               </div>
@@ -74,7 +80,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
                 onClick={onStartOrdering}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group inline-flex items-center gap-3 btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center"
+                className="group inline-flex items-center gap-3 btn-primary text-sm sm:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center"
               >
                 <span>Start Ordering</span>
                 <ArrowRight 
@@ -88,7 +94,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
                 onClick={onGoToAdmin}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group inline-flex items-center gap-3 btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center sm:ml-4 mt-3 sm:mt-0"
+                className="group inline-flex items-center gap-3 btn-secondary text-sm sm:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-2xl w-full sm:w-auto justify-center sm:ml-4 mt-3 sm:mt-0"
               >
                 <span>Admin Dashboard</span>
               </motion.button>
@@ -96,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
           </motion.div>
 
           {/* Stats & Features Cards */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-4 sm:space-y-6">
             
             {/* Quality Assurance */}
             <motion.div
