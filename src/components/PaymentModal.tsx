@@ -94,7 +94,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
 
       // Configure Razorpay options
       const options = {
-        key: 'rzp_live_RYS8jZKMNTvoe6', // Your live Razorpay key
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_RYS8jZKMNTvoe6', // Use env variable or fallback
         amount: state.total * 100, // Amount in paise (multiply by 100)
         currency: 'INR',
         name: 'DRC Cinema Hall',
@@ -130,6 +130,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
           }
         }
       };
+
+      console.log('💳 Razorpay Config:', {
+        hasKey: !!options.key,
+        keySource: import.meta.env.VITE_RAZORPAY_KEY_ID ? 'environment' : 'fallback',
+        amount: options.amount
+      });
 
       // Open Razorpay checkout
       const razorpay = new window.Razorpay(options);
