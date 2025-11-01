@@ -312,6 +312,54 @@ npm run preview
 - ✅ **Payment Integration**: Live transactions supported
 - ✅ **Mobile Responsive**: Optimized for all devices
 
+### 🔧 **Netlify Deployment Fix**
+
+If you encounter "unrecognized Git contributor" error, choose one of these solutions:
+
+#### **Solution 1: Make Repository Public (Recommended)**
+1. Go to your GitHub repository
+2. Click **Settings** tab
+3. Scroll to **Danger Zone** at bottom
+4. Click **Change repository visibility**
+5. Select **Make public**
+6. Type repository name to confirm
+7. Click **I understand, change repository visibility**
+
+#### **Solution 2: Link Your Git Account**
+1. Go to [Netlify Team Settings](https://app.netlify.com/teams/YOUR_TEAM/members)
+2. Click **Git contributors**
+3. Click **Link Git account**
+4. Authorize your GitHub account
+5. Retry the deployment
+
+#### **Solution 3: Alternative Free Hosting**
+If Netlify continues to have issues, use these free alternatives:
+
+**Firebase Hosting (Recommended):**
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+# Select your existing project: drcmovies-1dc9c
+# Public directory: dist
+# Single-page app: Yes
+firebase deploy
+```
+
+**Vercel (Alternative):**
+```bash
+npm install -g vercel
+vercel login
+vercel --prod
+# Add environment variables in Vercel dashboard
+```
+
+**GitHub Pages (Alternative):**
+```bash
+npm install --save-dev gh-pages
+npm run build
+npx gh-pages -d dist
+```
 ### 📊 **Performance Metrics**
 - **Build Time**: ~2-3 minutes
 - **Bundle Size**: ~40KB CSS, ~500KB JS (gzipped)
