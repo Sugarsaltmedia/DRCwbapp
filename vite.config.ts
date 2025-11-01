@@ -10,6 +10,7 @@ export default defineConfig({
   build: {
     // Optimize build for smaller bundle size
     minify: 'esbuild',
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks: {
