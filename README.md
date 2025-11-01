@@ -103,6 +103,29 @@ RAZORPAY_KEY_SECRET=7X1gyVYuayETVi7MBS4xO92f
 
 ## Setup Instructions
 
+### Automated Environment Variables Setup
+
+#### Method 1: Using netlify.toml (Recommended)
+Environment variables are automatically configured in `netlify.toml`. Just push to your repository and Netlify will use them.
+
+#### Method 2: Using Netlify CLI
+```bash
+npm run deploy:netlify
+```
+
+#### Method 3: From .env file
+```bash
+npm run deploy:env
+```
+
+#### Method 4: Using Netlify API
+```bash
+# Set your credentials first
+export NETLIFY_SITE_ID="your-site-id"
+export NETLIFY_ACCESS_TOKEN="your-access-token"
+npm run setup:netlify-api
+```
+
 
 ```
 
