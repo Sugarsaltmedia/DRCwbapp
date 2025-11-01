@@ -10,7 +10,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 200,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-butter',
@@ -20,7 +20,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-cheese',
@@ -30,7 +30,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-tomato-chilli',
@@ -40,7 +40,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-barbeque',
@@ -50,7 +50,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-onion',
@@ -60,7 +60,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-peri-peri',
@@ -70,7 +70,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-mexican',
@@ -80,7 +80,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-schezwan',
@@ -90,7 +90,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-my-mix',
@@ -100,7 +100,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'popcorn-butter-mix',
@@ -110,7 +110,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 340,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
   },
 
   // SODAS & SIPS
@@ -120,7 +120,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 120,
     description: 'Served without ice',
-    image: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'lemon-ice-tea',
@@ -128,7 +128,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 100,
     description: 'Served without ice',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'paper-boat',
@@ -136,7 +136,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 50,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
   },
 
   // CRUNCHY BITES
@@ -146,28 +146,28 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CRUNCHY BITES',
     price: 150,
     maxPrice: 160,
-    image: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1582169296194-854173e19d17?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'pizza-cheese',
     name: 'Pizza Cheese W/Dip',
     category: 'CRUNCHY BITES',
     price: 120,
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'spring-rolls',
     name: 'Spring Rolls W/Dip',
     category: 'CRUNCHY BITES',
     price: 120,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-lollipop',
     name: 'Veg Lollipop W/Dip',
     category: 'CRUNCHY BITES',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
   },
 
   // COMBOS
@@ -176,14 +176,14 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Veg Burger + Chilli Fries + Coke',
     category: 'COMBOS',
     price: 220,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chicken-combo',
     name: 'Chicken Burger + Chilli Fries + Coke',
     category: 'COMBOS',
     price: 230,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop&crop=center'
   },
 
   // ROLLS / SANDWICHES / BURGERS / PIZZA
@@ -192,112 +192,112 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Veg Sandwich',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-burger',
     name: 'Veg Burger',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chicken-sandwich',
     name: 'Chicken Sandwich',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chicken-burger',
     name: 'Chicken Burger',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'paneer-tikka-pizza',
     name: 'Paneer Tikka Pizza',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chicken-tikka-pizza',
     name: 'Chicken Tikka Pizza',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 150,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'egg-roll',
     name: 'Egg Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chicken-roll',
     name: 'Chicken Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'paneer-roll',
     name: 'Paneer Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-puff',
     name: 'Veg Puff',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 40,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'egg-puff',
     name: 'Egg Puff',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-samosa',
     name: 'Veg Samosa',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-mug-noodles',
     name: 'Veg Mug Noodles',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'aloo-tikki',
     name: 'Aloo Tikki',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'veg-garlic-pop',
     name: 'Veg Garlic Pop',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chilli-fries',
     name: 'Chilli Fries W/Dip',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
   },
 
   // CHAATS
@@ -307,7 +307,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'masala-puri',
@@ -315,7 +315,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'dahi-puri',
@@ -323,7 +323,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'sev-puri',
@@ -331,7 +331,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'samosa-chat',
@@ -339,7 +339,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'papdi-chat',
@@ -347,7 +347,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'vada-pav',
@@ -355,7 +355,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'tikki-chat',
@@ -363,7 +363,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'dahi-tikki-chat',
@@ -371,7 +371,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'sukha-puri',
@@ -379,7 +379,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
   },
 
   // AMERICAN SWEET CORN
@@ -388,28 +388,28 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Classic Butter / BBQ',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'corn-lemon-chilli',
     name: 'Lemon Chilli / Peri Peri',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'corn-creamy-herbs',
     name: 'Creamy Herbs',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'corn-schezwan',
     name: 'Schezwan',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
   },
 
   // CANDY BARS
@@ -419,7 +419,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'galaxy',
@@ -427,7 +427,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'bounty',
@@ -435,7 +435,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'skittles',
@@ -443,7 +443,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'twix',
@@ -451,7 +451,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'mnms',
@@ -459,7 +459,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
   },
 
   // MILKSHAKES
@@ -469,7 +469,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'cold-chocolate',
@@ -477,7 +477,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'vanilla-shake',
@@ -485,7 +485,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'strawberry-shake',
@@ -493,7 +493,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1553787499-6d7ad2b3b2e5?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'pista-shake',
@@ -501,7 +501,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1553787499-6d7ad2b3b2e5?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'chickoo-shake',
@@ -509,7 +509,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'blackcurrant-shake',
@@ -517,7 +517,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'butterscotch-shake',
@@ -525,7 +525,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'mango-shake',
@@ -533,7 +533,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'cold-caramel',
@@ -541,7 +541,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'cold-mocha',
@@ -549,7 +549,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'my-flavour',
@@ -557,7 +557,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'oreo-shake',
@@ -565,7 +565,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'snickers-shake',
@@ -573,7 +573,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
   },
 
   // HOT STEAMERS
@@ -583,35 +583,35 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'HOT STEAMERS',
     price: 20,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'hot-coffee',
     name: 'Hot Coffee / Mocha',
     category: 'HOT STEAMERS',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'hot-chocolate',
     name: 'Hot Chocolate / Hot Caramello / Tea',
     category: 'HOT STEAMERS',
     price: 60,
-    image: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'green-tea',
     name: 'Green Tea / Lemon Tea',
     category: 'HOT STEAMERS',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'black-coffee-tea',
     name: 'Black Coffee / Tea',
     category: 'HOT STEAMERS',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center'
   },
 
   // DESSERTS
@@ -620,7 +620,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Pastry',
     category: 'DESSERTS',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'hot-brownie-fudge',
@@ -628,14 +628,14 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'DESSERTS',
     price: 90,
     maxPrice: 130,
-    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'ice-creams',
     name: 'Ice Creams (2 Scoops Flavored)',
     category: 'DESSERTS',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop&crop=center'
   },
   {
     id: 'london-dairy',
@@ -643,20 +643,20 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'DESSERTS',
     price: 80,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&crop=center'
   }
 ];
 
 export const categories = [ // Updated category images with unique, high-quality food category images
-  { id: 'POPCORN TIME', name: 'POPCORN TIME', imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-orange-500' },
-  { id: 'SODAS & SIPS', name: 'SODAS & SIPS', imageUrl: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop&crop=center', color: 'from-blue-400 to-cyan-500' },
-  { id: 'CRUNCHY BITES', name: 'CRUNCHY BITES', imageUrl: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=400&h=300&fit=crop&crop=center', color: 'from-red-400 to-pink-500' },
-  { id: 'COMBOS', name: 'COMBOS', imageUrl: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center', color: 'from-green-400 to-emerald-500' },
-  { id: 'ROLLS / SANDWICHES / BURGERS / PIZZA', name: 'MAINS', imageUrl: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center', color: 'from-purple-400 to-indigo-500' },
-  { id: 'CHAATS', name: 'CHAATS', imageUrl: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center', color: 'from-orange-400 to-red-500' },
-  { id: 'AMERICAN SWEET CORN', name: 'SWEET CORN', imageUrl: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-green-500' },
-  { id: 'CANDY BARS', name: 'CANDY BARS', imageUrl: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-purple-500' },
-  { id: 'MILKSHAKES', name: 'MILKSHAKES', imageUrl: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop&crop=center', color: 'from-cyan-400 to-blue-500' },
-  { id: 'HOT STEAMERS', name: 'HOT STEAMERS', imageUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center', color: 'from-amber-400 to-orange-500' },
-  { id: 'DESSERTS', name: 'DESSERTS', imageUrl: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-rose-500' }
+  { id: 'POPCORN TIME', name: 'POPCORN TIME', imageUrl: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-orange-500' },
+  { id: 'SODAS & SIPS', name: 'SODAS & SIPS', imageUrl: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop&crop=center', color: 'from-blue-400 to-cyan-500' },
+  { id: 'CRUNCHY BITES', name: 'CRUNCHY BITES', imageUrl: 'https://images.unsplash.com/photo-1582169296194-854173e19d17?w=400&h=300&fit=crop&crop=center', color: 'from-red-400 to-pink-500' },
+  { id: 'COMBOS', name: 'COMBOS', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center', color: 'from-green-400 to-emerald-500' },
+  { id: 'ROLLS / SANDWICHES / BURGERS / PIZZA', name: 'MAINS', imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center', color: 'from-purple-400 to-indigo-500' },
+  { id: 'CHAATS', name: 'CHAATS', imageUrl: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center', color: 'from-orange-400 to-red-500' },
+  { id: 'AMERICAN SWEET CORN', name: 'SWEET CORN', imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-green-500' },
+  { id: 'CANDY BARS', name: 'CANDY BARS', imageUrl: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-purple-500' },
+  { id: 'MILKSHAKES', name: 'MILKSHAKES', imageUrl: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center', color: 'from-cyan-400 to-blue-500' },
+  { id: 'HOT STEAMERS', name: 'HOT STEAMERS', imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop&crop=center', color: 'from-amber-400 to-orange-500' },
+  { id: 'DESSERTS', name: 'DESSERTS', imageUrl: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-rose-500' }
 ];
