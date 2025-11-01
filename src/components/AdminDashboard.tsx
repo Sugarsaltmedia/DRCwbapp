@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2 } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { firestore } from '../firebase/config';
@@ -136,11 +135,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       {/* Header */}
       <div className="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800/50">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* Theme Toggle - Fixed Position */}
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-          
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2 sm:gap-4">
               <button

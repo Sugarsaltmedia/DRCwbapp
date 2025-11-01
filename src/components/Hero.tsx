@@ -20,11 +20,6 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center px-4 max-w-7xl mx-auto py-12">
-        {/* Theme Toggle - Fixed Position */}
-        <div className="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
-        
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
           

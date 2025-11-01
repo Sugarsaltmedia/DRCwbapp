@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
-import { ThemeProvider } from './contexts/ThemeContext';
 import { CartProvider } from './contexts/CartContext';
 
 // Lazy load components for code splitting
@@ -121,77 +120,75 @@ function App() {
   };
 
   return (
-    <ThemeProvider>
-      <CartProvider>
-        <React.Suspense fallback={
-          <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-900 dark:to-gray-800">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-              <p className="text-gray-600 dark:text-gray-300">Loading...</p>
-            </div>
+    <CartProvider>
+      <React.Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+            <p className="text-neutral-300">Loading...</p>
           </div>
-        }>
-          <div className="min-h-screen">
-            {currentState === 'hero' && (
-              <Hero 
-                onStartOrdering={handleStartOrdering} 
-                onGoToAdmin={handleGoToAdmin}
-                onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
-                onGoToTermsOfService={handleGoToTermsOfService}
-              />
-            )}
-            
-            {currentState === 'menu' && (
-              <Menu onBack={handleBackToHome} />
-            )}
-            
-            {currentState === 'confirmation' && (
-              <OrderConfirmation 
-                onBackToHome={handleBackToHome}
-                seatNumber={orderDetails.seatNumber}
-                rowSelection={orderDetails.rowSelection}
-                screenNumber={orderDetails.screenNumber}
-                customerName={orderDetails.customerName}
-                customerPhone={orderDetails.customerPhone}
-              />
-            )}
-
-            {currentState === 'admin-signin' && (
-              <AdminSignIn 
-                onSignIn={handleAdminSignIn}
-                onBack={handleBackToHome}
-              />
-            )}
-
-            {currentState === 'admin' && (
-              <AdminDashboard 
-                onBackToHome={handleBackToHome}
-                onSignOut={handleAdminSignOut}
-              />
-            )}
-            <Cart onCheckout={handleCheckout} />
-            
-            <PaymentModal
-              isOpen={showPaymentModal}
-              onClose={() => setShowPaymentModal(false)}
-              onPaymentSuccess={handlePaymentSuccess}
+        </div>
+      }>
+        <div className="min-h-screen">
+          {currentState === 'hero' && (
+            <Hero 
+              onStartOrdering={handleStartOrdering} 
+              onGoToAdmin={handleGoToAdmin}
               onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
               onGoToTermsOfService={handleGoToTermsOfService}
             />
-            
-            <PrivacyPolicyModal
-              isOpen={showPrivacyModal}
-              onClose={() => setShowPrivacyModal(false)}
+          )}
+          
+          {currentState === 'menu' && (
+            <Menu onBack={handleBackToHome} />
+          )}
+          
+          {currentState === 'confirmation' && (
+            <OrderConfirmation 
+              onBackToHome={handleBackToHome}
+              seatNumber={orderDetails.seatNumber}
+              rowSelection={orderDetails.rowSelection}
+              screenNumber={orderDetails.screenNumber}
+              customerName={orderDetails.customerName}
+              customerPhone={orderDetails.customerPhone}
             />
-            
-            <TermsOfServiceModal
-              isOpen={showTermsModal}
-              onClose={() => setShowTermsModal(false)}
+          )}
+
+          {currentState === 'admin-signin' && (
+            <AdminSignIn 
+              onSignIn={handleAdminSignIn}
+              onBack={handleBackToHome}
             />
-          </div>
-        </React.Suspense>
-      </CartProvider>
-    </ThemeProvider>
+          )}
+
+          {currentState === 'admin' && (
+            <AdminDashboard 
+              onBackToHome={handleBackToHome}
+              onSignOut={handleAdminSignOut}
+            />
+          )}
+          <Cart onCheckout={handleCheckout} />
+          
+          <PaymentModal
+            isOpen={showPaymentModal}
+            onClose={() => setShowPaymentModal(false)}
+            onPaymentSuccess={handlePaymentSuccess}
+            onGoToPrivacyPolicy={handleGoToPrivacyPolicy}
+            onGoToTermsOfService={handleGoToTermsOfService}
+          />
+          
+          <PrivacyPolicyModal
+            isOpen={showPrivacyModal}
+            onClose={() => setShowPrivacyModal(false)}
+          />
+          
+          <TermsOfServiceModal
+            isOpen={showTermsModal}
+            onClose={() => setShowTermsModal(false)}
+          />
+        </div>
+      </React.Suspense>
+    </CartProvider>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShoppingCart, Search, Filter } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
 import { menuData, categories } from '../data/menu';
 import CategoryCard from './CategoryCard';
 import MenuItem from './MenuItem';
@@ -49,11 +48,6 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
       {/* Header */}
       <div className="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800/50">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* Theme Toggle - Fixed Position */}
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-          
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 sm:gap-4">
               <button
