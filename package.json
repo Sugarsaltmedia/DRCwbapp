@@ -11,7 +11,7 @@
     "deploy:netlify": "node scripts/deploy-netlify.js",
     "deploy:env": "node scripts/env-from-file.js",
     "setup:netlify-api": "node scripts/netlify-api-setup.js",
-    "quick-setup": "node scripts/quick-setup.js",
+    "quick-setup": "node scripts/quick-setup.cjs",
     "deploy:firebase": "node scripts/deploy-firebase.js",
     "deploy:vercel": "node scripts/deploy-vercel.js"
   },
