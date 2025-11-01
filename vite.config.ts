@@ -9,7 +9,7 @@ export default defineConfig({
   envPrefix: ['VITE_', 'RAZORPAY_'],
   build: {
     // Optimize build for smaller bundle size
-    minify: 'terser',
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
