@@ -7,6 +7,21 @@ export default defineConfig({
   // Ensure environment variables are loaded
   envDir: '.',
   envPrefix: ['VITE_', 'RAZORPAY_'],
+  build: {
+    // Optimize build for smaller bundle size
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          ui: ['framer-motion', 'lucide-react']
+        }
+      }
+    },
+    // Reduce chunk size warnings
+    chunkSizeWarningLimit: 1000
+  },
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
