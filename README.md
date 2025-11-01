@@ -103,22 +103,7 @@ RAZORPAY_KEY_SECRET=7X1gyVYuayETVi7MBS4xO92f
 
 ## Setup Instructions
 
-### 1. Environment Variables Setup
-Create a `.env` file in the root directory and copy these exact values:
 
-```env
-# Firebase Configuration (Production Ready)
-VITE_FIREBASE_API_KEY=AIzaSyCy9FAmlflCY2yue2ebK2H-7FsNqkgaeJA
-VITE_FIREBASE_AUTH_DOMAIN=drcmovies-1dc9c.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=drcmovies-1dc9c
-VITE_FIREBASE_STORAGE_BUCKET=drcmovies-1dc9c.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=64082360151
-VITE_FIREBASE_APP_ID=1:64082360151:web:ddf3b9107274aad5dff012
-VITE_FIREBASE_MEASUREMENT_ID=G-GV5DXMVE7L
-
-# Razorpay Payment Gateway (Live Credentials)
-RAZORPAY_KEY_ID=rzp_live_RYS8jZKMNTvoe6
-RAZORPAY_KEY_SECRET=7X1gyVYuayETVi7MBS4xO92f
 ```
 
 ### 2. Netlify Deployment Configuration
@@ -128,19 +113,7 @@ RAZORPAY_KEY_SECRET=7X1gyVYuayETVi7MBS4xO92f
    - Publish directory: `dist`
    - Node version: 18.x
 
-3. **Environment Variables** (CRITICAL):
-   Go to Site Settings → Build & Deploy → Environment Variables and add ALL these variables:
 
-   ```
-   VITE_FIREBASE_API_KEY = AIzaSyCy9FAmlflCY2yue2ebK2H-7FsNqkgaeJA
-   VITE_FIREBASE_AUTH_DOMAIN = drcmovies-1dc9c.firebaseapp.com
-   VITE_FIREBASE_PROJECT_ID = drcmovies-1dc9c
-   VITE_FIREBASE_STORAGE_BUCKET = drcmovies-1dc9c.firebasestorage.app
-   VITE_FIREBASE_MESSAGING_SENDER_ID = 64082360151
-   VITE_FIREBASE_APP_ID = 1:64082360151:web:ddf3b9107274aad5dff012
-   VITE_FIREBASE_MEASUREMENT_ID = G-GV5DXMVE7L
-   RAZORPAY_KEY_ID = rzp_live_RYS8jZKMNTvoe6
-   RAZORPAY_KEY_SECRET = 7X1gyVYuayETVi7MBS4xO92f
    ```
 
    **⚠️ Important**: Copy-paste these exact values to avoid typos!
