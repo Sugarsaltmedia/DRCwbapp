@@ -176,14 +176,14 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Veg Burger + Chilli Fries + Coke',
     category: 'COMBOS',
     price: 220,
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://www.shutterstock.com/image-photo/burger-fries-coke-on-wood-600nw-1798650394.jpg'
   },
   {
     id: 'chicken-combo',
     name: 'Chicken Burger + Chilli Fries + Coke',
     category: 'COMBOS',
     price: 230,
-    image: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop&crop=center'
+    image: 'https://content.jdmagicbox.com/v2/comp/mumbai/w8/022pxx22.xx22.240627200621.k8w8/catalogue/kha-burgers-fries-fried-chicken-mumbai-restaurants-xsbgkmh0kd-250.jpg'
   },
 
   // ROLLS / SANDWICHES / BURGERS / PIZZA
@@ -388,28 +388,28 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Classic Butter / BBQ',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSKhr2JmmBzrGKcmRwD1lDPnip3I1QLA1ui-zBLjG8q91opXg'
   },
   {
     id: 'corn-lemon-chilli',
     name: 'Lemon Chilli / Peri Peri',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcToeOn0JQvNOSvzt82PJpN4Kh8yXR6ZDmDxd9wv19k3hYgmmg'
   },
   {
     id: 'corn-creamy-herbs',
     name: 'Creamy Herbs',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJappoIAcSsdbPFeYr04XwBMkfLYaxi3_NUXWwevsx6LVLfw'
   },
   {
     id: 'corn-schezwan',
     name: 'Schezwan',
     category: 'AMERICAN SWEET CORN',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSdTonF_AIpoHkviB_WMO_falKP-oqO---BKE5nEKcdqQX2Aw'
   },
 
   // CANDY BARS
