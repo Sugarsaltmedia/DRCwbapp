@@ -13,11 +13,6 @@ export default defineConfig({
     reportCompressedSize: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
-          ui: ['framer-motion', 'lucide-react']
-        }
       }
     },
     // Reduce chunk size warnings
@@ -26,4 +21,14 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  // Add image optimization
+  assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.webp'],
+  server: {
+    // Enable HTTP/2 for faster loading
+    https: false,
+    // Add headers for better caching
+    headers: {
+      'Cache-Control': 'public, max-age=31536000',
+    }
+  }
 });
