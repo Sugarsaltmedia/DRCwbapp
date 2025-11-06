@@ -192,112 +192,112 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Veg Sandwich',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT4mFHPpiPfQKkWfxxEMqSOmUHovfVQBzW2SNB1r9I7VZldaw'
   },
   {
     id: 'veg-burger',
     name: 'Veg Burger',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS0_pvWA22DcqKv1ZRm0G2-sLe4izxdKTdy5dQleqoBb3BweQ'
   },
   {
     id: 'chicken-sandwich',
     name: 'Chicken Sandwich',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd5SPbjy6kpcsYtebb3bJjT-zJbwud1H4ZsJSSqUrgkvBTOQ'
   },
   {
     id: 'chicken-burger',
     name: 'Chicken Burger',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQSJmviaLrOj1fLn_av8d85nxcIL1wpgV96Z5C16lbyWvWN_g'
   },
   {
     id: 'paneer-tikka-pizza',
     name: 'Paneer Tikka Pizza',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSaqOSNUdOMF64e8nfq8SDJSfTGf2yNwYFd9FgJC1uuFrrn_Q'
   },
   {
     id: 'chicken-tikka-pizza',
     name: 'Chicken Tikka Pizza',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 150,
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTRojgtQ6EjRlHYMXN3VHa3I-AtOLYZcNhJqH8GwnFtDQt-sg'
   },
   {
     id: 'egg-roll',
     name: 'Egg Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSqCwy7XTEby6QloPJWfKWWKg3yvFqHVwa_gNo8Rr09Ivm2HQ'
   },
   {
     id: 'chicken-roll',
     name: 'Chicken Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo3EdiMD9BBfs1wQnuxweoB6iyKj9f6vdjo8grZkur_pJVKw'
   },
   {
     id: 'paneer-roll',
     name: 'Paneer Roll',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRshbwGGJT_n9dEFEnoIgowTUfwUioQ_mI3xvpUOGiygqlJcg'
   },
   {
     id: 'veg-puff',
     name: 'Veg Puff',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 40,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR0Xf_fwEVc01p6mz4P7-OH2tNPFuwbDLT1u6hH6HfpBSUeRg'
   },
   {
     id: 'egg-puff',
     name: 'Egg Puff',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR0Xf_fwEVc01p6mz4P7-OH2tNPFuwbDLT1u6hH6HfpBSUeRg'
   },
   {
     id: 'veg-samosa',
     name: 'Veg Samosa',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk44H7lfHaSJtsPSQnd7OgJN7QHpcFxDHD02sCcxFSgJiKaA'
   },
   {
     id: 'veg-mug-noodles',
     name: 'Veg Mug Noodles',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQc7-fvt7AdRKiKv6iUnpukY7GSIPVzZXz58JPlvRezyh2TGA'
   },
   {
     id: 'aloo-tikki',
     name: 'Aloo Tikki',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRCIe4uuTpRPCJW10hHn-reStcnPv9PFSTKTTHDsdZUz54TVw'
   },
   {
     id: 'veg-garlic-pop',
     name: 'Veg Garlic Pop',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRlDpr4sq__cZ1FJ5gchNDSnJEKp-e0xrNhDfOX_VaVl-KpIw'
   },
   {
     id: 'chilli-fries',
     name: 'Chilli Fries W/Dip',
     category: 'ROLLS / SANDWICHES / BURGERS / PIZZA',
     price: 140,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuUpbsuzNnci12WtsM99p1nxejAGKF8thiUHx3rP8rlNmQpw'
   },
 
   // CHAATS
@@ -307,7 +307,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTUs1cVl16JwICHVlffvlUmIzwN-xC_cAvPEVUr8khX4BwXTg'
   },
   {
     id: 'masala-puri',
@@ -315,7 +315,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFclMeD5JXuUNc_8AqRgBIR8ivGpH1zEgtZRcNZEEXvjurow'
   },
   {
     id: 'dahi-puri',
@@ -323,7 +323,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmyfx0wdCgvlrPvpaijTaRXeAHJKpD3bQTQ5RQU18bbaeFhQ'
   },
   {
     id: 'sev-puri',
@@ -331,7 +331,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRxaVu4ycQL9P_wd2C2ZoNLHxaCu2fPLysec4x_WPI3Chbzxg'
   },
   {
     id: 'samosa-chat',
@@ -339,7 +339,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJjPjwDdpSEBFRtvfsKp1LYeQIcdC2l7G8NC3jGLB7Wila1w'
   },
   {
     id: 'papdi-chat',
@@ -347,7 +347,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQBfI9yKWJP5M06DxsomxmmGa-B_TFjLmOQ8wGmQvnVJYoPTQ'
   },
   {
     id: 'vada-pav',
@@ -355,7 +355,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGeXg8uoRJSORhK32n84VdiK7htQ01JZmlFHd1-hGVZIrsNg'
   },
   {
     id: 'tikki-chat',
@@ -363,7 +363,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQSW98LGaY5NYN7h7k_pY27l8XatoEpHdPML9d95KcjPd-tFg'
   },
   {
     id: 'dahi-tikki-chat',
@@ -371,7 +371,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo87Hx0j_xKNZWdnUyA1x24sfd042_mMwdJoGfXw0x7ucyRA'
   },
   {
     id: 'sukha-puri',
@@ -379,7 +379,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CHAATS',
     price: 70,
     maxPrice: 100,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsJ00vaYqupIVm7nboud2hQJVX6f71YlgkPqg-Rs24qGDfYA'
   },
 
   // AMERICAN SWEET CORN
@@ -419,7 +419,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMR__wZih_Zas12CHlEcwFd6BD322Bg0n2Dg&s'
   },
   {
     id: 'galaxy',
@@ -427,7 +427,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfU3wvXG4GEjOW5tmPfh6UL8s7J-UR_WW5Sg&s'
   },
   {
     id: 'bounty',
@@ -435,7 +435,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
+    image: 'https://5.imimg.com/data5/RM/LR/GB/GLADMIN-6335932/bounty-chocolate-500x500.jpg'
   },
   {
     id: 'skittles',
@@ -443,7 +443,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://frugivore-bucket.s3.amazonaws.com/media/package/img_one/2021-01-22/Skittles_Original_Fruit_Flavoured_Candies_-_100_Gm.jpg'
   },
   {
     id: 'twix',
@@ -451,7 +451,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://www.twix.com/sites/g/files/fnmzdf236/files/migrate-product-files/yxivq2efs1ufsp7ncvvs.png'
   },
   {
     id: 'mnms',
@@ -459,7 +459,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CANDY BARS',
     price: 40,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd_B4a0rSveOyY94SzLl5Mp-VaU_PnYRT__g&s'
   },
 
   // MILKSHAKES
