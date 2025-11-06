@@ -10,7 +10,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 200,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fpopcorn%2F&psig=AOvVaw3jAJaPDyDpVPJDOy3Trqo3&ust=1762265116597000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOjvg6WT1pADFQAAAAAdAAAAABAE'
   },
   {
     id: 'popcorn-butter',
@@ -20,7 +20,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHJgmutk30wQOKBWibtTpymaf4n9pomrh-lQ&s'
   },
   {
     id: 'popcorn-cheese',
@@ -30,7 +30,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
+    image: 'https://www.foodlovinfamily.com/wp-content/uploads/2021/11/cheese-popcorn.jpg'
   },
   {
     id: 'popcorn-tomato-chilli',
@@ -40,7 +40,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPRAaLZt8NMEqsHy3LTdJj8e7NfMsR9Tnt3A&s'
   },
   {
     id: 'popcorn-barbeque',
@@ -50,7 +50,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSob99IFbhNfGQNEVHgRFGJvYr_cKCQ52kULg&s'
   },
   {
     id: 'popcorn-onion',
@@ -60,7 +60,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvVgXjljNYBKAlfg5C_9PB0p7rL3Ux9xZO-g&s'
   },
   {
     id: 'popcorn-peri-peri',
@@ -70,7 +70,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://5.imimg.com/data5/SELLER/Default/2024/2/387544598/VK/QF/DP/1942266/super-hot-piri-popcorn.jpg'
   },
   {
     id: 'popcorn-mexican',
@@ -80,7 +80,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_P1j472HFV_nkOT79xrFH990zIQfLpgFq_A&s'
   },
   {
     id: 'popcorn-schezwan',
@@ -90,7 +90,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 300,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&crop=center'
+    image: 'https://2.wlimg.com/product_images/bc-full/2022/4/6076016/schezwan-popcorn-1651303009-6316261.jpeg'
   },
   {
     id: 'popcorn-my-mix',
