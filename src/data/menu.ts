@@ -120,7 +120,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 120,
     description: 'Served without ice',
-    image: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTLLB18I9Ie_lbSd9X1o4sPYzbBMkl9D74UngKPIUZb4qd7aA'
   },
   {
     id: 'lemon-ice-tea',
@@ -128,7 +128,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 100,
     description: 'Served without ice',
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRAXwPoONZ4KE6Y4Y1HcKDElyHmp2Xvmx1EyXOQd0CfxdnIJA'
   },
   {
     id: 'paper-boat',
@@ -136,7 +136,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'SODAS & SIPS',
     price: 50,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQenS1kOkGomf_YIuyoDlR60ocAOpwan5xLw-CjyelcQsUZcQ'
   },
 
   // CRUNCHY BITES
@@ -146,28 +146,28 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'CRUNCHY BITES',
     price: 150,
     maxPrice: 160,
-    image: 'https://images.unsplash.com/photo-1582169296194-854173e19d17?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTHKegJDO2SunjPTcFYSCmf_olN2kNIWICg1EVe2zJpQ_P9WA'
   },
   {
     id: 'pizza-cheese',
     name: 'Pizza Cheese W/Dip',
     category: 'CRUNCHY BITES',
     price: 120,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ-dMJbMZshrdzeZcudSkBIfSFy6HkCkPkD3TmEoibq7oMxQQ'
   },
   {
     id: 'spring-rolls',
     name: 'Spring Rolls W/Dip',
     category: 'CRUNCHY BITES',
     price: 120,
-    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRQYwQwk3z4bFVkOdGuizG9cJMhyGsv6U6pJQqm_a9SNKgR2g'
   },
   {
     id: 'veg-lollipop',
     name: 'Veg Lollipop W/Dip',
     category: 'CRUNCHY BITES',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTrzJ046LWB_YLrKnO_CKjCHutwkXQR8T2yVwo5Wmbbzf8Plg'
   },
 
   // COMBOS
@@ -650,7 +650,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
 export const categories = [ // Updated category images with unique, high-quality food category images
   { id: 'POPCORN TIME', name: 'POPCORN TIME', imageUrl: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-orange-500' },
   { id: 'SODAS & SIPS', name: 'SODAS & SIPS', imageUrl: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop&crop=center', color: 'from-blue-400 to-cyan-500' },
-  { id: 'CRUNCHY BITES', name: 'CRUNCHY BITES', imageUrl: 'https://images.unsplash.com/photo-1582169296194-854173e19d17?w=400&h=300&fit=crop&crop=center', color: 'from-red-400 to-pink-500' },
+  { id: 'CRUNCHY BITES', name: 'CRUNCHY BITES', imageUrl: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGYDaMLqwfKcpvAXz-DMquJvzgvKMMH9FvTjU8mclQK28Oxw', color: 'from-red-400 to-pink-500' },
   { id: 'COMBOS', name: 'COMBOS', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center', color: 'from-green-400 to-emerald-500' },
   { id: 'ROLLS / SANDWICHES / BURGERS / PIZZA', name: 'MAINS', imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center', color: 'from-purple-400 to-indigo-500' },
   { id: 'CHAATS', name: 'CHAATS', imageUrl: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center', color: 'from-orange-400 to-red-500' },
