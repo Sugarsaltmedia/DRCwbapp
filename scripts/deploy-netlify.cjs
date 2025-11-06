@@ -8,22 +8,28 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
-// Environment variables to set
-const ENV_VARS = {
-  // Firebase Configuration
-  VITE_FIREBASE_API_KEY: "AIzaSyCy9FAmlflCY2yue2ebK2H-7FsNqkgaeJA",
-  VITE_FIREBASE_AUTH_DOMAIN: "drcmovies-1dc9c.firebaseapp.com",
-  VITE_FIREBASE_PROJECT_ID: "drcmovies-1dc9c",
-  VITE_FIREBASE_STORAGE_BUCKET: "drcmovies-1dc9c.firebasestorage.app",
-  VITE_FIREBASE_MESSAGING_SENDER_ID: "64082360151",
-  VITE_FIREBASE_APP_ID: "1:64082360151:web:ddf3b9107274aad5dff012",
-  VITE_FIREBASE_MEASUREMENT_ID: "G-GV5DXMVE7L",
-  
-  // Payment Configuration
-  VITE_RAZORPAY_KEY_ID: "rzp_live_RYS8jZKMNTvoe6",
-  VITE_RAZORPAY_KEY_SECRET: "7X1gyVYuayETVi7MBS4xO92f"
-};
+function getEnvVarsFromFile() {
+  const envPath = path.join(__dirname, '..', '.env');
+  const envVars = {};
+
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8');
+    const lines = envContent.split('\n');
+
+    lines.forEach(line => {
+      const match = line.match(/^([A-Z_]+)=(.*)$/);
+      if (match && match[1].startsWith('VITE_')) {
+        envVars[match[1]] = match[2];
+      }
+    });
+  }
+
+  return envVars;
+}
+
+const ENV_VARS = getEnvVarsFromFile();
 
 async function setNetlifyEnvVars() {
   console.log('🚀 Starting automated Netlify environment variables setup...');
