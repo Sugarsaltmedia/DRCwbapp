@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CreditCard, Shield, CheckCircle, Lock, ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { firestore } from '../firebase/config';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { supabase } from '../lib/supabase';
 
 // Declare Razorpay interface for TypeScript
 declare global {
@@ -149,37 +148,40 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
   };
 
   const handleSubmitOrderAfterPayment = async (paymentResponse: any) => {
-    console.log('🚀 Saving order to Firestore after successful payment...');
-    
+    console.log('🚀 Saving order to Supabase after successful payment...');
+
     try {
-      // Create order object for Firestore
       const orderData = {
         items: state.items,
         total: state.total,
-        seatNumber,
-        rowSelection,
-        screenNumber,
-        customerName: customerName.trim(),
-        customerPhone: customerPhone.trim(),
-        timestamp: serverTimestamp(),
+        seat_number: seatNumber,
+        row_selection: rowSelection,
+        screen_number: screenNumber,
+        customer_name: customerName.trim(),
+        customer_phone: customerPhone.trim(),
+        timestamp: new Date().toISOString(),
         status: 'ongoing',
-        paymentId: paymentResponse.razorpay_payment_id,
-        paymentSignature: paymentResponse.razorpay_signature,
-        orderReceipt: paymentResponse.razorpay_order_id || `order_${Date.now()}`
+        payment_id: paymentResponse.razorpay_payment_id,
+        payment_signature: paymentResponse.razorpay_signature,
+        order_receipt: paymentResponse.razorpay_order_id || `order_${Date.now()}`
       };
 
-      // Save to Firestore
-      const ordersCollection = collection(firestore, 'orders');
-      const docRef = await addDoc(ordersCollection, orderData);
-      console.log('🎉 Order saved to Firestore after payment:', docRef.id);
-      
+      const { data, error } = await supabase
+        .from('orders')
+        .insert([orderData])
+        .select();
+
+      if (error) throw error;
+
+      console.log('🎉 Order saved to Supabase after payment:', data?.[0]?.id);
+
     } catch (error) {
       console.error('❌ Error saving order after payment:', error);
     }
   };
 
   const handleSubmitOrderDirect = async () => {
-    console.log('🚀 Starting Firestore order submission...');
+    console.log('🚀 Starting Supabase order submission...');
     console.log('📋 Order form data:', {
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
@@ -191,36 +193,31 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
     console.log('💰 Order total:', state.total);
 
     setIsSubmitting(true);
-    
+
     try {
-      // Create order object for Firestore
       const orderData = {
         items: state.items,
         total: state.total,
-        seatNumber,
-        rowSelection,
-        screenNumber,
-        customerName: customerName.trim(),
-        customerPhone: customerPhone.trim(),
-        timestamp: serverTimestamp(), // Use Firestore server timestamp
+        seat_number: seatNumber,
+        row_selection: rowSelection,
+        screen_number: screenNumber,
+        customer_name: customerName.trim(),
+        customer_phone: customerPhone.trim(),
+        timestamp: new Date().toISOString(),
         status: 'ongoing'
       };
 
-      console.log('📦 Order data for Firestore:', {
-        ...orderData,
-        timestamp: 'serverTimestamp()' // Log placeholder since serverTimestamp() is a special object
-      });
-      
-      // Validate order data before saving
+      console.log('📦 Order data for Supabase:', orderData);
+
       const validation = {
         hasItems: orderData.items && orderData.items.length > 0,
         hasTotal: orderData.total > 0,
-        hasCustomerName: orderData.customerName && orderData.customerName.length > 0,
-        hasCustomerPhone: orderData.customerPhone && orderData.customerPhone.length > 0,
-        hasSeatInfo: orderData.seatNumber && orderData.rowSelection && orderData.screenNumber
+        hasCustomerName: orderData.customer_name && orderData.customer_name.length > 0,
+        hasCustomerPhone: orderData.customer_phone && orderData.customer_phone.length > 0,
+        hasSeatInfo: orderData.seat_number && orderData.row_selection && orderData.screen_number
       };
-      console.log('✅ Firestore order validation:', validation);
-      
+      console.log('✅ Supabase order validation:', validation);
+
       if (!validation.hasItems) {
         throw new Error('No items in cart');
       }
@@ -228,32 +225,27 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, onPaymentS
         throw new Error('Missing customer information');
       }
 
-      // Save to Firestore
-      console.log('💾 Attempting to save to Firestore...');
-      console.log('🔥 Firestore instance:', firestore);
-      const ordersCollection = collection(firestore, 'orders');
-      console.log('📁 Orders collection reference:', ordersCollection);
-      
-      const docRef = await addDoc(ordersCollection, orderData);
-      console.log('🎉 Order saved to Firestore successfully!');
-      console.log('🆔 Document ID:', docRef.id);
-      console.log('📍 Document path:', docRef.path);
+      console.log('💾 Attempting to save to Supabase...');
 
-      // Trigger success callback
-      console.log('✅ Triggering success callback...');
-      // Don't trigger success callback here for Razorpay - it's handled in the payment handler
-      
-      // Reset form
+      const { data, error } = await supabase
+        .from('orders')
+        .insert([orderData])
+        .select();
+
+      if (error) throw error;
+
+      console.log('🎉 Order saved to Supabase successfully!');
+      console.log('🆔 Document ID:', data?.[0]?.id);
+
       setCustomerName('');
       setCustomerPhone('');
       setIsSubmitting(false);
       console.log('🔄 Form reset complete');
-      
-      // Return the document ID
-      return docRef.id;
-      
+
+      return data?.[0]?.id;
+
     } catch (error) {
-      console.error('❌ Error saving order to Firestore:', error);
+      console.error('❌ Error saving order to Supabase:', error);
       setIsSubmitting(false);
       alert(`Error saving order to database: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }

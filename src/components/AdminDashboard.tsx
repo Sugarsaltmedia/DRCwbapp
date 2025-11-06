@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2 } from 'lucide-react';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/config';
-import { firestore } from '../firebase/config';
-import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
+import { supabase } from '../lib/supabase';
 import { Order } from '../types';
 
 interface AdminDashboardProps {
@@ -19,70 +16,118 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('🔧 Setting up Firestore listener for orders...');
-    console.log('🔥 Firestore instance:', firestore);
-    
-    const ordersCollection = collection(firestore, 'orders');
-    const ordersQuery = query(ordersCollection, orderBy('timestamp', 'desc'));
-    console.log('📁 Orders collection reference:', ordersCollection);
-    
-    const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
-      console.log('📨 Firestore listener triggered');
-      console.log('📊 Snapshot size:', snapshot.size);
-      console.log('📊 Snapshot empty:', snapshot.empty);
-      
-      const firestoreOrders: Record<string, Order> = {};
-      
-      snapshot.docs.forEach((doc) => {
-        const data = doc.data();
-        console.log(`📄 Firestore Order ${doc.id}:`, data);
-        
-        // Convert Firestore timestamp to Date if it exists
-        const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
-        
-        firestoreOrders[doc.id] = {
-          id: doc.id,
-          ...data,
-          timestamp
-        } as Order;
-      });
-      
-      console.log('✅ Orders found in Firestore:', Object.keys(firestoreOrders).length);
-      console.log('📋 Firestore Order IDs:', Object.keys(firestoreOrders));
-      
-      setOrders(firestoreOrders);
-      console.log('✅ Orders state updated');
-      setLoading(false);
-    }, (error) => {
-      console.error('❌ Firestore listener error:', error);
-      console.error('❌ Error code:', error.code);
-      console.error('❌ Error message:', error.message);
-      console.error('❌ Full error object:', error);
-      
-      // Show empty state on error
-      console.log('🔄 Setting empty orders due to Firestore error');
-      setOrders({});
-      setLoading(false);
-      alert(`Error connecting to Firestore: ${error.message}. Using demo data.`);
-    });
+    console.log('🔧 Setting up Supabase real-time subscription for orders...');
 
-    console.log('👂 Firestore listener attached');
-    return () => unsubscribe();
+    const fetchInitialOrders = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('orders')
+          .select('*')
+          .order('timestamp', { ascending: false });
+
+        if (error) throw error;
+
+        const ordersMap: Record<string, Order> = {};
+        data?.forEach((order: any) => {
+          ordersMap[order.id] = {
+            id: order.id,
+            items: order.items,
+            total: order.total,
+            seatNumber: order.seat_number,
+            rowSelection: order.row_selection,
+            screenNumber: order.screen_number,
+            customerName: order.customer_name,
+            customerPhone: order.customer_phone,
+            timestamp: new Date(order.timestamp),
+            status: order.status,
+            paymentId: order.payment_id,
+            paymentSignature: order.payment_signature,
+            orderReceipt: order.order_receipt
+          };
+        });
+
+        console.log('✅ Orders found in Supabase:', Object.keys(ordersMap).length);
+        setOrders(ordersMap);
+        setLoading(false);
+      } catch (error) {
+        console.error('❌ Error fetching orders:', error);
+        setOrders({});
+        setLoading(false);
+      }
+    };
+
+    fetchInitialOrders();
+
+    const channel = supabase
+      .channel('orders-channel')
+      .on('postgres_changes',
+        { event: '*', schema: 'public', table: 'orders' },
+        (payload) => {
+          console.log('📨 Supabase real-time event:', payload);
+
+          if (payload.eventType === 'INSERT') {
+            const newOrder = payload.new as any;
+            setOrders(prev => ({
+              ...prev,
+              [newOrder.id]: {
+                id: newOrder.id,
+                items: newOrder.items,
+                total: newOrder.total,
+                seatNumber: newOrder.seat_number,
+                rowSelection: newOrder.row_selection,
+                screenNumber: newOrder.screen_number,
+                customerName: newOrder.customer_name,
+                customerPhone: newOrder.customer_phone,
+                timestamp: new Date(newOrder.timestamp),
+                status: newOrder.status,
+                paymentId: newOrder.payment_id,
+                paymentSignature: newOrder.payment_signature,
+                orderReceipt: newOrder.order_receipt
+              }
+            }));
+          } else if (payload.eventType === 'UPDATE') {
+            const updatedOrder = payload.new as any;
+            setOrders(prev => ({
+              ...prev,
+              [updatedOrder.id]: {
+                ...prev[updatedOrder.id],
+                status: updatedOrder.status
+              }
+            }));
+          } else if (payload.eventType === 'DELETE') {
+            const deletedOrder = payload.old as any;
+            setOrders(prev => {
+              const newOrders = { ...prev };
+              delete newOrders[deletedOrder.id];
+              return newOrders;
+            });
+          }
+        }
+      )
+      .subscribe();
+
+    console.log('👂 Supabase real-time subscription active');
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const handleStatusChange = async (orderId: string, newStatus: 'ongoing' | 'completed') => {
     setUpdating(orderId);
     try {
-      console.log('🔄 Updating order status in Firestore:', orderId, newStatus);
-      
-      // Update order in Firestore
-      const orderDoc = doc(firestore, 'orders', orderId);
-      await updateDoc(orderDoc, {
-        status: newStatus
-      });
-      console.log('✅ Firestore order status updated successfully');
+      console.log('🔄 Updating order status in Supabase:', orderId, newStatus);
+
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) throw error;
+
+      console.log('✅ Supabase order status updated successfully');
     } catch (error) {
-      console.error('❌ Error updating order status in Firestore:', error);
+      console.error('❌ Error updating order status in Supabase:', error);
       alert(`Error updating order status: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     } finally {
       setUpdating(null);
@@ -95,13 +140,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     }
 
     try {
-      // Delete order from Firestore
-      console.log('🗑️ Deleting order from Firestore:', orderId);
-      const orderDoc = doc(firestore, 'orders', orderId);
-      await deleteDoc(orderDoc);
-      console.log('✅ Order deleted from Firestore successfully:', orderId);
+      console.log('🗑️ Deleting order from Supabase:', orderId);
+
+      const { error } = await supabase
+        .from('orders')
+        .delete()
+        .eq('id', orderId);
+
+      if (error) throw error;
+
+      console.log('✅ Order deleted from Supabase successfully:', orderId);
     } catch (error) {
-      console.error('❌ Error deleting order from Firestore:', error);
+      console.error('❌ Error deleting order from Supabase:', error);
       alert(`Error deleting order from database: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }
   };
@@ -123,8 +173,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
       <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-neutral-400">Connecting to Firestore...</p>
-          <p className="text-neutral-500 text-sm mt-2">If this takes too long, check Firestore configuration</p>
+          <p className="text-neutral-400">Loading orders...</p>
+          <p className="text-neutral-500 text-sm mt-2">Connecting to database</p>
         </div>
       </div>
     );

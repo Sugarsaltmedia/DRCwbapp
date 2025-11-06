@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from './firebase/config';
+import { supabase } from './lib/supabase';
 import { CartProvider } from './contexts/CartContext';
 
 // Lazy load components for code splitting
@@ -38,18 +37,26 @@ function App() {
     customerPhone: null
   });
 
-  // Listen for authentication state changes
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAdminAuthenticated(!!user);
-      if (user && currentState === 'admin-signin') {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAdminAuthenticated(!!session);
+      if (session && currentState === 'admin-signin') {
         setCurrentState('admin');
-      } else if (!user && currentState === 'admin') {
+      } else if (!session && currentState === 'admin') {
         setCurrentState('hero');
       }
     });
 
-    return () => unsubscribe();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdminAuthenticated(!!session);
+      if (session && currentState === 'admin-signin') {
+        setCurrentState('admin');
+      } else if (!session && currentState === 'admin') {
+        setCurrentState('hero');
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [currentState]);
 
   const handleStartOrdering = () => {
@@ -82,7 +89,7 @@ function App() {
 
   const handleAdminSignOut = async () => {
     try {
-      await signOut(auth);
+      await supabase.auth.signOut();
       setCurrentState('hero');
     } catch (error) {
       console.error('Sign out error:', error);
