@@ -469,7 +469,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29sZCUyMGNvZmZlZXxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000'
   },
   {
     id: 'cold-chocolate',
@@ -477,7 +477,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmg8kieYzUWCG03GsHwkkzcNKsAEg9FSXqpw&s'
   },
   {
     id: 'vanilla-shake',
@@ -485,7 +485,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIF0uBm3K6xjXW_ZDYuRV8MgcS4LsuLg51FA&s'
   },
   {
     id: 'strawberry-shake',
@@ -493,7 +493,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKF3DT9oloMgQjxSQkDkUh1MNXJGsotggTcA&s'
   },
   {
     id: 'pista-shake',
@@ -501,7 +501,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1553787499-6d7ad2b3b2e5?w=400&h=300&fit=crop&crop=center'
+    image: 'https://m.media-amazon.com/images/S/aplus-media-library-service-media/61185087-efbd-48e1-94e8-1d79fcc8bf9f.__CR63,0,535,535_PT0_SX300_V1___.jpg'
   },
   {
     id: 'chickoo-shake',
@@ -509,7 +509,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop&crop=center'
+    image: 'https://www.cadburydessertscorner.com/hs-fs/hubfs/dc-website-2022/articles/refreshing-chikoo-milkshake-for-a-tropical-twist/conclusion.webp?width=1015&height=767&name=conclusion.webp'
   },
   {
     id: 'blackcurrant-shake',
@@ -517,7 +517,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=400&h=300&fit=crop&crop=center'
+    image: 'https://img.thecdn.in/261217/SKU-1483_0-1744949108188.jpg?width=600&format=webp'
   },
   {
     id: 'butterscotch-shake',
@@ -525,7 +525,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1595475038665-8b8407f8c04f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZR9mC6REgb_sHJbCGZCC_lO79U3rIFvsziQ&sv'
   },
   {
     id: 'mango-shake',
@@ -533,7 +533,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 140,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwangb5vOu-1enlRT7HnjO1g-AbAPkTzHORA&s'
   },
   {
     id: 'cold-caramel',
@@ -541,7 +541,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1489900464632-40d4b8799d46?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5JJIhJBhfPqxEVEiywmzZDA-6LFXa_H3k3A&s'
   },
   {
     id: 'cold-mocha',
@@ -549,7 +549,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://bakingmischief.com/wp-content/uploads/2019/05/iced-mocha-image-square.jpg'
   },
   {
     id: 'my-flavour',
@@ -557,7 +557,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&h=300&fit=crop&crop=center'
+    image: 'https://i.ytimg.com/vi/-MTa9JY5WnA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBEbIylPxkGD3-Bo_ae_D2aAHDjFQ'
   },
   {
     id: 'oreo-shake',
@@ -565,7 +565,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgB6D17qtlr1DOisCc_8LJtmUIZt1xVhDZwg&s'
   },
   {
     id: 'snickers-shake',
@@ -573,7 +573,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'MILKSHAKES',
     price: 150,
     description: '350ml, served without ice/syrups',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://m.media-amazon.com/images/I/61C2vBqWzmL.jpg'
   },
 
   // HOT STEAMERS
