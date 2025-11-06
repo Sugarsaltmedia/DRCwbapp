@@ -648,15 +648,15 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
 ];
 
 export const categories = [ // Updated category images with unique, high-quality food category images
-  { id: 'POPCORN TIME', name: 'POPCORN TIME', imageUrl: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-orange-500' },
+  { id: 'POPCORN TIME', name: 'POPCORN TIME', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHJgmutk30wQOKBWibtTpymaf4n9pomrh-lQ&s', color: 'from-yellow-400 to-orange-500' },
   { id: 'SODAS & SIPS', name: 'SODAS & SIPS', imageUrl: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop&crop=center', color: 'from-blue-400 to-cyan-500' },
   { id: 'CRUNCHY BITES', name: 'CRUNCHY BITES', imageUrl: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGYDaMLqwfKcpvAXz-DMquJvzgvKMMH9FvTjU8mclQK28Oxw', color: 'from-red-400 to-pink-500' },
-  { id: 'COMBOS', name: 'COMBOS', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center', color: 'from-green-400 to-emerald-500' },
+  { id: 'COMBOS', name: 'COMBOS', imageUrl: 'https://content.jdmagicbox.com/v2/comp/mumbai/w8/022pxx22.xx22.240627200621.k8w8/catalogue/kha-burgers-fries-fried-chicken-mumbai-restaurants-xsbgkmh0kd-250.jpg', color: 'from-green-400 to-emerald-500' },
   { id: 'ROLLS / SANDWICHES / BURGERS / PIZZA', name: 'MAINS', imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center', color: 'from-purple-400 to-indigo-500' },
   { id: 'CHAATS', name: 'CHAATS', imageUrl: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&fit=crop&crop=center', color: 'from-orange-400 to-red-500' },
-  { id: 'AMERICAN SWEET CORN', name: 'SWEET CORN', imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center', color: 'from-yellow-400 to-green-500' },
-  { id: 'CANDY BARS', name: 'CANDY BARS', imageUrl: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-purple-500' },
-  { id: 'MILKSHAKES', name: 'MILKSHAKES', imageUrl: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center', color: 'from-cyan-400 to-blue-500' },
-  { id: 'HOT STEAMERS', name: 'HOT STEAMERS', imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop&crop=center', color: 'from-amber-400 to-orange-500' },
-  { id: 'DESSERTS', name: 'DESSERTS', imageUrl: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop&crop=center', color: 'from-pink-400 to-rose-500' }
+  { id: 'AMERICAN SWEET CORN', name: 'SWEET CORN', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_ss6kAfDQm-ubGLLJeRVevxYhPY0IGgm_tw&s', color: 'from-yellow-400 to-green-500' },
+  { id: 'CANDY BARS', name: 'CANDY BARS', imageUrl: 'https://reviewed-com-res.cloudinary.com/image/fetch/s--OlxG3Sek--/b_white,c_limit,cs_srgb,f_auto,fl_progressive.strip_profile,g_center,q_auto,w_1200/https://reviewed-production.s3.amazonaws.com/1540839062301/bars.png', color: 'from-pink-400 to-purple-500' },
+  { id: 'MILKSHAKES', name: 'MILKSHAKES', imageUrl: 'https://icebergdriveinn.com/cdn/shop/articles/Everything-You-Need-to-Know-About-Milkshakes.png?v=1648558641', color: 'from-cyan-400 to-blue-500' },
+  { id: 'HOT STEAMERS', name: 'HOT STEAMERS', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0GdThr9gp9xj6O9vH8e5fr2JUXA6RtUvXNg&s', color: 'from-amber-400 to-orange-500' },
+  { id: 'DESSERTS', name: 'DESSERTS', imageUrl: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQFxCoZD1p6zI1w1A1x4kbLjL08oFCdhVKvUubggxCyhAzZFQ', color: 'from-pink-400 to-rose-500' }
 ];
