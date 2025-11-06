@@ -7,9 +7,10 @@
   NPM_VERSION = "9"
   SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
 
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
+# No serverless functions - using Firebase only
+# [functions]
+#   directory = "netlify/functions"
+#   node_bundler = "esbuild"
   
 # Optimize for free tier
 [build.processing]

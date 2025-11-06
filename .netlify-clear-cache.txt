@@ -1,0 +1,15 @@
+IMPORTANT: Clear Netlify Build Cache Before Deploying!
+
+Your project previously used Supabase but now uses Firebase only.
+Netlify may have cached the old Supabase dependencies.
+
+To fix deployment issues:
+
+1. Go to Netlify Dashboard
+2. Site Settings → Build & Deploy → Build Settings
+3. Click "Clear cache and retry deploy"
+
+OR use CLI:
+   netlify build --clear-cache
+
+This ensures Netlify rebuilds everything from scratch without old Supabase packages.
