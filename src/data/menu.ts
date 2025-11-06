@@ -110,7 +110,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     maxPrice: 340,
     sizes: ['Small', 'Large'],
     hasVariants: true,
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXvtzh--aitD9MQXghx32hKqjTlPWbSm3J2g&s'
   },
 
   // SODAS & SIPS
