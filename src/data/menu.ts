@@ -583,35 +583,35 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'HOT STEAMERS',
     price: 20,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXx1r8apCNOzDHMqCgAoFjcG6KW9MlUfOJ2A&s'
   },
   {
     id: 'hot-coffee',
     name: 'Hot Coffee / Mocha',
     category: 'HOT STEAMERS',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCoJChyFJuXVFlwLUUk2DcLSGWWWmWoMkrSMH5tMNVFUIJyw'
   },
   {
     id: 'hot-chocolate',
     name: 'Hot Chocolate / Hot Caramello / Tea',
     category: 'HOT STEAMERS',
     price: 60,
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPS1N8b2s0Cv7F1p797ZQG5q0Oo3yhXffv9NEVd2MxAvPbyA'
   },
   {
     id: 'green-tea',
     name: 'Green Tea / Lemon Tea',
     category: 'HOT STEAMERS',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0GdThr9gp9xj6O9vH8e5fr2JUXA6RtUvXNg&s'
   },
   {
     id: 'black-coffee-tea',
     name: 'Black Coffee / Tea',
     category: 'HOT STEAMERS',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6AFDokY0G_VrjhG5C1aMlL2HFXyEJpupJdg&s'
   },
 
   // DESSERTS
@@ -620,7 +620,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     name: 'Pastry',
     category: 'DESSERTS',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQFxCoZD1p6zI1w1A1x4kbLjL08oFCdhVKvUubggxCyhAzZFQ'
   },
   {
     id: 'hot-brownie-fudge',
@@ -628,14 +628,14 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'DESSERTS',
     price: 90,
     maxPrice: 130,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQsLl-tKJQqyzpzCU9eLmGrhqWFfhRnP2HKT2XtElcK4EIKg'
   },
   {
     id: 'ice-creams',
     name: 'Ice Creams (2 Scoops Flavored)',
     category: 'DESSERTS',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop&crop=center'
+    image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRwhKV_gpl3uCMSTXTCPQrYiEY5wy88vJ-AQX-kqzDSRbJ8bg'
   },
   {
     id: 'london-dairy',
@@ -643,7 +643,7 @@ export const menuData: MenuItem[] = [ // Added example image URLs for some items
     category: 'DESSERTS',
     price: 80,
     description: 'MRP',
-    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&crop=center'
+    image: 'https://cdn.grofers.com/da/cms-assets/cms/product/3eabce04-05dd-40e1-b0f3-2c9f5b7b535a.jpg'
   }
 ];
 
