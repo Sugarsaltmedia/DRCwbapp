@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, Shield, ArrowLeft } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 interface AdminSignInProps {
   onSignIn: () => void;
@@ -21,22 +22,14 @@ const AdminSignIn: React.FC<AdminSignInProps> = ({ onSignIn, onBack }) => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
-
-      if (error) throw error;
-
-      if (data?.user) {
-        onSignIn();
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      onSignIn(); // Call success callback
     } catch (error: any) {
       console.error('Authentication error:', error);
-      setError(error.message || 'Invalid email or password');
-      setPassword('');
+      setError('Invalid email or password');
+      setPassword(''); // Clear password on error
     }
-
+    
     setIsLoading(false);
   };
 
