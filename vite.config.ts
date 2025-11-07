@@ -4,9 +4,13 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // ✅ Important: make paths work correctly after upload
+  base: './', // <-- ADD THIS LINE
+
   // Ensure environment variables are loaded
   envDir: '.',
   envPrefix: ['VITE_', 'RAZORPAY_'],
+
   build: {
     // Optimize build for smaller bundle size
     minify: 'esbuild',
@@ -23,15 +27,23 @@ export default defineConfig({
     // Reduce chunk size warnings
     chunkSizeWarningLimit: 1000
   },
+
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+
   // Add image optimization
-  assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.webp'],
+  assetsInclude: [
+    '**/*.jpg',
+    '**/*.jpeg',
+    '**/*.png',
+    '**/*.gif',
+    '**/*.svg',
+    '**/*.webp'
+  ],
+
   server: {
-    // Enable HTTP/2 for faster loading
     https: false,
-    // Add headers for better caching
     headers: {
       'Cache-Control': 'public, max-age=31536000',
     }
