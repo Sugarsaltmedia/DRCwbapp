@@ -1,16 +1,25 @@
 [build]
   publish = "dist"
   command = "npm run build"
-
+  
 [build.environment]
   NODE_VERSION = "18"
   NPM_VERSION = "9"
-  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+  # Firebase Configuration
+  VITE_FIREBASE_API_KEY = "AIzaSyCy9FAmlflCY2yue2ebK2H-7FsNqkgaeJA"
+  VITE_FIREBASE_AUTH_DOMAIN = "drcmovies-1dc9c.firebaseapp.com"
+  VITE_FIREBASE_PROJECT_ID = "drcmovies-1dc9c"
+  VITE_FIREBASE_STORAGE_BUCKET = "drcmovies-1dc9c.firebasestorage.app"
+  VITE_FIREBASE_MESSAGING_SENDER_ID = "64082360151"
+  VITE_FIREBASE_APP_ID = "1:64082360151:web:ddf3b9107274aad5dff012"
+  VITE_FIREBASE_MEASUREMENT_ID = "G-GV5DXMVE7L"
+  # Payment Configuration
+  VITE_RAZORPAY_KEY_ID = "rzp_live_RYS8jZKMNTvoe6"
+  VITE_RAZORPAY_KEY_SECRET = "7X1gyVYuayETVi7MBS4xO92f"
 
-# No serverless functions - using Firebase only
-# [functions]
-#   directory = "netlify/functions"
-#   node_bundler = "esbuild"
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
   
 # Optimize for free tier
 [build.processing]

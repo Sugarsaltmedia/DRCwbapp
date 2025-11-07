@@ -101,4 +101,33 @@
   .text-balance {
     text-wrap: balance;
   }
+  
+  /* Image loading optimization */
+  img {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Preload critical images */
+  .preload-image {
+    content: '';
+    position: absolute;
+    left: -9999px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjNDA0MDQwIi8+Cjwvc3ZnPgo=');
+  }
+  
+  /* Skeleton loading animation */
+  @keyframes skeleton-loading {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+  
+  .skeleton {
+    background: linear-gradient(90deg, #262626 25%, #404040 50%, #262626 75%);
+    background-size: 200px 100%;
+    animation: skeleton-loading 1.5s infinite;
+  }
 }

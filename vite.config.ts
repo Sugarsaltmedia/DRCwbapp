@@ -13,6 +13,11 @@ export default defineConfig({
     reportCompressedSize: false,
     rollupOptions: {
       output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          ui: ['framer-motion', 'lucide-react']
+        }
       }
     },
     // Reduce chunk size warnings
