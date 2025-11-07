@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import ImageWithFallback from './ImageWithFallback';
 
 interface CategoryCardProps {
   category: {
@@ -26,21 +27,14 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick, itemCoun
           
           {/* Icon Section */}
           <div className="flex items-center justify-between mb-4">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-lg">
-              <img 
-                src={category.imageUrl} 
-                alt={category.name} 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  target.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              <div className="hidden w-full h-full bg-neutral-800 rounded-2xl flex items-center justify-center">
-                <span className="text-neutral-500 text-xs">No Image</span>
-              </div>
-            </div>
+            <ImageWithFallback
+              src={category.imageUrl}
+              alt={category.name}
+              className="w-16 h-16 rounded-2xl object-cover flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-lg"
+              fallbackClassName="w-16 h-16"
+              loading="lazy"
+              priority={true}
+            />
             
             <motion.div
               className="w-8 h-8 bg-neutral-800 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 border border-neutral-700"
