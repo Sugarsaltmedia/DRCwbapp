@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, MessageCircle, Home, Clock, Star, TrendingUp, PartyPopper, X, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { CheckCircle, MessageCircle, Home, Clock, Star } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { firestore } from '../firebase/config';
-import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
 
 interface OrderConfirmationProps {
   onBackToHome: () => void;
@@ -24,11 +22,6 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
 }) => {
   const { state, clearCart } = useCart();
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number; type: string }>>([]);
-  const [todayRevenue, setTodayRevenue] = useState(0);
-  const [orderCount, setOrderCount] = useState(0);
-  const [showSuccessBoard, setShowSuccessBoard] = useState(true);
-  const [countdown, setCountdown] = useState(10); // 10 seconds countdown
-  const [autoNavigate, setAutoNavigate] = useState(true);
 
   useEffect(() => {
     console.log('🎉 OrderConfirmation component mounted');
@@ -55,140 +48,17 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
     }));
     setParticles(particleItems);
 
-    // Fetch today's revenue and order count
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const ordersQuery = query(
-      collection(firestore, 'orders'),
-      where('timestamp', '>=', today),
-      where('timestamp', '<', tomorrow)
-    );
-
-    const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
-      let revenue = 0;
-      let count = 0;
-      
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        revenue += data.total || 0;
-        count += 1;
-      });
-      
-      setTodayRevenue(revenue);
-      setOrderCount(count);
-    });
-
     // Clear cart after a delay
     setTimeout(() => {
       console.log('🧹 Clearing cart after 5 seconds...');
       clearCart();
       console.log('✅ Cart cleared');
     }, 5000);
+  }, [clearCart]);
 
-    return () => unsubscribe();
-  }, [clearCart, seatNumber, rowSelection, screenNumber, customerName, customerPhone, state]);
-
-  // Countdown timer for auto-navigation
-  useEffect(() => {
-    if (!showSuccessBoard || !autoNavigate) return;
-
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          onBackToHome();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [showSuccessBoard, autoNavigate, onBackToHome]);
-
-  // Format countdown for display
-  const formatCountdown = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Success Board Overlay */}
-      <AnimatePresence>
-        {showSuccessBoard && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-gradient-to-br from-green-600 to-green-700 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl relative"
-            >
-              <button
-                onClick={() => setShowSuccessBoard(false)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-              >
-                <X size={16} />
-              </button>
-              
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <PartyPopper className="text-white" size={40} />
-              </div>
-              
-              <h2 className="text-3xl font-bold text-white mb-2">Order Confirmed!</h2>
-              <p className="text-white/80 mb-6">Your order has been successfully placed and will be ready soon.</p>
-              
-              <div className="bg-white/10 rounded-xl p-4 mb-6">
-                <p className="text-white/90 text-sm mb-1">Order Total</p>
-                <p className="text-2xl font-bold text-white">₹{state.total}</p>
-              </div>
-              
-              {/* Countdown Timer */}
-              <div className="mb-6">
-                <div className="flex items-center justify-center gap-2 text-white/70 text-sm mb-2">
-                  <Clock size={16} />
-                  <span>Redirecting to home page in</span>
-                </div>
-                <div className="text-3xl font-bold text-white">
-                  {formatCountdown(countdown)}
-                </div>
-              </div>
-              
-              {/* Manual Navigation Option */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <motion.button
-                  onClick={() => setAutoNavigate(false)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex-1 bg-white/20 hover:bg-white/30 text-white font-medium py-3 px-4 rounded-xl transition-colors duration-300"
-                >
-                  Stay Here
-                </motion.button>
-                
-                <motion.button
-                  onClick={onBackToHome}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex-1 bg-white hover:bg-white/90 text-green-700 font-medium py-3 px-4 rounded-xl transition-colors duration-300 flex items-center justify-center gap-2"
-                >
-                  <span>Go to Home</span>
-                  <ArrowRight size={16} />
-                </motion.button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Subtle Particle Animation */}
       {particles.map((item) => (
         <motion.div
@@ -243,29 +113,6 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
         >
           Your delicious order is being prepared with care
         </motion.p>
-
-        {/* Today's Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="grid grid-cols-2 gap-4 mb-6"
-        >
-          <div className="bento-card p-4 bg-primary-500/10 border-primary-500/20">
-            <div className="flex items-center gap-2 mb-1">
-              <TrendingUp className="text-primary-400" size={16} />
-              <span className="text-xs text-neutral-400">Today's Revenue</span>
-            </div>
-            <p className="text-xl font-bold text-neutral-100">₹{todayRevenue}</p>
-          </div>
-          <div className="bento-card p-4 bg-accent-500/10 border-accent-500/20">
-            <div className="flex items-center gap-2 mb-1">
-              <Star className="text-accent-400" size={16} />
-              <span className="text-xs text-neutral-400">Orders Today</span>
-            </div>
-            <p className="text-xl font-bold text-neutral-100">{orderCount}</p>
-          </div>
-        </motion.div>
 
         {/* Status Cards */}
         <div className="space-y-4 mb-8">
@@ -382,4 +229,4 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
   );
 };
 
-export default OrderConfirmation; 
+export default OrderConfirmation;

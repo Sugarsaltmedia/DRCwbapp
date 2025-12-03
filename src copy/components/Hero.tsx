@@ -1,21 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star, ShoppingCart, TrendingUp, User } from 'lucide-react';
-import { firestore } from '../firebase/config';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
-
-interface Order {
-  id: string;
-  customerName: string;
-  items: Array<{
-    name: string;
-    quantity: number;
-    price: number;
-  }>;
-  total: number;
-  timestamp: any;
-  status: string;
-}
+import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star } from 'lucide-react';
 
 interface HeroProps {
   onStartOrdering: () => void;
@@ -25,75 +10,6 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy, onGoToTermsOfService }) => {
-  const [recentOrders, setRecentOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch the latest 10 orders from Firestore
-    const ordersQuery = query(
-      collection(firestore, 'orders'),
-      orderBy('timestamp', 'desc'),
-      limit(10)
-    );
-
-    const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
-      const orders: Order[] = [];
-      
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
-        
-        orders.push({
-          id: doc.id,
-          customerName: data.customerName || 'Anonymous',
-          items: data.items || [],
-          total: data.total || 0,
-          timestamp,
-          status: data.status || 'unknown'
-        });
-      });
-      
-      setRecentOrders(orders);
-      setLoading(false);
-    }, (error) => {
-      console.error('Error fetching recent orders:', error);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // Format timestamp to a readable format
-  const formatTime = (timestamp: Date) => {
-    const now = new Date();
-    const diff = now.getTime() - timestamp.getTime();
-    const minutes = Math.floor(diff / 60000);
-    
-    if (minutes < 1) return 'Just now';
-    if (minutes < 60) return `${minutes} min ago`;
-    
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    
-    const days = Math.floor(hours / 24);
-    return `${days} day${days > 1 ? 's' : ''} ago`;
-  };
-
-  // Get a summary of items ordered
-  const getItemsSummary = (items: Array<{ name: string; quantity: number }>) => {
-    if (items.length === 0) return 'No items';
-    
-    if (items.length === 1) {
-      return `${items[0].quantity}x ${items[0].name}`;
-    }
-    
-    if (items.length === 2) {
-      return `${items[0].quantity}x ${items[0].name}, ${items[1].quantity}x ${items[1].name}`;
-    }
-    
-    return `${items[0].quantity}x ${items[0].name}, ${items[1].quantity}x ${items[1].name} +${items.length - 2} more`;
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden flex flex-col">
       {/* Subtle background elements */}
@@ -250,63 +166,6 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
 
           </div>
         </div>
-
-        {/* Recent Orders Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
-          className="mt-12 bento-card p-6"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
-                <ShoppingCart className="text-primary-400" size={20} />
-              </div>
-              <h2 className="text-2xl font-bold text-neutral-100">Recent Orders</h2>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <TrendingUp className="text-success-400" size={16} />
-              <span>Live</span>
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="flex justify-center items-center py-8">
-              <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : recentOrders.length > 0 ? (
-            <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-              {recentOrders.map((order, index) => (
-                <motion.div
-                  key={order.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.1 + index * 0.05, duration: 0.5 }}
-                  className="flex items-center justify-between p-4 bg-neutral-800/30 rounded-xl border border-neutral-800 hover:bg-neutral-800/50 transition-colors duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-500/10 rounded-full flex items-center justify-center">
-                      <User className="text-primary-400" size={18} />
-                    </div>
-                    <div>
-                      <h3 className="text-neutral-100 font-medium">{order.customerName}</h3>
-                      <p className="text-neutral-400 text-sm">{getItemsSummary(order.items)}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-neutral-100 font-medium">₹{order.total}</p>
-                    <p className="text-neutral-500 text-xs">{formatTime(order.timestamp)}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-neutral-400">No recent orders yet</p>
-            </div>
-          )}
-        </motion.div>
       </div>
 
       {/* Footer with Privacy Policy Link */}
