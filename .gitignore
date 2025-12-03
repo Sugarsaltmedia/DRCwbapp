@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 # dist
-src copy
+src_copy
 dist-ssr
 *.local
 
