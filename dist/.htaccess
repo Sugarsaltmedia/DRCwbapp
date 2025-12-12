@@ -1,0 +1,11 @@
+# Enable rewriting
+RewriteEngine On
+RewriteBase /
+
+# Serve existing files normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirect all other routes to index.html (SPA routing)
+RewriteRule ^ index.html [L]
