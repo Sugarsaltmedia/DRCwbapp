@@ -252,7 +252,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
         </div>
 
         {/* Recent Orders Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8 }}
@@ -307,7 +307,8 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
             </div>
           )}
         </motion.div>
-      </div>
+      */}
+       </div>
 
       {/* Footer with Privacy Policy Link */}
       <div className="relative z-20 p-4 mt-auto">

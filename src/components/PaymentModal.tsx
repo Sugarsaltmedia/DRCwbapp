@@ -42,6 +42,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 
   const razorpayKeyId = 'rzp_live_RYS8jZKMNTvoe6';
   // const razorpayKeyId = 'rzp_test_1DP5mmOlF5G5ag';
+//  const razorpayKeySecret = "7X1gyVYuayETVi7MBS4xO92f";
 
   // Reset form when modal opens
   useEffect(() => {
@@ -210,7 +211,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         confirmclose: false,
         backdropclose: false,
         animation: 'fadeIn',
-        backdropclose: false,
+        // backdropclose: false,
         handleback: false,
       },
     };
