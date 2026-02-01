@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star, ShoppingCart, TrendingUp, User } from 'lucide-react';
+import { Coffee, Clock, ArrowRight, Sparkles, Award, Users, Star, ShoppingCart, TrendingUp, User, Phone, Search } from 'lucide-react';
 import { firestore } from '../firebase/config';
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 
 interface Order {
   id: string;
   customerName: string;
+  customerPhone?: string;
   items: Array<{
     name: string;
     quantity: number;
@@ -27,13 +28,14 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacyPolicy, onGoToTermsOfService }) => {
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchPhone, setSearchPhone] = useState(''); // New state for filtering
 
   useEffect(() => {
-    // Fetch the latest 10 orders from Firestore
+    // Fetch the latest 100 orders to show history
     const ordersQuery = query(
       collection(firestore, 'orders'),
       orderBy('timestamp', 'desc'),
-      limit(10)
+      limit(100)
     );
 
     const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
@@ -46,6 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
         orders.push({
           id: doc.id,
           customerName: data.customerName || 'Anonymous',
+          customerPhone: data.customerPhone || 'N/A',
           items: data.items || [],
           total: data.total || 0,
           timestamp,
@@ -63,7 +66,7 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
     return () => unsubscribe();
   }, []);
 
-  // Format timestamp to a readable format
+  // Format timestamp
   const formatTime = (timestamp: Date) => {
     const now = new Date();
     const diff = now.getTime() - timestamp.getTime();
@@ -79,7 +82,6 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
     return `${days} day${days > 1 ? 's' : ''} ago`;
   };
 
-  // Get a summary of items ordered
   const getItemsSummary = (items: Array<{ name: string; quantity: number }>) => {
     if (items.length === 0) return 'No items';
     
@@ -93,6 +95,11 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
     
     return `${items[0].quantity}x ${items[0].name}, ${items[1].quantity}x ${items[1].name} +${items.length - 2} more`;
   };
+
+  // Filter logic based on mobile number
+  const filteredOrders = searchPhone 
+    ? recentOrders.filter(order => order.customerPhone?.includes(searchPhone))
+    : recentOrders;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden flex flex-col">
@@ -251,23 +258,47 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
           </div>
         </div>
 
-        {/* Recent Orders Section */}
-        {/* <motion.div
+        {/* Recent Orders Section - ENABLED with Phone Filter */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8 }}
           className="mt-12 bento-card p-6"
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
                 <ShoppingCart className="text-primary-400" size={20} />
               </div>
-              <h2 className="text-2xl font-bold text-neutral-100">Recent Orders</h2>
+              <h2 className="text-2xl font-bold text-neutral-100">Order History</h2>
             </div>
             <div className="flex items-center gap-2 text-sm text-neutral-400">
               <TrendingUp className="text-success-400" size={16} />
-              <span>Live</span>
+              <span>Live Feed</span>
+            </div>
+          </div>
+
+          {/* Mobile Number Search Filter */}
+          <div className="mb-6 relative">
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <Phone size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-500" />
+                <input
+                  type="text"
+                  placeholder="Search history by mobile number..."
+                  value={searchPhone}
+                  onChange={(e) => setSearchPhone(e.target.value)}
+                  className="input-field w-full pl-10 bg-neutral-800/50 border-neutral-700"
+                />
+              </div>
+              {searchPhone && (
+                <button
+                  onClick={() => setSearchPhone('')}
+                  className="px-3 py-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 rounded-xl border border-neutral-700"
+                >
+                  Clear
+                </button>
+              )}
             </div>
           </div>
 
@@ -275,39 +306,45 @@ const Hero: React.FC<HeroProps> = ({ onStartOrdering, onGoToAdmin, onGoToPrivacy
             <div className="flex justify-center items-center py-8">
               <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
-          ) : recentOrders.length > 0 ? (
-            <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-              {recentOrders.map((order, index) => (
+          ) : filteredOrders.length > 0 ? (
+            <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+              {filteredOrders.map((order, index) => (
                 <motion.div
                   key={order.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.1 + index * 0.05, duration: 0.5 }}
+                  transition={{ delay: 1.1 + index * 0.02, duration: 0.5 }}
                   className="flex items-center justify-between p-4 bg-neutral-800/30 rounded-xl border border-neutral-800 hover:bg-neutral-800/50 transition-colors duration-300"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-500/10 rounded-full flex items-center justify-center">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="w-10 h-10 bg-primary-500/10 rounded-full flex items-center justify-center flex-shrink-0">
                       <User className="text-primary-400" size={18} />
                     </div>
-                    <div>
-                      <h3 className="text-neutral-100 font-medium">{order.customerName}</h3>
-                      <p className="text-neutral-400 text-sm">{getItemsSummary(order.items)}</p>
+                    <div className="min-w-0">
+                      <h3 className="text-neutral-100 font-medium truncate">{order.customerName}</h3>
+                      <p className="text-neutral-400 text-sm truncate">{getItemsSummary(order.items)}</p>
+                      {/* Phone Number Display */}
+                      <div className="flex items-center gap-1 text-neutral-500 text-xs mt-1 font-mono">
+                        <Phone size={10} />
+                        <span className="bg-neutral-900 px-1 py-0.5 rounded text-accent-300">{order.customerPhone}</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right flex-shrink-0 pl-4">
                     <p className="text-neutral-100 font-medium">₹{order.total}</p>
-                    <p className="text-neutral-500 text-xs">{formatTime(order.timestamp)}</p>
+                    <p className="text-neutral-500 text-xs whitespace-nowrap">{formatTime(order.timestamp)}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-neutral-400">No recent orders yet</p>
+              <p className="text-neutral-400">
+                {searchPhone ? 'No orders found for this mobile number' : 'No recent orders yet'}
+              </p>
             </div>
           )}
         </motion.div>
-      */}
        </div>
 
       {/* Footer with Privacy Policy Link */}

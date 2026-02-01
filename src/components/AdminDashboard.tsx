@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2, TrendingUp, TrendingDown, Filter, Search, DollarSign, BarChart3, Receipt, ChefHat, Package, X, Download } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Users, Clock, CheckCircle, Phone, User, MapPin, ShoppingBag, Calendar, LogOut, Trash2, TrendingUp, TrendingDown, Filter, Search, DollarSign, BarChart3, Receipt, ChefHat, Package, X, Download, Bell, XCircle, BellOff } from 'lucide-react';
 import { auth } from '../firebase/config';
 import { firestore } from '../firebase/config';
 import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy, where, getDocs } from 'firebase/firestore';
@@ -18,6 +18,10 @@ interface DailySales {
   fullDate: Date;
 }
 
+// Base64 string for a pleasant notification sound (Ding)
+const NOTIFICATION_SOUND = "data:audio/wav;base64,UklGRl9vT1BXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU"; 
+const REAL_NOTIFICATION_SOUND = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWgAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMmUAAAKAAAAAAAAAAAAAA//uQZAAABj5g1f4wAAAAAA0gAAABG9mD6/hgAAAAADSAAAAEAy//////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYpP/7AAAAAAAAAAAAAAAAAAAA//uQZAAABBmg1f4wAAAAAA0gAAABG9mD6/hgAAAAADSAAAAEA0//////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYpP/7AAAAAAAAAAAAAAAAAAAA//uQZAAABD5g1f4wAAAAAA0gAAABG9mD6/hgAAAAADSAAAAEA8//////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYpP/7AAAAAAAAAAAAAAAAAAAA";
+
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut }) => {
   const [orders, setOrders] = useState<Record<string, Order>>({});
   const [loading, setLoading] = useState(true);
@@ -30,11 +34,34 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
   const [dailySales, setDailySales] = useState<DailySales[]>([]);
   const [showSalesReport, setShowSalesReport] = useState(false);
   
+  // Notification State
+  const [notifications, setNotifications] = useState<{id: string, message: string}[]>([]);
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const initialLoadDone = useRef(false);
+
   // Date filtering states
   const [dateFilter, setDateFilter] = useState<'all' | 'today' | 'yesterday' | 'thisWeek' | 'thisMonth' | 'custom'>('all');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // Initialize Audio & Check Notifications
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setNotificationPermission(Notification.permission);
+    }
+    
+    audioRef.current = new Audio("data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YRAAAACAgICAgICAgICAgICAgICAf39/f39/f39/f39/f39/f3+Af4CAgICAgICAgICAgICAgIB/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f3/wA==");
+    audioRef.current.volume = 0.5;
+  }, []);
+
+  const requestNotificationPermission = async () => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationPermission(permission);
+    }
+  };
 
   // Firestore listener
   useEffect(() => {
@@ -42,12 +69,35 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     const ordersQuery = query(ordersCollection, orderBy('timestamp', 'desc'));
 
     const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
-      const firestoreOrders: Record<string, Order> = {};
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added" && initialLoadDone.current) {
+          const data = change.doc.data();
+          // Only notify if it's a new order
+          if (data.status === 'new') {
+            playNotificationSound();
+            showNotification(`New Order from ${data.customerName || 'Guest'}`);
+            
+            // Browser Push Notification (Chrome/Side Notification)
+            if (notificationPermission === 'granted') {
+              try {
+                new Notification("🔔 New Order Alert!", {
+                  body: `Customer: ${data.customerName || 'Guest'}\nTotal: ₹${data.total}\nPhone: ${data.customerPhone || 'N/A'}`,
+                  icon: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png', // Generic bell icon
+                  tag: 'new-order',
+                  requireInteraction: true
+                });
+              } catch (e) {
+                console.error("Notification error", e);
+              }
+            }
+          }
+        }
+      });
 
+      const firestoreOrders: Record<string, Order> = {};
       snapshot.docs.forEach((docItem) => {
         const data = docItem.data();
         const timestamp = data.timestamp?.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
-
         firestoreOrders[docItem.id] = {
           id: docItem.id,
           ...data,
@@ -57,6 +107,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
       setOrders(firestoreOrders);
       setLoading(false);
+      
+      // Mark that initial load is complete after the first snapshot
+      if (!initialLoadDone.current) {
+        initialLoadDone.current = true;
+      }
     }, (error) => {
       console.error('Firestore error:', error);
       setLoading(false);
@@ -64,7 +119,21 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [notificationPermission]);
+
+  const playNotificationSound = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(e => console.log("Audio play failed (user interaction needed first)", e));
+    }
+  };
+
+  const showNotification = (message: string) => {
+    const id = new Date().getTime().toString();
+    setNotifications(prev => [...prev, { id, message }]);
+    setTimeout(() => {
+      setNotifications(prev => prev.filter(n => n.id !== id));
+    }, 5000);
+  };
 
   // Calculate today's and yesterday's revenue and daily sales
   useEffect(() => {
@@ -353,6 +422,35 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+      {/* Notification Toast */}
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
+        <AnimatePresence>
+          {notifications.map((notif) => (
+            <motion.div
+              key={notif.id}
+              initial={{ opacity: 0, x: 50, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 50, scale: 0.9 }}
+              className="bg-neutral-800 border-l-4 border-primary-500 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 pointer-events-auto min-w-[300px]"
+            >
+              <div className="bg-primary-500/20 p-2 rounded-full">
+                <Bell size={18} className="text-primary-400" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm">New Order Alert!</h4>
+                <p className="text-xs text-neutral-300">{notif.message}</p>
+              </div>
+              <button 
+                onClick={() => setNotifications(prev => prev.filter(n => n.id !== notif.id))}
+                className="ml-auto text-neutral-400 hover:text-white"
+              >
+                <XCircle size={14} />
+              </button>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
       {/* Main Container with Full Page Scrolling */}
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header - No Sticky Positioning */}
@@ -370,7 +468,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                 <p className="text-sm text-neutral-400">Manage all orders and track revenue</p>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              {/* Enable Notifications Button */}
+              {notificationPermission !== 'granted' && (
+                <button 
+                  onClick={requestNotificationPermission}
+                  className="btn-secondary flex items-center gap-2 px-3 py-2 bg-accent-500/20 border-accent-500/30 text-accent-400 hover:bg-accent-500/30"
+                >
+                  <BellOff size={16} />
+                  <span className="hidden sm:inline">Enable Alerts</span>
+                </button>
+              )}
+              
               <button 
                 onClick={exportData}
                 className="btn-secondary flex items-center gap-2 px-3 py-2"
@@ -612,7 +721,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, onSignOut
                                 setShowDatePicker(false);
                               // Apply filter immediately for non-custom options
                               setTimeout(() => {
-                                // Trigger a re-render to apply the filter
                                 window.dispatchEvent(new Event('resize'));
                               }, 100);
                               }
